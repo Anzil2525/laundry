@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>view service</title>
+</head>
+<body>
+    <a href="/">index</a>
+    <h1>view service</h1>
+    <table border="1">
+        <tr>
+            <th>Service</th>
+            <th>District</th>
+            <th>Amount</th>
+        </tr>
+        {% if data %}
+
+            {% for obj in data %}
+                <tr>
+                    <td>{{obj.service}}</td>
+                    <td>{{obj.district}}</td>
+                    <td>{{obj.amount}}</td>
+                    
+                </tr>
+            {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3" style="text-align: center;">no record</td>
+        </tr>
+        {% endif %}
+    </table>
+</body>
+</html>

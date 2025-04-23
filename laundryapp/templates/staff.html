@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>staff</title>
+    </head>
+    <body>
+        <h1><center>staff</center></h1>
+        <form action="/staffreg">
+            <table>
+                <tr>
+                    <td>Name</td><td><input type="text" name="name" required></td>
+                </tr>
+                <tr>
+                    <td>Address</td><td><textarea name="address" rows=4 required></textarea></td>
+                 </tr>
+                 <tr>
+                    <td>Street</td><td><input type="text" name="street" required></td>
+                </tr>
+                <tr>
+                    <td>City</td><td><input type="text" name="city" required></td>
+                </tr>
+                <tr>
+                    <td>District</td>
+                    <td>
+                        <select name="district" required>
+                            <option ></option>
+                            <option value="thiruvananthapuram">Thiruvananthapuram</option>
+                            <option value="kollam">Kollam</option>
+                            <option value="alappuzha">Alappuzha</option>
+                            <option value="pathanamthitta">Pathanamthitta</option>
+                            <option value="kottayam">Kottayam</option>
+                            <option value="idukki">Idukki</option>
+                            <option value="ernakulam">Ernakulam</option>
+                            <option value="thrissur">Thrissur</option>
+                            <option value="palakkad">Palakkad</option>
+                            <option value="malappuram">Malappuram</option>
+                            <option value="kozhikode">Kozhikode</option>
+                            <option value="wayanad">Wayanad</option>
+                            <option value="kannur">Kannur</option>
+                            <option value="kasaragod">Kasaragod</option>
+                        </select>                       
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Phone Number</td><td><input type="text" name="ph_no" pattern="[0-9]{10}" maxlength="10" required></td>
+                </tr>
+                <tr>
+                    <td>Pincode</td><td><input type="text" name="pincode" pattern="[0-9]{6}" maxlength="6" required></td>
+                </tr>
+                <tr>
+                    <td>Date Of Birth</td><td><input type="date" name="dob" required></td>
+                </tr>
+                <tr>
+                    <td>E-mail</td><td><input type="email" name="email" required></td>
+                </tr>
+                <tr>
+                    <td>Password</td><td><input type="password" name="password" required></td>
+                </tr>
+                <tr>
+                    <td></td><td><input type="submit" value="Submit"></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

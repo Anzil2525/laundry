@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/">index</a>
+    <h1>view shop</h1>
+    <table border="1">
+        <tr>
+            <th>Name Of Shop</th>
+            <th>Address</th>
+            <th>Place</th>
+            <th>District</th>
+            <th>Phone Number</th>
+            <th>E-mail</th>
+        </tr>
+        {% if data %}
+
+            {% for obj in data %}
+                <tr>
+                    <td>{{obj.name}}</td>
+                    <td>{{obj.address}}</td>
+                    <td>{{obj.place}}</td>
+                    <td>{{obj.district}}</td>
+                    <td>{{obj.phn}}</td>
+                    <td>{{obj.email}}</td>
+                    
+                </tr>
+            {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="6" style="text-align: center;">no record</td>
+        </tr>
+        {% endif %}
+</body>
+</html>
