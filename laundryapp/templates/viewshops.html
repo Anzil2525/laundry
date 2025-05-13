@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="/">index</a>
+    <a href="/adminhome/">index</a>
     <h1>view shop</h1>
     <table border="1">
         <tr>
@@ -16,6 +16,7 @@
             <th>District</th>
             <th>Phone Number</th>
             <th>E-mail</th>
+            <th>status</th>
         </tr>
         {% if data %}
 
@@ -27,6 +28,12 @@
                     <td>{{obj.district}}</td>
                     <td>{{obj.phn}}</td>
                     <td>{{obj.email}}</td>
+                    <td>{{obj.status}}</td>
+                    {% if obj.status == 'pending' %}
+                    <td><a href="/approve?id={{obj.shid}}">approve</a></td>
+                    <td><a href="/reject?id={{obj.shid}}">reject</a></td>
+                    {% endif %}
+                    <td><a href="/deleteshop?id={{obj.shid}}">delete</a></td>
                     
                 </tr>
             {% endfor %}

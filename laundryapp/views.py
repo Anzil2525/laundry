@@ -59,7 +59,7 @@ def shopreg(request):
     ph = request.GET['shop_ph_no']
     email = request.GET['shop_email']
     pas = request.GET['shop_password']
-    sqlshop = "insert into shop(name,address,place,district,phn,email) values('%s','%s','%s','%s','%s','%s')"%(name,adr,plc,dis,ph,email)
+    sqlshop = "insert into shop(name,address,place,district,phn,email,status) values('%s','%s','%s','%s','%s','%s','%s')"%(name,adr,plc,dis,ph,email,'pending')
     cur.execute(sqlshop)
 
     sqllast = "select max(shid) from shop"
@@ -67,10 +67,10 @@ def shopreg(request):
     result = cur.fetchall()
     for row in result:
         shid = int(row[0])
-    sqllog = "insert into login(uid,uname,upass,utype) values('%s','%s','%s','%s')"%(shid,email,pas,'shop')
+    sqllog = "insert into login(uid,uname,upass,utype,status) values('%s','%s','%s','%s','%s')"%(shid,email,pas,'shop','pending')
     cur.execute(sqllog)
 
-    msg = "<script>alert('Added');window.locarion='/shop/';</script>"
+    msg = "<script>alert('Added');window.location='/login/';</script>"
     return HttpResponse(msg)
 
 def staffreg(request):
@@ -159,6 +159,7 @@ def viewshops(request):
             'district' : row[4],
             'phn' : row[5],
             'email' : row[6],
+            'status' : row[7],
         }
         data.append(dis)
     return render(request,'viewshops.html',{'data':data})
@@ -171,7 +172,7 @@ def viewstaffs(request):
     data = []
     for row in result:
         dis = {
-            'shid' : row[0],
+            'stid' : row[0],
             'name' : row[1],
             'address' : row[2],
             'street' : row[3],
@@ -217,4 +218,153 @@ def viewfeedbacks(request):
         data.append(dis)
     return render(request,'viewfeedbacks.html',{'data':data})
 
-        
+def login(request):
+    
+    return render(request,'login.html')
+
+def loginaction(request):
+    cur = connection.cursor()
+    email = request.GET['email']
+    pas = request.GET['password']
+    sql = "select * from login where uname = '%s' and upass = '%s'"%(email,pas)
+    cur.execute(sql)
+    print(sql)
+    if(cur.rowcount)>0:
+        result = cur.fetchall()
+        for row in result:
+            request.session['uid'] = row[1]
+            request.session['utype'] = row[4]
+            request.session['status'] = row[5]
+            print(row[4])
+            if(request.session['utype'] == 'admin'):
+                return render(request,'adminhome.html')
+            elif(request.session['utype'] == 'user'):
+                print("user")
+                msg ="<script>alert('welcome user');window.location='/userhome/';</script>"
+                return HttpResponse(msg)
+            elif(request.session['utype'] == 'shop' and request.session['status'] == 'approved'):
+                print("shop")
+                msg = "<script>alert('welcome shop');window.location='/shophome/';</script>"
+                return HttpResponse(msg)
+            else:
+                msg = "<script>alert('your request is pending');window.location='/login/';</script>"
+                return HttpResponse(msg)
+    else:
+        msg = "<script>alert('login failed');window.location='/login/';</script>"
+        return HttpResponse(msg)
+    
+def userhome(request):
+    return render(request,'userhome.html')
+
+def shophome(request):
+    return render(request,'shophome.html')
+
+def adminhome(request):
+    return render(request,'adminhome.html')
+
+def approve(request):
+    cur = connection.cursor()
+    id = request.GET['id']
+    sql = "update shop set status = 'approved' where shid = '%s' "%(id)
+    cur.execute(sql)
+    sql1 = "update login set status = 'approved' where uid = '%s' and utype = 'shop'"%(id)
+    cur.execute(sql1)
+    msg = "<script>alert('approved');window.location='/viewshops/';</script>"
+    return HttpResponse(msg)
+
+def reject(request):
+    cur = connection.cursor()
+    id = request.GET['id']
+    sql = "update shop set status = 'rejected' where shid = '%s'"%(id)
+    cur.execute(sql)
+    sql1 = "update login set status = 'rejected' where uid = '%s' and utype = 'shop'"%(id)
+    cur.execute(sql1)
+    msg = "<script>alert('rejected');window.location='/viewshops/';</script>"
+    return HttpResponse(msg)
+
+def deleteshop(request):
+    cur = connection.cursor()
+    id = request.GET['id']
+    sql = "delete from shop where shid = '%s'"%(id)
+    cur.execute(sql)
+    sql1 = "delete from login where uid = '%s' and utype = 'shop'"%(id)
+    cur.execute(sql1)
+    msg = "<script>alert('deleted');window.location='/viewshops/';</script>"
+    return HttpResponse(msg)
+
+def userprofile(request):
+    cur = connection.cursor()
+    uid = request.session['uid']
+    # sql = "select * from login where uid = '%s' and utype = 'user'"%(uid)
+    # cur.execute(sql)
+    # login_result = cur.fetchall()
+    # for row in login_result:
+    #         upass = row[3]
+    sql = "select * from user where uid = '%s'"%(uid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    for row in result:
+        dis = {
+            'uid' : row[0],
+            'name' : row[1],
+            'address' : row[2],
+            'district' : row[3],
+            'phn' : row[4],
+            'email' : row[5],
+            'place' : row[6],
+        }
+    
+    return render(request,'userprofile.html',dis)
+
+def shopprofile(request):
+    cur = connection.cursor()
+    shid = request.session['uid']
+    sql = "select * from shop where shid = '%s'"%(shid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    for row in result:
+        dis = {
+            'shid' : row[0],
+            'name' : row[1],
+            'address' : row[2],
+            'place' : row[3],
+            'district' : row[4],
+            'phn' : row[5],
+            'email' : row[6],
+            'status' : row[7],
+        }
+    return render(request,'shopprofile.html',dis)
+
+def edituser(request):
+    cur = connection.cursor()
+    uid = request.session['uid']
+    name = request.GET['name']
+    addr = request.GET['address']
+    dist = request.GET['district']
+    pls = request.GET['place']
+    phn = request.GET['phn']
+    email = request.GET['email']
+    sql = "update user set name = '%s', address = '%s', district = '%s', place = '%s', phn = '%s', email = '%s' where uid = '%s'"%(name,addr,dist,pls,phn,email,uid)
+    cur.execute(sql)
+    sql = "update login set uname = '%s' where uid = '%s' and utype = 'user'"%(email,uid)
+    cur.execute(sql)
+
+    msg = "<script>alert('updated');window.location='/userprofile/';</script>"
+    return HttpResponse(msg)
+
+def editshop(request):
+    cur=connection.cursor()
+    shid=request.session['uid']
+    name=request.GET['name']
+    addr=request.GET['address']
+    plc=request.GET['place']
+    dist=request.GET['district']
+    ph=request.GET['phn']
+    email=request.GET['email']
+    sql = "update shop set name ='%s', address ='%s', place ='%s', district ='%s', phn ='%s', email ='%s' where shid ='%s'"%(name,addr,plc,dist,ph,email,shid)
+    cur.execute(sql)
+    sql ="update login set uname ='%s' where uid ='%s' and utype ='shop'"%(email,shid)
+    cur.execute(sql)
+    
+    msg ="<script>alert('updated');window.location ='/shopprofile/';</script>"
+    return HttpResponse(msg)

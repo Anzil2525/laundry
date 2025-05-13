@@ -41,5 +41,16 @@ urlpatterns = [
     path('viewstaffs/',viewstaffs,name="viewstaffs"),
     path('viewservices/',viewservices,name="viewservices"),
     path('viewfeedbacks/',viewfeedbacks,name="viewfeedbacks"),
-    
+    path('login/',login,name='loign'),
+    path('loginaction/',loginaction,name='loginaction'),
+    path('shophome/',shophome,name='shophome'),
+    path('userhome/',userhome,name='userhome'),
+    path('adminhome/',adminhome,name='adminhome'),
+    path('approve/',approve,name='approve'),
+    path('reject/',reject,name='reject'),
+    path('deleteshop/',deleteshop,name='deleteshop'),
+    path('userprofile/',userprofile,name='userprofile'),
+    path('shopprofile/',shopprofile,name='shopprofile'),
+    path('edituser/',edituser,name='edituser'),
+    path('editshop/',editshop,name='editshop'),
 ]

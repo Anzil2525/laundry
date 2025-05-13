@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>shop</title>
+    </head>
+    <body>
+        <h1><center>shop</center></h1>
+        <form action="/editshop">
+            <table>
+                <tr>
+                    <td>Name Of Shop</td><td><input type="text" name="names" required value="{{name}}"></td>
+                </tr>
+                <tr>
+                    <td>Address</td><td><textarea name="address" rows=4 required >{{address}}</textarea></td>
+                 </tr>
+                 <tr>
+                    <td>Place</td><td><input type="text" name="place" required value="{{place}}"></td>
+                </tr>
+                <tr>
+                    <td>District</td><td><input type="text" name="district" required value="{{district}}"></td>
+                    
+                </tr>
+                <tr>
+                    <td>Phone Number</td><td><input type="text" name="phn" pattern="[0-9]{10}" maxlength="10" required value="{{phn}}"></td>
+                </tr>
+                <tr>
+                    <td>E-mail</td><td><input type="email" name="email" required value="{{email}}"></td>
+                </tr>
+                <tr>
+                    <td></td><td><input type="submit" value="Submit"></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

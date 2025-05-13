@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>user</title>
+    </head>
+    <bdoy>
+        <h1><center>USER</center></h1>
+        <form action="/edituser/">
+            <table>
+                <tr>
+                    <td>Name</td><td><input type="text" name="name" required value="{{name}}"></td>
+                </tr>
+                <tr>
+                    <td>Address</td><td><textarea name="address" rows=4 required >{{address}}</textarea></td>
+                 </tr>
+                    <!-- <td>
+                        <select name="u_district" required value="{{district}}">
+                            <option ></option>
+                            <option value="thiruvananthapuram">Thiruvananthapuram</option>
+                            <option value="kollam">Kollam</option>
+                            <option value="alappuzha">Alappuzha</option>
+                            <option value="pathanamthitta">Pathanamthitta</option>
+                            <option value="kottayam">Kottayam</option>
+                            <option value="idukki">Idukki</option>
+                            <option value="ernakulam">Ernakulam</option>
+                            <option value="thrissur">Thrissur</option>
+                            <option value="palakkad">Palakkad</option>
+                            <option value="malappuram">Malappuram</option>
+                            <option value="kozhikode">Kozhikode</option>
+                            <option value="wayanad">Wayanad</option>
+                            <option value="kannur">Kannur</option>
+                            <option value="kasaragod">Kasaragod</option>
+                        </select>                       
+                    </td> -->
+                    <td>District</td><td><input type="text" name="district" required value="{{district}}"></td>
+                </tr>
+
+                <tr>
+                    <td>Place</td><td><input type="text" name="place" required value="{{place}}"></td>
+                </tr>
+
+                 <tr>
+                    <td>Phone Number</td><td><input type="text" name="phn" pattern="[0-9]{10}" maxlength="10" required value="{{phn}}"></td>
+                </tr>
+                <tr>
+                    <td>E-mail</td><td><input type="email" name="email" required value="{{email}}"></td>
+                </tr>
+                
+                <!-- <tr>
+                    <td>Password</td><td><input type="password" name="u_password" required value="{{upass}}"></td>
+                </tr> -->
+                <tr>
+                    <td></td><td><input type="submit" value="Submit"></td>
+                </tr>
+            </table>
+        </form>
+    </bdoy>
+</html>
