@@ -53,4 +53,6 @@ urlpatterns = [
     path('shopprofile/',shopprofile,name='shopprofile'),
     path('edituser/',edituser,name='edituser'),
     path('editshop/',editshop,name='editshop'),
+    path('staffhome/',staffhome,name='staffhome'),
+    path('deletestaff/',deletestaff,name='deletestaff'),
 ]

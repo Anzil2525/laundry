@@ -99,7 +99,7 @@ def staffreg(request):
     sqllog = "insert into login(uid,uname,upass,utype) values('%s','%s','%s','%s')"%(stid,email,pas,'staff')
     cur.execute(sqllog)
 
-    msg = "<script>alert('Added');window.locarion='/shophome/';</script>"
+    msg = "<script>alert('staff is added');window.location='/shophome/';</script>"
     return HttpResponse(msg)
 
 def addservice(request):
@@ -251,6 +251,10 @@ def loginaction(request):
                 print("shop")
                 msg = "<script>alert('welcome shop');window.location='/shophome/';</script>"
                 return HttpResponse(msg)
+            elif(request.session['utype'] == 'staff'):
+                print("user")
+                msg ="<script>alert('welcome staff');window.location='/staffhome/';</script>"
+                return HttpResponse(msg)
             else:
                 msg = "<script>alert('your request is pending');window.location='/login/';</script>"
                 return HttpResponse(msg)
@@ -372,4 +376,19 @@ def editshop(request):
     cur.execute(sql)
     
     msg ="<script>alert('updated');window.location ='/shopprofile/';</script>"
+    return HttpResponse(msg)
+
+def staffhome(request):
+    return render(request,'staffhome.html')
+
+def deletestaff(request):
+    print('in deletestaff')
+    cur = connection.cursor()
+    id = request.GET['id']
+    print('id = ',id)
+    sql = "delete from staff where stid = '%s'"%(id)
+    cur.execute(sql)
+    sql1 = "delete from login where uid = '%s' and utype = 'stid'"%(id)
+    cur.execute(sql1)
+    msg = "<script>alert('deleted');window.location='/viewstaffs/';</script>"
     return HttpResponse(msg)
