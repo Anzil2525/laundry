@@ -85,7 +85,10 @@ def staffreg(request):
     dob = request.GET['dob']
     email = request.GET['email']
     pas = request.GET['password']
-    sqlstaff = "insert into staff(name,address,street,city,district,phn,pin,dob,email) values('%s','%s','%s','%s','%s','%s','%s','%s','%s')"%(name,address,street,city,district,phone,pin,dob,email) 
+
+    shid = request.session['uid']
+
+    sqlstaff = "insert into staff(shid,name,address,street,city,district,phn,pin,dob,email) values('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"%(shid,name,address,street,city,district,phone,pin,dob,email) 
     cur.execute(sqlstaff)
 
     sqllast = "select max(stid) from staff;"
@@ -96,7 +99,7 @@ def staffreg(request):
     sqllog = "insert into login(uid,uname,upass,utype) values('%s','%s','%s','%s')"%(stid,email,pas,'staff')
     cur.execute(sqllog)
 
-    msg = "<script>alert('Added');window.locarion='/staff/';</script>"
+    msg = "<script>alert('Added');window.locarion='/shophome/';</script>"
     return HttpResponse(msg)
 
 def addservice(request):
@@ -166,22 +169,24 @@ def viewshops(request):
 
 def viewstaffs(request):
     cur = connection.cursor()
-    sql = "select * from staff"
+    shid = request.session['uid']
+    sql = "select * from staff where shid = '%s'"%(shid)
     cur.execute(sql)
     result = cur.fetchall()
     data = []
     for row in result:
         dis = {
             'stid' : row[0],
-            'name' : row[1],
-            'address' : row[2],
-            'street' : row[3],
-            'city' : row[4],
-            'district' : row[5],
-            'phn' : row[6],
-            'pin' : row[7],
-            'dob' : row[8],
-            'email' : row[9],
+            'shid' : row[1],
+            'name' : row[2],
+            'address' : row[3],
+            'street' : row[4],
+            'city' : row[5],
+            'district' : row[6],
+            'phn' : row[7],
+            'pin' : row[8],
+            'dob' : row[9],
+            'email' : row[10],
         }
         data.append(dis)
     return render(request,'viewstaffs.html',{'data':data})
