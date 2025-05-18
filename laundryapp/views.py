@@ -379,7 +379,9 @@ def editshop(request):
     return HttpResponse(msg)
 
 def staffhome(request):
-    return render(request,'staffhome.html')
+    stid = request.session['uid']
+    
+    return render(request,'staffhome.html',{'stid':stid})
 
 def deletestaff(request):
     print('in deletestaff')
@@ -392,3 +394,55 @@ def deletestaff(request):
     cur.execute(sql1)
     msg = "<script>alert('deleted');window.location='/viewstaffs/';</script>"
     return HttpResponse(msg)
+
+def staffprofile(request):
+    cur = connection.cursor()
+    id = request.GET['id']
+    sql = "select * from staff where stid = '%s'"%(id)
+    cur.execute(sql)
+    result = cur.fetchall()
+    for row in result:
+        dis = {
+            'stid' : row[0],
+            'shid' : row[1],
+            'name' : row[2],
+            'address' : row[3],
+            'street' : row[4],
+            'city' : row[5],
+            'district' : row[6],
+            'phn' : row[7],
+            'pin' : row[8],
+            'dob' : row[9],
+            'email' : row[10],
+
+            'utype' : request.session['utype']
+        }
+    return render(request,'staffprofile.html',dis)
+
+def editstaff(request):
+    cur = connection.cursor()
+    name = request.GET['name']
+    address = request.GET['address']
+    street = request.GET['street']
+    city = request.GET['city']
+    district = request.GET['district']
+    phone = request.GET['ph_no']
+    pin = request.GET['pincode']
+    dob = request.GET['dob']
+    email = request.GET['email']
+    stid = request.GET['id']
+
+    sql = "update staff set name = '%s',address = '%s',street = '%s', city = '%s', district = '%s', phn = '%s', pin = '%s', dob = '%s', email = '%s'  where stid='%s'"%(name,address,street,city,district,phone,pin,dob,email,stid)
+    cur.execute(sql)
+    sql = "update login set uname = '%s' where uid='%s' and utype = 'staff'"%(email,stid)
+    cur.execute(sql)
+
+    if request.session['utype'] == 'shop':
+        msg = "<script>alert('staff profile edited');window.location='/viewstaffs/';</script>"
+        return HttpResponse(msg)
+    elif request.session['utype'] == 'staff':
+        msg = "<script>alert('staff profile edited');window.location='/staffhome/';</script>"
+        return HttpResponse(msg)
+    else:
+        msg = "<script>alert('unknow error');window.location='/staffhome/';</script>"
+        return HttpResponse(msg)

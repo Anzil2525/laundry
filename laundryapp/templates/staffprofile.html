@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>staff</title>
+    </head>
+    <body>
+        {% if utype == 'staff' %}
+        <a href="/staffhome/">back</a>
+        {% endif %}
+        {% if utype == 'shop' %}
+        <a href="/viewstaffs/">back</a>
+        {% endif %}
+        <h1><center>staff profile</center></h1>
+        
+        <br>
+        <br>
+        <br>
+        <form action="/editstaff/">
+            <table>
+                <tr>
+                    <td>Name</td><td><input type="text" name="name" required value="{{name}}"></td>
+                </tr>
+                <tr>
+                    <td>Address</td><td><textarea name="address" rows=4 required>{{address}}</textarea></td>
+                 </tr>
+                 <tr>
+                    <td>Street</td><td><input type="text" name="street" required value="{{street}}"></td>
+                </tr>
+                <tr>
+                    <td>City</td><td><input type="text" name="city" required value="{{city}}"></td>
+                </tr>
+                <tr>
+                    <td>District</td><td><input type="text" name="district" required value="{{district}}"></td>
+                </tr>
+
+                <tr>
+                    <td>Phone Number</td><td><input type="text" name="ph_no" pattern="[0-9]{10}" maxlength="10" required value="{{phn}}"></td>
+                </tr>
+                <tr>
+                    <td>Pincode</td><td><input type="text" name="pincode" pattern="[0-9]{6}" maxlength="6" required value="{{pin}}"></td>
+                </tr>
+                <tr>
+                    <td>Date Of Birth</td><td><input type="date" name="dob" required value="{{dob}}"></td>
+                </tr>
+                <tr>
+                    <td>E-mail</td><td><input type="email" name="email" required value="{{email}}"></td>
+                </tr>
+                <tr>
+                    <td></td><td><button type="submit" name="id" value="{{stid}}">update</button></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

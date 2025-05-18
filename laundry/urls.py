@@ -55,4 +55,6 @@ urlpatterns = [
     path('editshop/',editshop,name='editshop'),
     path('staffhome/',staffhome,name='staffhome'),
     path('deletestaff/',deletestaff,name='deletestaff'),
+    path('staffprofile/',staffprofile,name='staffprofile'),
+    path('editstaff/',editstaff,name='editstaff'),
 ]

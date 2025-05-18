@@ -20,6 +20,7 @@
             <th>Date Of Birth</th>
             <th>E-mail</th>
             <th>Delete</th>
+            <th>Edit</th>
         </tr>
         {% if data %}
 
@@ -34,12 +35,13 @@
                     <td>{{obj.pin}}</td>
                     <td>{{obj.dob}}</td>
                     <td>{{obj.email}}</td>
-                    <td><a href="/deletestaff/?id={{obj.stid}}">delete</a></td>
+                    <td><a href="/deletestaff/?id={{obj.stid}}">Delete</a></td>
+                    <td><a href="/staffprofile/?id= {{obj.stid}}">Edit</a></td>
                 </tr>
             {% endfor %}
         {% else %}
         <tr>
-            <td colspan="10" style="text-align: center;">no record</td>
+            <td colspan="11" style="text-align: center;">no record</td>
         </tr>
         {% endif %}
 </body>
