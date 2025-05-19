@@ -4,6 +4,13 @@
         <title>feedback</title>
     </head>
     <body>
+        {% if utype == 'user' %}
+        <a href="/userhome/">home</a>
+        {% elif utype == 'shop' %}
+        <a href="/shophome/">home</a>
+        {% elif utype == 'staff' %}
+        <a href="/staffhome/">home</a>
+        {% endif %}
         <h1><center>feedback</center></h1>
         <form action="/addfeedback/">
             <table>

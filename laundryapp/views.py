@@ -21,7 +21,8 @@ def staff(request):
     return render(request,'staff.html')
 
 def feedback(request):
-    return render(request,'feedback.html')
+    utype = request.session['utype']
+    return render(request,'feedback.html',{'utype':utype})
 
 def service(request):
     return render(request,'service.html')
@@ -118,8 +119,21 @@ def addservice(request):
 def addfeedback(request):
     cur= connection.cursor()
     fed=request.GET['feedback']
+    uid = request.session['uid']
+    utype = request.session['utype']
+    sql = "select * from login where uid = '%s' and utype = '%s'"%(uid,utype)
+    cur.execute(sql)
+    result = cur.fetchall()
+    for row in result:
+        uname = row[2]
+    
+    obj = datetime.datetime.now()
+    time = str(obj.time())
+    date = str(obj.date())
 
-    sqlfed="insert into feedback(feedback) values('%s')"%(fed)
+    print('time :::: -- ',time,'\n date ::::::- ',date,'\nuser type = ',utype)
+
+    sqlfed="insert into feedback(feedback,date,time,uname,utype) values('%s','%s','%s','%s','%s')"%(fed,date,time,uname,utype)
     cur.execute(sqlfed)
 
     msg = "<script>alert('feedback is entered');window.location='/feedback/';</script>"
@@ -210,7 +224,7 @@ def viewservices(request):
 
 def viewfeedbacks(request):
     cur = connection.cursor()
-    sql = "select * from feedback"
+    sql = "select * from feedback order by fid desc"
     cur.execute(sql)
     result = cur.fetchall()
 
@@ -219,6 +233,10 @@ def viewfeedbacks(request):
         dis = {
             'fid' : row[0],
             'feedback' : row[1],
+            'date' : row[2],
+            'time' : row[3],
+            'uname' : row[4],
+            'utype' : row[5],
         }
         data.append(dis)
     return render(request,'viewfeedbacks.html',{'data':data})
