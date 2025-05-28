@@ -28,6 +28,7 @@ def service(request):
     return render(request,'service.html')
 
 
+
 def userreg(request):
     cur = connection.cursor()
     name = request.GET['u_name']
@@ -465,3 +466,58 @@ def editstaff(request):
     else:
         msg = "<script>alert('unknow error');window.location='/staffhome/';</script>"
         return HttpResponse(msg)
+
+def shopservice(request):
+    cur = connection.cursor()
+    shid = request.session['uid']
+    sql = "select * from service where shid = '%s'"%(shid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    data = []
+    for row in result:
+        dis = {
+            'srid' : row[0],
+            'service' : row[1],
+            'amount' : row[2],
+            'descr' : row[3],
+            'shid' : row[4],
+        }
+        data.append(dis)
+    return render(request,'shopservice.html',{'data':data})
+
+def deleteservice(request):
+    cur = connection.cursor()
+    id = request.GET['id']
+    sql = "delete from service where srid = '%s'"%(id)
+    cur.execute(sql)
+    msg = "<script>alert('deleted');window.location='/shopservice/';</script>"
+    return HttpResponse(msg)
+
+def serviceeditingpage(request):
+    cur = connection.cursor()
+    id = request.GET['id']
+    sql = "select * from service where srid = '%s'"%(id)
+    cur.execute(sql)
+    result = cur.fetchall()
+    for row in result:
+        dis = {
+            'srid' : row[0],
+            'service' : row[1],
+            'amount' : row[2],
+            'descr' : row[3],
+            'shid' : row[4],
+        }
+    return render(request,'serviceeditingpage.html',dis) 
+
+
+def editservice(request):
+    cur = connection.cursor()
+    id = request.GET['id']
+    name = request.GET['sname']
+    amt = request.GET['amount']
+    desc = request.GET['desc']
+    sql = "update service set sname = '%s', amt = '%s', descr = '%s' where srid = '%s'"%(name,amt,desc,id)
+    cur.execute(sql)
+    msg = "<script>alert('updated');window.location='/shopservice/';</script>"
+    return HttpResponse(msg)
+

@@ -57,4 +57,8 @@ urlpatterns = [
     path('deletestaff/',deletestaff,name='deletestaff'),
     path('staffprofile/',staffprofile,name='staffprofile'),
     path('editstaff/',editstaff,name='editstaff'),
+    path('shopservice/',shopservice,name='shopservice'),
+    path('deleteservice/',deleteservice,name='deleteservice'),
+    path('editservice/',editservice,name='editservice'),
+    path('serviceeditingpage/',serviceeditingpage,name='serviceeditingpage'),
 ]
