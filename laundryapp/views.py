@@ -106,14 +106,15 @@ def staffreg(request):
 def addservice(request):
     cur = connection.cursor()
 
-    ser = request.GET['service']
-    dis = request.GET['district']
-    amount = request.GET['amount']
+    ser = request.GET['sname']
+    amt = request.GET['amount']
+    desc = request.GET['desc']
+    shid = request.session['uid']
 
-    sqlservice = "insert into service(service,district,amount) values('%s','%s','%s')"%(ser,dis,amount)
-    cur.execute(sqlservice)
+    sql = "insert into service(sname,amt,descr,shid) values('%s','%s','%s','%s')"%(ser,amt,desc,shid)
+    cur.execute(sql)
 
-    msg = "<script>alert('service is entered');window.location='/service/';</script>"
+    msg = "<script>alert('service is entered');window.location='/shophome/';</script>"
     return HttpResponse(msg)
 
 def addfeedback(request):

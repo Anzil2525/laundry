@@ -8,35 +8,16 @@
         <form action="/addservice/">
             <table>
                 <tr>
-                    <td>Service</td><td><input type="text" name="service" title="enter service"></td>
-                 </tr>
-                 <tr>
-                    <td>District</td>
-                    <td>
-                        <select name="district" required title="select district">
-                            <option ></option>
-                            <option value="thiruvananthapuram">Thiruvananthapuram</option>
-                            <option value="kollam">Kollam</option>
-                            <option value="alappuzha">Alappuzha</option>
-                            <option value="pathanamthitta">Pathanamthitta</option>
-                            <option value="kottayam">Kottayam</option>
-                            <option value="idukki">Idukki</option>
-                            <option value="ernakulam">Ernakulam</option>
-                            <option value="thrissur">Thrissur</option>
-                            <option value="palakkad">Palakkad</option>
-                            <option value="malappuram">Malappuram</option>
-                            <option value="kozhikode">Kozhikode</option>
-                            <option value="wayanad">Wayanad</option>
-                            <option value="kannur">Kannur</option>
-                            <option value="kasaragod">Kasaragod</option>
-                        </select>                       
-                    </td>
+                    <td>Service Name</td><td><input type="text" name="sname"></td>
                 </tr>
                 <tr>
-                    <td>Amount</td><td><input type="number" name="amount" pattern="[0-9]" title="enter number only" required></td>
+                    <td>Amount</td><td><input type="text" name="amount"></td>
                 </tr>
                 <tr>
-                    <td></td><td><input type="submit" value="Submit"></td>
+                    <td>Description</td><td><textarea rows="4" cols="20" name="desc"></textarea></td>
+                </tr>
+                <tr>
+                    <td></td><td><input type="submit" value="submit"></td>
                 </tr>
             </table>
         </form>

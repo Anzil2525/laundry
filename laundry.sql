@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 19, 2025 at 02:29 PM
+-- Generation Time: May 28, 2025 at 11:55 AM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -312,7 +312,7 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('vomhjmwslbf8opjpf7m217f0okmakux9', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1r6REG:I8F_BZ9aIwDacjhQ_-gP85fxg3fYY61vlbrk5es8Gy4', '2023-12-08 08:08:00'),
 ('vqllqcw86680ar2z55fps19sgr8ytmyq', 'eyJ1aWQiOjEsInV0eXBlIjoidXNlciJ9:1sbAmS:NfkTOi35dZqOewwozUyAbo4R-scnYoGT1LFNz7AeP9U', '2024-08-20 03:22:36'),
 ('wfmszz9pidle9htjx7u6dywphlan8h0t', 'eyJ1aWQiOjAsInV0eXBlIjoiYWRtaW4ifQ:1puQGy:cszh9adoFPOnEjnboayMEephhxzRjFYl4r8cAhD7BJ4', '2023-05-18 04:08:52'),
-('xjisk0uhsqnljhdpdcf8mp7iozx244jv', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uGq7Y:jYtf8zrj5dr3BbvKPC7qKPuDVBh8Smx52F87iqkm27E', '2025-06-02 02:20:52'),
+('xjisk0uhsqnljhdpdcf8mp7iozx244jv', 'eyJ1aWQiOjgsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uKAQx:pAqscLxPJL93rqPjoS1xn-DjpbX6KUSni4_b7XYJL1Q', '2025-06-11 06:38:39'),
 ('yribf6himncjnhybdxw05ea8hunxqyga', 'eyJ1aWQiOjIsInV0eXBlIjoibGFiIn0:1sRP5G:iXXtIlZdThgJbya2N8tUP80b3zrTMLebdc1_vMn98h8', '2024-07-24 04:37:38'),
 ('zncj4alnj7ulrpdn1l8667ahnjuugsyo', 'YWIyODYxYzExOWZkNDA2ODZiYWU2ODQ0ZWEyOTNlZmMxNjJkZWJiZTp7InR5cGUiOiJhZG1pbiIsImlkIjoxfQ==', '2022-11-10 09:22:47');
 
@@ -385,9 +385,10 @@ INSERT INTO `login` (`lid`, `uid`, `uname`, `upass`, `utype`, `status`) VALUES
 
 CREATE TABLE IF NOT EXISTS `service` (
   `srid` int(11) NOT NULL AUTO_INCREMENT,
-  `service` varchar(150) DEFAULT NULL,
-  `district` varchar(20) DEFAULT NULL,
-  `amount` varchar(11) DEFAULT NULL,
+  `sname` varchar(50) NOT NULL,
+  `amt` varchar(7) NOT NULL,
+  `descr` varchar(200) NOT NULL,
+  `shid` varchar(7) NOT NULL,
   PRIMARY KEY (`srid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
@@ -395,10 +396,10 @@ CREATE TABLE IF NOT EXISTS `service` (
 -- Dumping data for table `service`
 --
 
-INSERT INTO `service` (`srid`, `service`, `district`, `amount`) VALUES
-(1, 'fghj', 'kollam', '65768'),
-(2, 'fghj', 'pathanamthitta', '65768'),
-(3, 'dry cleaning', 'kottayam', '1000');
+INSERT INTO `service` (`srid`, `sname`, `amt`, `descr`, `shid`) VALUES
+(1, 'cleaning', '1500', 'this is good service', '7'),
+(2, 'cleaning', '1500', 'hi hello', '7'),
+(3, 'washing', '300', 'this is washing', '8');
 
 -- --------------------------------------------------------
 
