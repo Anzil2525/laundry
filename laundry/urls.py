@@ -61,4 +61,6 @@ urlpatterns = [
     path('deleteservice/',deleteservice,name='deleteservice'),
     path('editservice/',editservice,name='editservice'),
     path('serviceeditingpage/',serviceeditingpage,name='serviceeditingpage'),
+    path('userviewshops/',userviewshops,name='userviewshops'),
+    path('userviewservices/',userviewservices,name='userviewservices'),
 ]

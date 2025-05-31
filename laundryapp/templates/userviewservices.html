@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/userviewshops">back</a>
+    <h1>service of shop</h1>
+    <table border="1">
+        <tr>
+            <th>Service Name</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Book</th>
+        </tr>
+        {% if data %}
+            {% for i in data %}
+                <tr>
+                    <td>{{ i.service }}</td>
+                    <td>{{ i.amount }}</td>
+                    <td>{{ i.descr }}</td>
+                    <td><a href="//?id={{ i.srid }}">Book</a></td>
+                </tr>
+            {% endfor %}
+
+        {%else%}
+            <tr>
+                <td colspan="3">No services available</td>
+            </tr>
+        {% endif %}
+    </table>
+</body>
+</html>

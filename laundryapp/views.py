@@ -521,3 +521,40 @@ def editservice(request):
     msg = "<script>alert('updated');window.location='/shopservice/';</script>"
     return HttpResponse(msg)
 
+def userviewshops(request):
+    cur = connection.cursor()
+    sql = "select * from shop where status = 'approved'"
+    cur.execute(sql)
+    result = cur.fetchall()
+    data = []
+    for row in result:
+        dis = {
+            'shid' : row[0],
+            'name' : row[1],
+            'address' : row[2],
+            'place' : row[3],
+            'district' : row[4],
+            'phn' : row[5],
+            'email' : row[6],
+            'status' : row[7],
+        }
+        data.append(dis)
+    return render(request,'userviewshops.html',{'data':data})
+
+def userviewservices(request):
+    cur = connection.cursor()
+    shid = request.GET['id']
+    sql = "select * from service where shid = '%s'"%(shid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    data = []
+    for row in result:
+        dis = {
+            'srid' : row[0],
+            'service' : row[1],
+            'amount' : row[2],
+            'descr' : row[3],
+            
+        }
+        data.append(dis)
+    return render(request,'userviewservices.html',{'data':data})
