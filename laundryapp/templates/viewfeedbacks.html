@@ -6,14 +6,14 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="/adminhome/">index</a>
+    <a href="/adminhome/">Home</a>
     <h1>view feedbacks</h1>
     <table border="1">
         <tr>
             <th>Feedbacks</th>
             <th>Date</th>
             <th>Time</th>
-            <th>Username</th>
+            <th>User ID</th>
             <th>User Type</th>
         </tr>
         {% if data %}
@@ -22,7 +22,7 @@
                 <tr>
                     <td>{{obj.feedback}}</td><td>{{obj.date}}</td>
                     <td>{{obj.time}}</td>
-                    <td>{{obj.uname}}</td>
+                    <td>{{obj.uid}}</td>
                     <td>{{obj.utype}}</td>
 
                 </tr>

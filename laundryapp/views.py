@@ -123,19 +123,14 @@ def addfeedback(request):
     fed=request.GET['feedback']
     uid = request.session['uid']
     utype = request.session['utype']
-    sql = "select * from login where uid = '%s' and utype = '%s'"%(uid,utype)
-    cur.execute(sql)
-    result = cur.fetchall()
-    for row in result:
-        uname = row[2]
+    
     
     obj = datetime.datetime.now()
     time = str(obj.time())
     date = str(obj.date())
 
-    print('time :::: -- ',time,'\n date ::::::- ',date,'\nuser type = ',utype)
-
-    sqlfed="insert into feedback(feedback,date,time,uname,utype) values('%s','%s','%s','%s','%s')"%(fed,date,time,uname,utype)
+   
+    sqlfed="insert into feedback(feedback,date,time,uid,utype) values('%s','%s','%s','%s','%s')"%(fed,date,time,uid,utype)
     cur.execute(sqlfed)
 
     msg = "<script>alert('feedback is entered');window.location='/feedback/';</script>"
@@ -237,7 +232,7 @@ def viewfeedbacks(request):
             'feedback' : row[1],
             'date' : row[2],
             'time' : row[3],
-            'uname' : row[4],
+            'uid' : row[4],
             'utype' : row[5],
         }
         data.append(dis)
