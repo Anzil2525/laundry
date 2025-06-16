@@ -580,7 +580,7 @@ def changepass(request):
     result = cur.fetchall()
     for row in result:
         if row[3] != prepass:
-            msg = "<script>alert('invalid previous password');window.location='/showpassword/';</script>"
+            msg = "<script>alert('previous password is incorrect');window.location='/showpassword/';</script>"
             return HttpResponse(msg)
     sql = "update login set upass = '%s' where uid='%s' and utype = '%s'"%(newpass,uid,utype)
     cur.execute(sql)
