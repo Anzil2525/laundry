@@ -17,6 +17,7 @@
             <th>Phone Number</th>
             <th>E-mail</th>
             <th>status</th>
+            <th>Delete</th>
         </tr>
         {% if data %}
 
@@ -29,11 +30,13 @@
                     <td>{{obj.phn}}</td>
                     <td>{{obj.email}}</td>
                     <td>{{obj.status}}</td>
+                    
+                    <td><a href="/deleteshop?id={{obj.shid}}">delete</a></td>
+
                     {% if obj.status == 'pending' %}
                     <td><a href="/approve?id={{obj.shid}}">approve</a></td>
                     <td><a href="/reject?id={{obj.shid}}">reject</a></td>
                     {% endif %}
-                    <td><a href="/deleteshop?id={{obj.shid}}">delete</a></td>
                     
                 </tr>
             {% endfor %}

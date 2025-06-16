@@ -553,3 +553,67 @@ def userviewservices(request):
         }
         data.append(dis)
     return render(request,'userviewservices.html',{'data':data})
+
+def showpassword(request):
+    cur = connection.cursor()
+    uid = request.session['uid']
+    utype = request.session['utype']
+    sql = "select * from login where uid = '%s' and utype = '%s'"%(uid,utype)
+    cur.execute(sql)
+    result = cur.fetchall()
+    for row in result:
+        dis = {
+            'uname' : row[2],
+            'prepass' : row[3],
+            'utype' : row[4],
+        }
+    return render(request,'password.html',dis)
+
+def changepass(request):
+    cur = connection.cursor()
+    prepass = request.GET['prepass']
+    newpass = request.GET['newpass']
+    uid = request.session['uid']
+    utype = request.session['utype']
+    sql = "select * from login where uid = '%s' and utype = '%s'"%(uid,utype)
+    cur.execute(sql)
+    result = cur.fetchall()
+    for row in result:
+        if row[3] != prepass:
+            msg = "<script>alert('invalid previous password');window.location='/showpassword/';</script>"
+            return HttpResponse(msg)
+    sql = "update login set upass = '%s' where uid='%s' and utype = '%s'"%(newpass,uid,utype)
+    cur.execute(sql)
+    msg = "<script>alert('password changed');window.location='/showpassword/';</script>"
+    return HttpResponse(msg)
+
+def forgotpass(request):
+    return render(request,'forgotpassform.html')
+
+def forgotpassaction(request):
+    cur = connection.cursor()
+    email = request.GET['email']
+    phn = request.GET['phn']
+    sql = "select * from login where uname = '%s'"%(email)
+    cur.execute(sql)
+    result = cur.fetchall()
+    for row in result:
+        utype = row[4]
+
+    if utype == 'user':
+        sql = "select * from login inner join user on user.uid = login.uid where login.uname= '%s' and user.phn = '%s'"%(email,phn)
+    elif utype == 'shop':
+        sql = "select * from login inner join shop on shop.shid = login.uid where login.uname= '%s' and shop.phn = '%s'"%(email,phn)
+    elif utype == 'staff':
+        sql = "select * from login inner join staff on staff.stid = login.uid where login.uname= '%s' and staff.phn = '%s'"%(email,phn)
+    cur.execute(sql)
+    if cur.rowcount == 0:
+        msg = "<script>alert('invalid email or phone number');window.location='/forgotpass/';</script>"
+        return HttpResponse(msg)
+    result = cur.fetchall()
+    for row in result:
+        upass = row[3]
+    msg = "<script>alert('your password is %s');window.location='/login/';</script>"%(upass)
+    return HttpResponse(msg)
+    
+
