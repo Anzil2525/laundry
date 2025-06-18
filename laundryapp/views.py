@@ -615,5 +615,4 @@ def forgotpassaction(request):
         upass = row[3]
     msg = "<script>alert('your password is %s');window.location='/login/';</script>"%(upass)
     return HttpResponse(msg)
-    
 

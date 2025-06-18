@@ -35,7 +35,7 @@
                     <td>{{obj.pin}}</td>
                     <td>{{obj.dob}}</td>
                     <td>{{obj.email}}</td>
-                    <td><a href="/deletestaff/?id={{obj.stid}}">Delete</a></td>
+                    <td><a href="/deletestaff/?id={{obj.stid}}" onclick="return deleteStaff()">Delete</a></td>
                     <td><a href="/staffprofile/?id= {{obj.stid}}">Edit</a></td>
                 </tr>
             {% endfor %}
@@ -45,6 +45,11 @@
         </tr>
         {% endif %}
     </table>
-        <a href="/staff/">+Add Staff</a>
+    <a href="/staff/">+Add Staff</a>
+    <script>
+        function deleteStaff() {
+            return confirm("Are you sure you want to delete this staff?");
+        }
+    </script>
 </body>
 </html>

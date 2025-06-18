@@ -1,49 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <a href="/adminhome/">Home</a>
-    <h1>view shop</h1>
-    <table border="1">
-        <tr>
-            <th>Name Of Shop</th>
-            <th>Address</th>
-            <th>Place</th>
-            <th>District</th>
-            <th>Phone Number</th>
-            <th>E-mail</th>
-            <th>status</th>
-            <th>Delete</th>
-        </tr>
-        {% if data %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <a href="/adminhome/">Home</a>
+        <h1>view shop</h1>
+        <table border="1">
+            <tr>
+                <th>Name Of Shop</th>
+                <th>Address</th>
+                <th>Place</th>
+                <th>District</th>
+                <th>Phone Number</th>
+                <th>E-mail</th>
+                <th>status</th>
+                <th>Delete</th>
+            </tr>
+            {% if data %}
 
-            {% for obj in data %}
-                <tr>
-                    <td>{{obj.name}}</td>
-                    <td>{{obj.address}}</td>
-                    <td>{{obj.place}}</td>
-                    <td>{{obj.district}}</td>
-                    <td>{{obj.phn}}</td>
-                    <td>{{obj.email}}</td>
-                    <td>{{obj.status}}</td>
-                    
-                    <td><a href="/deleteshop?id={{obj.shid}}">delete</a></td>
+                {% for obj in data %}
+                    <tr>
+                        <td>{{obj.name}}</td>
+                        <td>{{obj.address}}</td>
+                        <td>{{obj.place}}</td>
+                        <td>{{obj.district}}</td>
+                        <td>{{obj.phn}}</td>
+                        <td>{{obj.email}}</td>
+                        <td>{{obj.status}}</td>
+                        
+                        <td><a href="/deleteshop?id={{obj.shid}}" onclick="return deleteShop()">delete</a></td>
 
-                    {% if obj.status == 'pending' %}
-                    <td><a href="/approve?id={{obj.shid}}">approve</a></td>
-                    <td><a href="/reject?id={{obj.shid}}">reject</a></td>
-                    {% endif %}
-                    
-                </tr>
-            {% endfor %}
-        {% else %}
-        <tr>
-            <td colspan="8" style="text-align: center;">no record</td>
-        </tr>
-        {% endif %}
-</body>
+                        {% if obj.status == 'pending' %}
+                        <td><a href="/approve?id={{obj.shid}}" onclick="return approveShop()">approve</a></td>
+                        <td><a href="/reject?id={{obj.shid}}" onclick="return rejectShop()">reject</a></td>
+                        {% endif %}
+                        
+                    </tr>
+                {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="8" style="text-align: center;">no record</td>
+            </tr>
+            {% endif %}
+        </table>
+        <script>
+            function deleteShop() {
+                return confirm("Are you sure you want to delete this shop?");
+            }
+            function approveShop() {
+                return confirm("Are you sure you want approve this shop?");
+            }
+            function rejectShop() {
+                return confirm("Are you sure you want reject this shop?");
+            }
+        </script>
+    </body>
 </html>
