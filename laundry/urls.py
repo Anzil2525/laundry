@@ -67,4 +67,5 @@ urlpatterns = [
     path('changepass/',changepass,name='changepass'),
     path('forgotpass/',forgotpass,name='forgotpass'),
     path('forgotpassaction/',forgotpassaction,name='forgotpassaction'),
+    path('bookservice/',bookservice,name='bookservice'),
 ]

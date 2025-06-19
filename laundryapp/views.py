@@ -616,3 +616,16 @@ def forgotpassaction(request):
     msg = "<script>alert('your password is %s');window.location='/login/';</script>"%(upass)
     return HttpResponse(msg)
 
+def bookservice(request):
+    cur = connection.cursor()
+    uid = request.session['uid']
+    srid = request.GET['id']
+    
+    obj = datetime.datetime.now()
+    time = str(obj.time())
+    date = str(obj.date())
+
+    sql = "insert into booking(srid,uid,date,time,status) values('%s','%s','%s','%s','%s')"%(srid,uid,date,time,'booked')
+    cur.execute(sql)
+    msg = "<script>alert('service booked');window.location='/userviewshops/';</script>"
+    return HttpResponse(msg)
