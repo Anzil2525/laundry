@@ -629,3 +629,29 @@ def bookservice(request):
     cur.execute(sql)
     msg = "<script>alert('service booked');window.location='/userviewshops/';</script>"
     return HttpResponse(msg)
+
+def showbookingsofuser(request):
+    cur = connection.cursor()
+    uid = request.session['uid']
+    sql = "select * from booking inner join service inner join shop " \
+    "on service.srid=booking.srid and service.shid = shop.shid " \
+    "where booking.uid = '%s' order by booking.oid desc"%(uid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    data = []
+    for row in result:
+        dis = {
+            'oid' : row[0],
+            'srid' : row[1],
+            'uid' : row[2],
+            'date' : row[3],
+            'time' : row[4],
+            'status' : row[5],
+            'service' : row[7],
+            'amount' : row[8],
+            'shop' : row[12],
+            
+        }
+        data.append(dis)
+    return render(request,'showbookingsofuser.html',{'data':data})
+        
