@@ -69,4 +69,6 @@ urlpatterns = [
     path('forgotpassaction/',forgotpassaction,name='forgotpassaction'),
     path('bookservice/',bookservice,name='bookservice'),
     path('showbookingsofuser/',showbookingsofuser,name='showbookingsofuser'),
+    path('showbookingsofshop/',showbookingsofshop,name='showbookingsofshop'),
+    path('viewbookdetailsbyshop/',viewbookdetailsbyshop,name='viewbookdetailsbyshop'),
 ]

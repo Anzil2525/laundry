@@ -654,4 +654,62 @@ def showbookingsofuser(request):
         }
         data.append(dis)
     return render(request,'showbookingsofuser.html',{'data':data})
-        
+
+def showbookingsofshop(request):
+    cur = connection.cursor()
+    shid = request.session['uid']
+    sql = "select * from service inner join booking inner join user " \
+    "on service.srid = booking.srid and booking.uid = user.uid " \
+    "where service.shid= '%s' order by booking.oid desc"%(shid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    data = []
+    for row in result:
+        dis = {
+            'srid' : row[0],
+            'service': row[1],
+            'amount' : row[2],
+            'descr' : row[3],
+            'shid' : row[4],
+            'oid' : row[5],
+            'date': row[8],
+            'time' : row[9],
+            'uname': row[12],
+            'address': row[13],
+            'district': row[14],
+            'phn' : row[15],
+        }
+        data.append(dis)
+    return render(request,'showbookingsofshop.html',{'data':data})
+
+def viewbookdetailsbyshop(request):
+    cur = connection.cursor()
+    oid = request.GET['id']
+    sql = "select * from service inner join booking inner join user " \
+    "on service.srid = booking.srid and booking.uid = user.uid " \
+    "where booking.oid = '%s'"%(oid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    for row in result:
+        dis = {
+            'srid' : row[0],
+            'service' : row[1],
+            'amount' : row[2],
+            # 'district' : row[3],
+            'shid' : row[4],
+            'oid' : row[5],
+            # 'srid' : row[6],
+            # 'uid' : row[7],
+            'date' : row[8],
+            'time' : row[9],
+            'status' : row[10],
+
+            'uid' : row[11],
+            'name' : row[12],
+            'address' : row[13],
+            'district' : row[14],
+            'phn' : row[15],
+            'email' : row[16],
+            'place' : row[17],
+        }
+    return render(request,'viewbookdetailsbyshop.html',dis)

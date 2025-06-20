@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/shophome">Back</a>
+    <br>
+    <h1><center><u><b>Bookings</b></u></center></h1>
+    <table border="1">
+        <tr>
+            <th>Service</th>
+            <th>User</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>address</th>
+            <th>District</th>
+            <th>phone number</th>
+        </tr>
+
+        {% for i in data %}
+        <tr>
+            <td>{{ i.service }}</td>
+            <td>{{ i.uname }}</td>
+            <td>{{ i.amount }}</td>
+            <td>{{ i.date }}</td>
+            <td>{{ i.time }}</td>
+            <td>{{ i.address }}</td>    
+            <td>{{ i.district }}</td>
+            <td>{{ i.phn }}</td>
+            <td><a href="/viewbookdetailsbyshop/?id={{ i.oid }}">View Details</a></td>
+        </tr>
+        {% endfor %}
+</body>
+</html>

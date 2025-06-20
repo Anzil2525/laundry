@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Booking Details</title>
+</head>
+<body>
+    <a href="/showbookingsofshop">Back</a>
+    <h1><center><u><b>Booking Details</b></u></center></h1>
+    <table  style="width: 100%;">
+        <tr>
+            <td style="width: 33%;">
+                <h2>service details</h2>
+                <!-- Service ID: {{ srid }}<br> -->
+                Service Name: {{ service }}<br>
+                Amount: {{ amount }}<br>
+                <!-- Order ID: {{ oid }}<br> -->
+
+            </td>
+            <td style="text-align: center;">
+                <h2>time and date</h2>
+                Date: {{ date }}<br>
+                Time: {{ time }}<br>
+                <!-- Status: {{ status }}<br> -->
+                <!-- User ID: {{ uid }}<br> -->
+            </td>
+            <td>
+                <h2>user details</h2>
+                Name: {{ name }}<br>
+                Address: {{ address }}<br>
+                District: {{ district }}<br>
+                Phone: {{ phn }}<br>
+                Email: {{ email }}<br>
+                Place: {{ place }}<br>
+
+
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
