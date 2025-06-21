@@ -6,35 +6,71 @@
 <body>
     <a href="/showbookingsofshop">Back</a>
     <h1><center><u><b>Booking Details</b></u></center></h1>
-    <table  style="width: 100%;">
+    <table style="width: 100%;">
         <tr>
-            <td style="width: 33%;">
+            <td style="width: 33%; text-align: center;">
                 <h2>service details</h2>
                 <!-- Service ID: {{ srid }}<br> -->
-                Service Name: {{ service }}<br>
-                Amount: {{ amount }}<br>
+                Service Name: {{ dis.service }}<br>
+                Amount: {{ dis.amount }}<br>
                 <!-- Order ID: {{ oid }}<br> -->
 
             </td>
             <td style="text-align: center;">
                 <h2>time and date</h2>
-                Date: {{ date }}<br>
-                Time: {{ time }}<br>
+                Date: {{dis.date }}<br>
+                Time: {{ dis.time }}<br>
                 <!-- Status: {{ status }}<br> -->
                 <!-- User ID: {{ uid }}<br> -->
             </td>
             <td>
                 <h2>user details</h2>
-                Name: {{ name }}<br>
-                Address: {{ address }}<br>
-                District: {{ district }}<br>
-                Phone: {{ phn }}<br>
-                Email: {{ email }}<br>
-                Place: {{ place }}<br>
+                Name: {{ dis.name }}<br>
+                Address: {{ dis.address }}<br>
+                District: {{ dis.district }}<br>
+                Phone: {{ dis.phn }}<br>
+                Email: {{ dis.email }}<br>
+                Place: {{ dis.place }}<br>
 
 
             </td>
         </tr>
     </table>
+    <center>
+        <h2>Work assign Details</h2>
+        {% if assign_data %}
+            <table cellspacing="10" >
+                {% for obj in assign_data %}
+                    <tr>
+                        <td>{{obj.date}}</td>
+                        <td rowspan="2">{{obj.name}}</td>
+                        <td rowspan="2"><a href="/viewstaffdetails?stid={{ obj.stid }}">View Staff Details</a></td>      
+                        {% if current_asnid == obj.asnid %}      
+                        <td rowspan="2">&nbsp;&lt;-current assign staff</a></td>
+                        {% endif %}               
+                    </tr>
+                    
+                    <tr>
+                        <td>{{obj.time}}</td>
+                    </tr>
+                    <tr><td><br></td></tr>
+                {% endfor %}
+            </table>
+                    
+        {% else %}
+            No staff assigned yet.
+        {% endif %}
+    </center>
+
+    <form action="/assignstaff">
+        <h3>Assign Staff : </h3>
+        <select name="stid">
+            {% for obj in staffs %}
+                <option value="{{ obj.stid }}">{{ obj.name }}</option>
+            {% endfor %}
+
+        </select>    
+        <button type="submit" value="{{ dis.oid }}" name="oid">Assign</button>
+    </form>
 </body>
 </html>

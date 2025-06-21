@@ -71,4 +71,5 @@ urlpatterns = [
     path('showbookingsofuser/',showbookingsofuser,name='showbookingsofuser'),
     path('showbookingsofshop/',showbookingsofshop,name='showbookingsofshop'),
     path('viewbookdetailsbyshop/',viewbookdetailsbyshop,name='viewbookdetailsbyshop'),
+    path('assignstaff/',assignstaff,name='assignstaff'),
 ]

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 19, 2025 at 07:39 AM
+-- Generation Time: Jun 21, 2025 at 06:57 PM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -18,6 +18,33 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Database: `laundry`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assign`
+--
+
+CREATE TABLE IF NOT EXISTS `assign` (
+  `asnid` int(11) NOT NULL AUTO_INCREMENT,
+  `oid` varchar(15) NOT NULL,
+  `stid` varchar(15) NOT NULL,
+  `date` varchar(10) NOT NULL,
+  `time` varchar(8) NOT NULL,
+  `code` varchar(4) NOT NULL,
+  PRIMARY KEY (`asnid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `assign`
+--
+
+INSERT INTO `assign` (`asnid`, `oid`, `stid`, `date`, `time`, `code`) VALUES
+(1, '3', '1', '2025-06-21', '23:28:31', '7511'),
+(2, '4', '2', '2025-06-21', '23:29:42', '2133'),
+(3, '4', '1', '2025-06-21', '23:30:05', '3440'),
+(4, '4', '1', '2025-06-22', '00:13:45', '7936'),
+(5, '4', '2', '2025-06-22', '00:14:11', '9384');
 
 -- --------------------------------------------------------
 
@@ -177,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `booking` (
   `time` varchar(8) NOT NULL,
   `status` varchar(100) NOT NULL,
   PRIMARY KEY (`oid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `booking`
@@ -186,11 +213,15 @@ CREATE TABLE IF NOT EXISTS `booking` (
 INSERT INTO `booking` (`oid`, `srid`, `uid`, `date`, `time`, `status`) VALUES
 (1, '0', '0', '1/3/2005', '12:00', 'booking'),
 (2, '4', '5', '2025-06-19', '12:52:42', 'booked'),
-(3, '4', '5', '2025-06-19', '12:55:32', 'booked'),
-(4, '5', '5', '2025-06-19', '12:57:58', 'booked'),
+(3, '4', '5', '2025-06-19', '12:55:32', 'assigned'),
+(4, '5', '5', '2025-06-19', '12:57:58', 'assigned'),
 (5, '3', '5', '2025-06-19', '12:58:54', 'booked'),
 (6, '3', '5', '2025-06-19', '12:59:34', 'booked'),
-(7, '3', '5', '2025-06-19', '12:59:49', 'booked');
+(7, '3', '5', '2025-06-19', '12:59:49', 'booked'),
+(8, '3', '2', '2025-06-19', '18:24:46', 'booked'),
+(9, '6', '5', '2025-06-19', '18:54:39', 'booked'),
+(10, '7', '5', '2025-06-20', '18:42:02', 'booked'),
+(11, '8', '3', '2025-06-20', '19:01:31', 'booked');
 
 -- --------------------------------------------------------
 
@@ -297,6 +328,7 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('29if2eyu78fzjy6370bapwiuh98q7w7n', 'ZGI3ZjVkZmJiODBmZGFmYjJiZDhkYmE3NmNmNmE2ZjdiY2VkODU1ODp7InR5cGUiOiJ1c2VyIiwiaWQiOjF9', '2022-04-23 16:34:16'),
 ('2ga2x0lgeul3f3jmq7y3o8j42hf3k6zz', 'ZGI3ZjVkZmJiODBmZGFmYjJiZDhkYmE3NmNmNmE2ZjdiY2VkODU1ODp7InR5cGUiOiJ1c2VyIiwiaWQiOjF9', '2022-04-24 15:08:28'),
 ('2wc0erzevanl8fzd3wp8qjxg8c0rfhef', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1sUIYk:8wX26xqmMNaYefO7WJK5l1GLb_24JY0HlEMi90EXWao', '2024-08-01 04:16:02'),
+('31d6us090m4g6rdxnfgk4de3m6e6i8oi', 'eyJ1aWQiOjMsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uSbp7:GLCB2YNGehp9bin0ktMxemOVZaeFTvnIfNYennPt32Y', '2025-07-04 13:30:29'),
 ('31vyi74mt1uldqag9h5ybg1wl6wemp27', 'NzM0MGNlNDEyMGMzODU0MzQzYjcxMWNlMTMzNmIwOTJkMWJjYmIxNDp7InR5cGUiOiJ1c2VyIiwiZW1haWwiOiJyZWV0aHVzaGFqaUBnbWFpbC5jb20iLCJpZCI6MX0=', '2022-04-23 05:42:43'),
 ('3bk6g8i7n5frreixa8u7viux3ai4c6he', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1qw1Dn:9LHJT54SBRVScgKuw4rt-yqkqfwQ0VxqaPE3myWr5YU', '2023-11-09 14:20:27'),
 ('50xeiq65meam6e6y64q7acq2r91e5c28', 'eyJ1aWQiOjEsInV0eXBlIjoidXNlciJ9:1ptsbt:6PJ0DECYWHLN0BzKFTM9hc8OYqaswDR4ePwqRAZE8Dg', '2023-05-16 16:12:13'),
@@ -319,7 +351,7 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('g8frbbo2wwwuif3x2maqmhlp9yytnnh9', 'eyJ1aWQiOjIzLCJ1dHlwZSI6InVzZXIifQ:1svAod:oaAu4uVYSuSQPy-zdROY0DcKHzZpyfXcKhchzF2RBOY', '2024-10-14 07:27:31'),
 ('gl3xr7ma0ra751br44v52yyvg01qoz4p', 'eyJ1aWQiOjUsInV0eXBlIjoibGFiIn0:1smcLB:fwObzXrdXGcehp-csywXBH7VaDmTxkM5pnm9bhcYWlA', '2024-09-20 17:01:45'),
 ('grjlrszn1gu722anwzvs4yegrwez22sh', 'eyJ1aWQiOjAsInV0eXBlIjoiYWRtaW4ifQ:1sWUfF:rPyqbEIRMnYG0W6hOt-Y0Q5ROKLjyTeoa07n6CcqAMQ', '2024-08-07 05:35:49'),
-('j1s7gtn3warudpz5oyt3oz7bf9o29n35', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uS8BY:gKjJiFMW5CLBaHNG_CG0EnrL2P0nYVZnt6ObL1CPUAE', '2025-07-03 05:51:40'),
+('j1s7gtn3warudpz5oyt3oz7bf9o29n35', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uT1tF:ykS8Rl6uxDZflNWL7tfvHrnMy-h9LCNOOewVENOIv0M', '2025-07-05 17:20:29'),
 ('j7aaiq8f1qvh4kxz4rdhz9ruhl6cehx3', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1rXbNs:1fEA5po6uuFqQg-N8xR8YwBdJlE3yia-cYg8yKt5_vw', '2024-02-21 06:26:12'),
 ('j8e2z72eh4g5b09z8pkr7m3kkomk0ox2', 'Nzk1MTdhMjk1MTVjMDc3YjI1MzQ3YzEyMTQ3ZTI1YzkwZjEzM2U5Zjp7InVpZCI6MSwidXR5cGUiOiJsYWIifQ==', '2023-10-28 07:21:24'),
 ('k3os9iv9xzmkmv4wphm7grwbpe53i3t5', 'eyJ1aWQiOjgsInV0eXBlIjoidXNlciJ9:1sWDCZ:BoNInSAjssD3TUnbwkXZ2lwdvPZX9n1ZMkArMmtxnNw', '2024-08-06 10:57:03'),
@@ -385,7 +417,7 @@ CREATE TABLE IF NOT EXISTS `login` (
   `utype` varchar(25) NOT NULL,
   `status` varchar(25) NOT NULL,
   PRIMARY KEY (`lid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `login`
@@ -402,7 +434,8 @@ INSERT INTO `login` (`lid`, `uid`, `uname`, `upass`, `utype`, `status`) VALUES
 (16, 2, 'staff@2', '123', 'staff', ''),
 (17, 3, 'staff@4', '123', 'staff', ''),
 (18, 4, 'staff@5', '123', 'staff', ''),
-(19, 5, 'staff@5', '123', 'staff', '');
+(19, 5, 'staff@5', '123', 'staff', ''),
+(23, 12, 'shop@10', '123', 'shop', 'approved');
 
 -- --------------------------------------------------------
 
@@ -417,7 +450,7 @@ CREATE TABLE IF NOT EXISTS `service` (
   `descr` varchar(200) NOT NULL,
   `shid` varchar(7) NOT NULL,
   PRIMARY KEY (`srid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `service`
@@ -426,7 +459,8 @@ CREATE TABLE IF NOT EXISTS `service` (
 INSERT INTO `service` (`srid`, `sname`, `amt`, `descr`, `shid`) VALUES
 (3, 'washing', '300', 'this is washing', '8'),
 (4, 'cleaning', '200', 'this is de', '7'),
-(5, 'iorning', '120', 'our iorning is grate ', '7');
+(5, 'iorning', '120', 'our iorning is grate ', '7'),
+(6, 'dry cleaning +iorning', '250', 'this is a compination', '12');
 
 -- --------------------------------------------------------
 
@@ -444,7 +478,7 @@ CREATE TABLE IF NOT EXISTS `shop` (
   `email` varchar(40) NOT NULL,
   `status` varchar(25) NOT NULL,
   PRIMARY KEY (`shid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `shop`
@@ -452,7 +486,8 @@ CREATE TABLE IF NOT EXISTS `shop` (
 
 INSERT INTO `shop` (`shid`, `name`, `address`, `place`, `district`, `phn`, `email`, `status`) VALUES
 (7, 'shop7', 'qw', 'asd', 'idukki', '0987654322', 'shop@7', 'approved'),
-(8, 'shop8', 'asdf', 'asd', 'thrissur', '0987654322', 'shop@8', 'approved');
+(8, 'shop8', 'asdf', 'asd', 'thrissur', '0987654322', 'shop@8', 'approved'),
+(12, 'shop 10', 'this is the address of the shop 10', 'kollam', 'kollam', '7091827364', 'shop@10', 'approved');
 
 -- --------------------------------------------------------
 
