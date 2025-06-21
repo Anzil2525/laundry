@@ -729,22 +729,25 @@ def viewbookdetailsbyshop(request):
     sql = "select * from assign inner join staff on assign.stid = staff.stid where oid = '%s'"%(oid)
     cur.execute(sql)
     result = cur.fetchall()
-    assign_data = []
-    for row in result:
-        assign = {
-            'asnid' : row[0],
-            'oid' : row[1],
-            'stid' : row[2],
-            'date' : row[3],
-            'time' : row[4],
-            'code' : row[5],
-            'name' : row[8],
-        }
-        current_asnid = row[0]
+    if cur.rowcount != 0:
+        assign_data = []
+        for row in result:
+            assign = {
+                'asnid' : row[0],
+                'oid' : row[1],
+                'stid' : row[2],
+                'date' : row[3],
+                'time' : row[4],
+                'code' : row[5],
+                'name' : row[8],
+            }
+            current_asnid = row[0]
+            
+            assign_data.append(assign)
         
-        assign_data.append(assign)
-    print("current_asnid = ",current_asnid)
-    return render(request,'viewbookdetailsbyshop.html',{'dis':dis,'staffs':staffs,'assign_data':assign_data, 'current_asnid':current_asnid})
+        return render(request,'viewbookdetailsbyshop.html',{'dis':dis,'staffs':staffs,'assign_data':assign_data, 'current_asnid':current_asnid})
+    else:
+        return render(request,'viewbookdetailsbyshop.html',{'dis':dis,'staffs':staffs})
 
 def assignstaff(request):
     cur = connection.cursor()
@@ -755,6 +758,15 @@ def assignstaff(request):
     obj = datetime.datetime.now()
     time = str(obj.time())
     date = str(obj.date())
+
+    sql = "select * from assign where oid = '%s'"%(oid)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        current_stid = row[2]
+    if cur.rowcount != 0:
+        if current_stid == stid:
+           msg = "<script>alert('already assigned');window.location='/viewbookdetailsbyshop/?id=%s';</script>"%(oid)
+           return HttpResponse(msg)
     
     sql = "insert into assign(oid,stid,date,time,code) values('%s','%s','%s','%s','%s')"%(oid,stid,date,time,code)
     cur.execute(sql)
