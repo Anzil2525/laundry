@@ -775,3 +775,48 @@ def assignstaff(request):
     msg = "<script>alert('assigned');window.location='/viewbookdetailsbyshop/?id=%s';</script>"%(oid)
     return HttpResponse(msg)
     
+def showbookingsofstaff(request):
+    cur = connection.cursor()
+    stid = request.session['uid']
+    # sql = "select * from assign inner join booking inner join service " \
+    # "on assign.oid = booking.oid and booking.srid = service.srid " \
+    # "where assign.stid = '%s' order by booking.oid desc"%(stid)
+
+    sql = "select * from assign inner join booking inner join service inner join user "\
+    "on assign.oid = booking.oid and booking.srid = service.srid and booking.uid = user.uid "\
+    "where assign.stid = '%s' and assign.asnid in (select max(asnid) from assign group by oid) order by booking.oid desc"%(stid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    data = []
+    for row in result:
+        dis = {
+            # 'asnid' : row[0],
+            # 'oid' : row[1],
+            # 'stid' : row[2],
+            # 'date' : row[3],
+            # 'time' : row[4],
+            # 'code' : row[5],
+
+            'oid' : row[6],
+            # 'srid' : row[7],
+            # 'uid' : row[8],
+            'date' : row[9],
+            'time' : row[10],
+            # 'status' : row[11],
+
+            # 'srid' : row[12],
+            'service' : row[13],
+            'amount' : row[14],
+            'descr' : row[15],
+            'shid' : row[16],
+
+            # 'uid' : row[17],
+            'name' : row[18],
+            'address' : row[19],
+            'district' : row[20],
+            'phn' : row[21],
+            'email' : row[22],
+            'place' : row[23],
+        }
+        data.append(dis)
+    return render(request,'showbookingsofstaff.html',{'data':data})
