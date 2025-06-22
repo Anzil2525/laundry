@@ -64,13 +64,18 @@
 
     <form action="/assignstaff">
         <h3>Assign Staff : </h3>
-        <select name="stid">
-            {% for obj in staffs %}
-                <option value="{{ obj.stid }}">{{ obj.name }}</option>
-            {% endfor %}
-
-        </select>    
-        <button type="submit" value="{{ dis.oid }}" name="oid">Assign</button>
+        {% if staffs %}
+            <select name="stid">
+                {% for obj in staffs %}
+                    <option value="{{ obj.stid }}">{{ obj.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" value="{{ dis.oid }}" name="oid">Assign</button>
+        {% else %}
+            <select>
+                <option value="">No staff available</option>
+            </select>
+        {% endif %}
     </form>
 </body>
 </html>
