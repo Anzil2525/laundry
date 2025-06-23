@@ -67,5 +67,16 @@
         <input type="hidden" name="oid" value="{{ data.oid }}">
         <input type="submit" value="Update Tracker">
     </form>
+
+    <br>
+    or
+    <br>
+    <br>
+    <form action="/updatetrackerbytyping">
+        enter update of tracker by typing:
+        <input type="text" name="status">
+        <input type="hidden" name="oid" value="{{ data.oid }}">
+        <input type="submit" value="Update Tracker">
+    </form>
 </body>
 </html>

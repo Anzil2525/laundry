@@ -258,7 +258,8 @@ def loginaction(request):
             request.session['status'] = row[5]
             print(row[4])
             if(request.session['utype'] == 'admin'):
-                return render(request,'adminhome.html')
+                msg ="<script>alert('welcome admin');window.location='/adminhome/';</script>"
+                return HttpResponse(msg)
             elif(request.session['utype'] == 'user'):
                 print("user")
                 msg ="<script>alert('welcome user');window.location='/userhome/';</script>"
@@ -736,7 +737,7 @@ def viewbookdetailsbyshop(request):
         }
         staffs.append(data)
     
-    sql = "select * from assign inner join staff on assign.stid = staff.stid where oid = '%s'"%(oid)
+    sql = "select * from assign inner join staff on assign.stid = staff.stid where oid = '%s' order by assign.asnid"%(oid)
     cur.execute(sql)
     result = cur.fetchall()
     if cur.rowcount != 0:
@@ -887,6 +888,21 @@ def viewbookdetailsbystaff(request):
     return render(request,'viewbookdetailsbystaff.html',{'data': dis ,'tracker':tracker})
 
 def updatetrackerbyoption(request):
+    cur = connection.cursor()
+    oid = request.GET['oid']
+    status = request.GET['status']
+
+    obj = datetime.datetime.now()
+    time = str(obj.time())
+    date = str(obj.date())
+
+    sql = "insert into tracker (oid, status, date, time) values ('%s', '%s', '%s', '%s')"%(oid,status,date,time)
+    cur.execute(sql)
+
+    msg = "<script>alert('status updated');window.location='/viewbookdetailsbystaff/?oid=%s';</script>"%(oid)
+    return HttpResponse(msg)
+
+def updatetrackerbytyping(request):
     cur = connection.cursor()
     oid = request.GET['oid']
     status = request.GET['status']
