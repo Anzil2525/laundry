@@ -4,6 +4,7 @@
     <title>Bookings of Staff</title>
 </head>
 <body>
+    <a href="/staffhome/">Home</a>
     <h2>Bookings Assigned to You</h2>
     <table border="1">
         <tr>
@@ -20,6 +21,7 @@
             <th>Email</th>
             <th>Place</th>
             <th>Order ID</th>
+            <th>Details</th>
         </tr>
         {% for booking in data %}
         <tr>
@@ -36,6 +38,7 @@
             <td>{{ booking.email }}</td>
             <td>{{ booking.place }}</td>
             <td>{{ booking.oid }}</td>
+            <td><a href="/viewbookdetailsbystaff/?oid={{booking.oid}}">view details</a></td>
         </tr>
         {% endfor %}
     </table>

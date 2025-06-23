@@ -628,6 +628,16 @@ def bookservice(request):
 
     sql = "insert into booking(srid,uid,date,time,status) values('%s','%s','%s','%s','%s')"%(srid,uid,date,time,'booked')
     cur.execute(sql)
+
+    sql = "select max(oid) from booking"
+    cur.execute(sql)
+    result = cur.fetchall()
+    for row in result:
+        oid = int(row[0])
+        
+    sql = "insert into tracker(oid,status,date,time) values('%s','%s','%s','%s')"%(oid,'booked',date,time)
+    cur.execute(sql)
+
     msg = "<script>alert('service booked');window.location='/userviewshops/';</script>"
     return HttpResponse(msg)
 
@@ -778,10 +788,7 @@ def assignstaff(request):
 def showbookingsofstaff(request):
     cur = connection.cursor()
     stid = request.session['uid']
-    # sql = "select * from assign inner join booking inner join service " \
-    # "on assign.oid = booking.oid and booking.srid = service.srid " \
-    # "where assign.stid = '%s' order by booking.oid desc"%(stid)
-
+    
     sql = "select * from assign inner join booking inner join service inner join user "\
     "on assign.oid = booking.oid and booking.srid = service.srid and booking.uid = user.uid "\
     "where assign.stid = '%s' and assign.asnid in (select max(asnid) from assign group by oid) order by booking.oid desc"%(stid)
@@ -820,3 +827,49 @@ def showbookingsofstaff(request):
         }
         data.append(dis)
     return render(request,'showbookingsofstaff.html',{'data':data})
+
+def viewbookdetailsbystaff(request):
+    cur = connection.cursor()
+    stid = request.session['uid']
+    oid = request.GET['oid']
+
+    # sql = ""
+    
+    sql = "select * from assign inner join booking inner join service inner join user "\
+    "on assign.oid = booking.oid and booking.srid = service.srid and booking.uid = user.uid "\
+    "where assign.oid = '%s' and assign.stid = '%s' and assign.asnid in (select max(asnid) from assign group by oid) order by booking.oid desc"%(oid,stid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    data = []
+    for row in result:
+        dis = {
+            # 'asnid' : row[0],
+            # 'oid' : row[1],
+            'stid' : row[2],
+            'asn_date' : row[3],
+            # 'asn_time' : row[4],
+            # 'code' : row[5],
+
+            'oid' : row[6],
+            # 'srid' : row[7],
+            # 'uid' : row[8],
+            'oidate' : row[9],
+            'otime' : row[10],
+            # 'status' : row[11],
+
+            'srid' : row[12],
+            'service' : row[13],
+            'amount' : row[14],
+            'descr' : row[15],
+            'shid' : row[16],
+
+            # 'uid' : row[17],
+            'name' : row[18],
+            'address' : row[19],
+            'district' : row[20],
+            'phn' : row[21],
+            'email' : row[22],
+            'place' : row[23],
+        }
+        data.append(dis)
+    return render(request,'viewbookdetailsbystaff.html',{'data':data})

@@ -72,6 +72,7 @@ urlpatterns = [
     path('showbookingsofshop/',showbookingsofshop,name='showbookingsofshop'),
     path('viewbookdetailsbyshop/',viewbookdetailsbyshop,name='viewbookdetailsbyshop'),
     path('assignstaff/',assignstaff,name='assignstaff'),
-    # path('viewbookdetailsbystaff/',viewbookdetailsbystaff,name='viewbookdetailsbystaff'),
     path('showbookingsofstaff/',showbookingsofstaff,name='showbookingsofstaff'),
+    path('viewbookdetailsbystaff/',viewbookdetailsbystaff,name='viewbookdetailsbystaff'),
+
 ]
