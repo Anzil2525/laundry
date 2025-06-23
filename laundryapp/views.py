@@ -634,7 +634,7 @@ def bookservice(request):
     result = cur.fetchall()
     for row in result:
         oid = int(row[0])
-        
+
     sql = "insert into tracker(oid,status,date,time) values('%s','%s','%s','%s')"%(oid,'booked',date,time)
     cur.execute(sql)
 
@@ -833,7 +833,19 @@ def viewbookdetailsbystaff(request):
     stid = request.session['uid']
     oid = request.GET['oid']
 
-    # sql = ""
+    sql = "select * from tracker where oid = '%s'"%(oid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    tracker = []
+    for row in result:
+        dis = {
+            'tid' : row[0],
+            'oid' : row[1],
+            'status' : row[2],
+            'date' : row[3],
+            'time' : row[4],
+        }
+        tracker.append(dis)
     
     sql = "select * from assign inner join booking inner join service inner join user "\
     "on assign.oid = booking.oid and booking.srid = service.srid and booking.uid = user.uid "\
@@ -853,7 +865,7 @@ def viewbookdetailsbystaff(request):
             'oid' : row[6],
             # 'srid' : row[7],
             # 'uid' : row[8],
-            'oidate' : row[9],
+            'odate' : row[9],
             'otime' : row[10],
             # 'status' : row[11],
 
@@ -872,4 +884,19 @@ def viewbookdetailsbystaff(request):
             'place' : row[23],
         }
         data.append(dis)
-    return render(request,'viewbookdetailsbystaff.html',{'data':data})
+    return render(request,'viewbookdetailsbystaff.html',{'data': dis ,'tracker':tracker})
+
+def updatetrackerbyoption(request):
+    cur = connection.cursor()
+    oid = request.GET['oid']
+    status = request.GET['status']
+
+    obj = datetime.datetime.now()
+    time = str(obj.time())
+    date = str(obj.date())
+
+    sql = "insert into tracker (oid, status, date, time) values ('%s', '%s', '%s', '%s')"%(oid,status,date,time)
+    cur.execute(sql)
+
+    msg = "<script>alert('status updated');window.location='/viewbookdetailsbystaff/?oid=%s';</script>"%(oid)
+    return HttpResponse(msg)

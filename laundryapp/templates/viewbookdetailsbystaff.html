@@ -25,24 +25,47 @@
             <th>Order ID</th>
             <!-- <th>Details</th> -->
         </tr>
-        {% for booking in data %}
         <tr>
-            <td>{{ booking.date }}</td>
-            <td>{{ booking.time }}</td>
-            <td>{{ booking.service }}</td>
-            <td>{{ booking.amount }}</td>
-            <td>{{ booking.descr }}</td>
-            <!-- <td>{{ booking.shid }}</td> -->
-            <td>{{ booking.name }}</td>
-            <td>{{ booking.address }}</td>
-            <td>{{ booking.district }}</td>
-            <td>{{ booking.phn }}</td>
-            <td>{{ booking.email }}</td>
-            <td>{{ booking.place }}</td>
-            <td>{{ booking.oid }}</td>
+            <td>{{ data.odate }}</td>
+            <td>{{ data.otime }}</td>
+            <td>{{ data.service }}</td>
+            <td>{{ data.amount }}</td>
+            <td>{{ data.descr }}</td>
+            <!-- <td>{{ data.shid }}</td> -->
+            <td>{{ data.name }}</td>
+            <td>{{ data.address }}</td>
+            <td>{{ data.district }}</td>
+            <td>{{ data.phn }}</td>
+            <td>{{ data.email }}</td>
+            <td>{{ data.place }}</td>
+            <td>{{ oid }}</td>
             <!-- <td><a href="/viewbookdetailsbystaff/?oid={{booking.oid}}">view details</a></td> -->
         </tr>
-        {% endfor %}
+
     </table>
+    <h2>Tracking Information</h2>
+    {% if tracker %}
+        <ul>
+        {% for obj in tracker %}
+            <li>{{ obj.oid }} - {{ obj.status }} - {{ obj.date }} - {{ obj.time }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tracking information available.</p>
+    {% endif %}
+    <form action="/updatetrackerbyoption">
+        enter update of tracker by option:
+        <select name="status">
+            <option value="Materials Collected">Materials Collected</option>
+            <option value="Materials Reached Shop">Materials Reached Shop</option>
+            <option value="Materials are being processed">Materials are being processed</option>
+            <option value="Materials are ready for pickup">Materials are ready for pickup</option>
+            <option value="Materials have been picked up">Materials have been picked up</option>
+            <option value="Materials have been dispatched">Materials have been dispatched</option>
+            <option value="Materials have been delivered">Materials have been delivered</option>
+        </select>
+        <input type="hidden" name="oid" value="{{ data.oid }}">
+        <input type="submit" value="Update Tracker">
+    </form>
 </body>
 </html>

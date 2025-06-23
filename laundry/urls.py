@@ -74,5 +74,6 @@ urlpatterns = [
     path('assignstaff/',assignstaff,name='assignstaff'),
     path('showbookingsofstaff/',showbookingsofstaff,name='showbookingsofstaff'),
     path('viewbookdetailsbystaff/',viewbookdetailsbystaff,name='viewbookdetailsbystaff'),
+    path('updatetrackerbyoption/', updatetrackerbyoption, name='updatetrackerbyoption'),
 
 ]
