@@ -14,26 +14,27 @@
                 <tr>
                     <td>Address</td><td><textarea name="address" rows=4 required >{{address}}</textarea></td>
                  </tr>
-                    <!-- <td>
-                        <select name="u_district" required value="{{district}}">
+                 <td>District</td>
+                    <td>
+                        <select name="district" required value="{{district}}">
                             <option ></option>
-                            <option value="thiruvananthapuram">Thiruvananthapuram</option>
-                            <option value="kollam">Kollam</option>
-                            <option value="alappuzha">Alappuzha</option>
-                            <option value="pathanamthitta">Pathanamthitta</option>
-                            <option value="kottayam">Kottayam</option>
-                            <option value="idukki">Idukki</option>
-                            <option value="ernakulam">Ernakulam</option>
-                            <option value="thrissur">Thrissur</option>
-                            <option value="palakkad">Palakkad</option>
-                            <option value="malappuram">Malappuram</option>
-                            <option value="kozhikode">Kozhikode</option>
-                            <option value="wayanad">Wayanad</option>
-                            <option value="kannur">Kannur</option>
-                            <option value="kasaragod">Kasaragod</option>
+                            <option value="thiruvananthapuram" {% if district == "thiruvananthapuram" %}selected{% endif %}>Thiruvananthapuram</option>
+                            <option value="kollam" {% if district == "kollam" %}selected{% endif %}>Kollam</option>
+                            <option value="alappuzha" {% if district == "alappuzha" %}selected{% endif %}>Alappuzha</option>
+                            <option value="pathanamthitta" {% if district == "pathanamthitta" %}selected{% endif %}>Pathanamthitta</option>
+                            <option value="kottayam" {% if district == "kottayam" %}selected{% endif %}>Kottayam</option>
+                            <option value="idukki" {% if district == "idukki" %}selected{% endif %}>Idukki</option>
+                            <option value="ernakulam" {% if district == "ernakulam" %}selected{% endif %}>Ernakulam</option>
+                            <option value="thrissur" {% if district == "thrissur" %}selected{% endif %}>Thrissur</option>
+                            <option value="palakkad" {% if district == "palakkad" %}selected{% endif %}>Palakkad</option>
+                            <option value="malappuram" {% if district == "malappuram" %}selected{% endif %}>Malappuram</option>
+                            <option value="kozhikode" {% if district == "kozhikode" %}selected{% endif %}>Kozhikode</option>
+                            <option value="wayanad" {% if district == "wayanad" %}selected{% endif %}>Wayanad</option>
+                            <option value="kannur" {% if district == "kannur" %}selected{% endif %}>Kannur</option>
+                            <option value="kasaragod" {% if district == "kasaragod" %}selected{% endif %}>Kasaragod</option>
                         </select>                       
-                    </td> -->
-                    <td>District</td><td><input type="text" name="district" required value="{{district}}"></td>
+                    </td>
+                    <!-- <td>District</td><td><input type="text" name="district" required value="{{district}}"></td> -->
                 </tr>
 
                 <tr>
