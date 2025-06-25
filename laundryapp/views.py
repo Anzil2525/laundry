@@ -931,3 +931,58 @@ def updatetrackerbytyping(request):
 
     msg = "<script>alert('status updated');window.location='/viewbookdetailsbystaff/?oid=%s';</script>"%(oid)
     return HttpResponse(msg)
+
+def viewbookdetailsbyuser(request):
+    cur = connection.cursor()
+    oid = request.GET['oid']
+
+    sql = "select * from service inner join booking inner join shop " \
+    "on service.srid = booking.srid and service.shid = shop.shid " \
+    "where booking.oid = '%s'"%(oid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    for row in result:
+        dis = {
+            'srid' : row[0],
+            'service' : row[1],
+            'amount' : row[2],
+            'description' : row[3],
+            'shid' : row[4],
+
+            'oid' : row[5],
+            # 'srid' : row[6],
+            # 'uid' : row[7],
+            'date' : row[8],
+            'time' : row[9],
+            'status' : row[10],
+
+            # 'shid' : row[11],
+            'name' : row[12],
+            'address' : row[13],
+            'place' : row[14],
+            'district' : row[15],
+            'phn' : row[16],
+            'email' : row[17],
+        }
+    
+    sql = "select * from tracker where oid = '%s' order by tid asc"%(oid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    tracker_data = []
+    for row in result:
+        tracker = {
+            'tid' : row[0],
+            'oid' : row[1],
+            'status' : row[2],
+            'date' : row[3],
+            'time' : row[4],
+        }
+        tracker_data.append(tracker)
+    
+    sql = "select max(code) from assign where oid = '%s'"%(oid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    for row in result:
+        code = row[0]
+    return render(request,'viewbookdetailsbyuser.html',{'dis':dis,'tracker':tracker_data,'code':code,})
+    

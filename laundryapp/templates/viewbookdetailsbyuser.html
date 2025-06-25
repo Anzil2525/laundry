@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Booking Details</title>
+</head>
+<body>
+    <a href="/showbookingsofuser">Back</a>
+    <h1><center><u><b>Booking Details</b></u></center></h1>
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 33%; text-align: center;">
+                <h2>service details</h2>
+                <!-- Service ID: {{ srid }}<br> -->
+                Service Name: {{ dis.service }}<br>
+                Amount: {{ dis.amount }}<br>
+                <!-- Order ID: {{ oid }}<br> -->
+
+            </td>
+            <td style="text-align: center;">
+                <h2>time and date</h2>
+                Date: {{dis.date }}<br>
+                Time: {{ dis.time }}<br>
+                name : {{ dis.name }}<br>
+                <!-- Status: {{ status }}<br> -->
+                <!-- User ID: {{ uid }}<br> -->
+            </td>
+            <td>
+                <h2>user details</h2>
+                Name: {{ dis.name }}<br>
+                Address: {{ dis.address }}<br>
+                District: {{ dis.district }}<br>
+                Phone: {{ dis.phn }}<br>
+                Email: {{ dis.email }}<br>
+                Place: {{ dis.place }}<br>
+
+
+            </td>
+        </tr>
+    </table>
+    <h1>code  : {{ code }}</h1>
+    <h2>Tracking Details</h2>
+    {% if tracker %}
+        <table>
+            <tr>
+                <th>Tracking ID</th>
+                <th>Order ID</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Time</th>
+            </tr>
+            {% for obj in tracker %}
+                <tr>
+                    <td>{{ obj.tid }}</td>
+                    <td>{{ obj.oid }}</td>
+                    <td>{{ obj.status }}</td>
+                    <td>{{ obj.date }}</td>
+                    <td>{{ obj.time }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No tracking details available.</p>
+    {% endif %}
+</body>
+</html>

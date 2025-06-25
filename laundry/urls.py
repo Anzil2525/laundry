@@ -76,5 +76,6 @@ urlpatterns = [
     path('viewbookdetailsbystaff/',viewbookdetailsbystaff,name='viewbookdetailsbystaff'),
     path('updatetrackerbyoption/', updatetrackerbyoption, name='updatetrackerbyoption'),
     path('updatetrackerbytyping/', updatetrackerbytyping, name='updatetrackerbytyping'),
+    path('viewbookdetailsbyuser/', viewbookdetailsbyuser, name='viewbookdetailsbyuser'),
 
 ]
