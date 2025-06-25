@@ -20,6 +20,7 @@
                 <h2>time and date</h2>
                 Date: {{dis.date }}<br>
                 Time: {{ dis.time }}<br>
+                name : {{ dis.name }}<br>
                 <!-- Status: {{ status }}<br> -->
                 <!-- User ID: {{ uid }}<br> -->
             </td>
@@ -77,5 +78,28 @@
             </select>
         {% endif %}
     </form>
+    <h2>Tracking Details</h2>
+    {% if tracker %}
+        <table>
+            <tr>
+                <th>Tracking ID</th>
+                <th>Order ID</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Time</th>
+            </tr>
+            {% for obj in tracker %}
+                <tr>
+                    <td>{{ obj.tid }}</td>
+                    <td>{{ obj.oid }}</td>
+                    <td>{{ obj.status }}</td>
+                    <td>{{ obj.date }}</td>
+                    <td>{{ obj.time }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No tracking details available.</p>
+    {% endif %}
 </body>
 </html>

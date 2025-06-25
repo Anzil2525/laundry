@@ -698,6 +698,7 @@ def viewbookdetailsbyshop(request):
     cur = connection.cursor()
     oid = request.GET['id']
     shid = request.session['uid']
+
     sql = "select * from service inner join booking inner join user " \
     "on service.srid = booking.srid and booking.uid = user.uid " \
     "where booking.oid = '%s'"%(oid)
@@ -726,6 +727,20 @@ def viewbookdetailsbyshop(request):
             'place' : row[17],
         }
     
+    sql = "select * from tracker where oid = '%s' order by tid asc"%(oid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    tracker_data = []
+    for row in result:
+        tracker = {
+            'tid' : row[0],
+            'oid' : row[1],
+            'status' : row[2],
+            'date' : row[3],
+            'time' : row[4],
+        }
+        tracker_data.append(tracker)
+
     sql = "select * from staff where shid = '%s'"%(shid)
     cur.execute(sql)
     result = cur.fetchall()
@@ -756,9 +771,9 @@ def viewbookdetailsbyshop(request):
             
             assign_data.append(assign)
         
-        return render(request,'viewbookdetailsbyshop.html',{'dis':dis,'staffs':staffs,'assign_data':assign_data, 'current_asnid':current_asnid})
+        return render(request,'viewbookdetailsbyshop.html',{'dis':dis,'tracker':tracker_data,'staffs':staffs,'assign_data':assign_data, 'current_asnid':current_asnid})
     else:
-        return render(request,'viewbookdetailsbyshop.html',{'dis':dis,'staffs':staffs})
+        return render(request,'viewbookdetailsbyshop.html',{'dis':dis,'tracker':tracker_data,'staffs':staffs})
 
 def assignstaff(request):
     cur = connection.cursor()
