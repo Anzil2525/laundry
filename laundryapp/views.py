@@ -796,7 +796,13 @@ def assignstaff(request):
     
     sql = "insert into assign(oid,stid,date,time,code) values('%s','%s','%s','%s','%s')"%(oid,stid,date,time,code)
     cur.execute(sql)
-    sql = "update booking set status = 'assigned' where oid = '%s'"%(oid)
+
+    sql = "select status from booking where oid = '%s'"%(oid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    for row in result:
+        if row[0] == 'booked':
+            sql = "update booking set status = 'assigned' where oid = '%s'"%(oid)
     cur.execute(sql)
     msg = "<script>alert('assigned');window.location='/viewbookdetailsbyshop/?id=%s';</script>"%(oid)
     return HttpResponse(msg)
@@ -911,6 +917,9 @@ def updatetrackerbyoption(request):
     time = str(obj.time())
     date = str(obj.date())
 
+    sql= "update booking set status = 'progress' where oid = '%s'"%(oid)
+    cur.execute(sql)
+    
     sql = "insert into tracker (oid, status, date, time) values ('%s', '%s', '%s', '%s')"%(oid,status,date,time)
     cur.execute(sql)
 
@@ -925,6 +934,9 @@ def updatetrackerbytyping(request):
     obj = datetime.datetime.now()
     time = str(obj.time())
     date = str(obj.date())
+
+    sql= "update booking set status = 'progress' where oid = '%s'"%(oid)
+    cur.execute(sql)
 
     sql = "insert into tracker (oid, status, date, time) values ('%s', '%s', '%s', '%s')"%(oid,status,date,time)
     cur.execute(sql)
@@ -985,4 +997,12 @@ def viewbookdetailsbyuser(request):
     for row in result:
         code = row[0]
     return render(request,'viewbookdetailsbyuser.html',{'dis':dis,'tracker':tracker_data,'code':code,})
+
+def cancelbooking(request):
+    cur = connection.cursor()
+    oid = request.GET['oid']
+    # sql = "update booking set status = 'cancelled' where oid = '%s'"%(oid)
+    # cur.execute(sql)    
+    msg = "<script>alert('booking is cancelled');window.location='/viewbookdetailsbyuser/?oid=%s/';</script>"%(oid)
+    return HttpResponse(msg)
     

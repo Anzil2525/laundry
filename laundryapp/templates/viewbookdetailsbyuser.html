@@ -20,12 +20,11 @@
                 <h2>time and date</h2>
                 Date: {{dis.date }}<br>
                 Time: {{ dis.time }}<br>
-                name : {{ dis.name }}<br>
                 <!-- Status: {{ status }}<br> -->
                 <!-- User ID: {{ uid }}<br> -->
             </td>
             <td>
-                <h2>user details</h2>
+                <h2>Shop details</h2>
                 Name: {{ dis.name }}<br>
                 Address: {{ dis.address }}<br>
                 District: {{ dis.district }}<br>
@@ -37,7 +36,9 @@
             </td>
         </tr>
     </table>
+    {% if code %}
     <h1>code  : {{ code }}</h1>
+    {% endif %}
     <h2>Tracking Details</h2>
     {% if tracker %}
         <table>
@@ -60,6 +61,15 @@
         </table>
     {% else %}
         <p>No tracking details available.</p>
+    {% endif %}
+
+    <br>
+    <br>
+    <h4>status: {{dis.status}}</h4>
+    {% if dis.status == 'booked' or dis.status == 'assigned'%}
+    <a href="/cancelbooking/?oid={{ dis.oid }}">Cancel Booking</a>
+    {% else %}
+    Now this booking can not be cancelled
     {% endif %}
 </body>
 </html>
