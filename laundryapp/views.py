@@ -696,7 +696,7 @@ def showbookingsofshop(request):
 
 def viewbookdetailsbyshop(request):
     cur = connection.cursor()
-    oid = request.GET['id']
+    oid = request.GET['oid']
     shid = request.session['uid']
 
     sql = "select * from service inner join booking inner join user " \
@@ -792,7 +792,7 @@ def assignstaff(request):
         current_stid = row[2]
     if cur.rowcount != 0:
         if current_stid == stid:
-           msg = "<script>alert('already assigned');window.location='/viewbookdetailsbyshop/?id=%s';</script>"%(oid)
+           msg = "<script>alert('already assigned');window.location='/viewbookdetailsbyshop/?oid=%s';</script>"%(oid)
            return HttpResponse(msg)
     
     sql = "insert into assign(oid,stid,date,time,code) values('%s','%s','%s','%s','%s')"%(oid,stid,date,time,code)
@@ -805,7 +805,7 @@ def assignstaff(request):
         if row[0] == 'booked':
             sql = "update booking set status = 'assigned' where oid = '%s'"%(oid)
     cur.execute(sql)
-    msg = "<script>alert('assigned');window.location='/viewbookdetailsbyshop/?id=%s';</script>"%(oid)
+    msg = "<script>alert('assigned');window.location='/viewbookdetailsbyshop/?oid=%s';</script>"%(oid)
     return HttpResponse(msg)
     
 def showbookingsofstaff(request):
@@ -890,7 +890,7 @@ def viewbookdetailsbystaff(request):
             # 'uid' : row[8],
             'odate' : row[9],
             'otime' : row[10],
-            # 'status' : row[11],
+            'status' : row[11],
 
             'srid' : row[12],
             'service' : row[13],
@@ -1012,6 +1012,14 @@ def rejectbooking(request):
     oid = request.GET['oid']
     sql = "update booking set status = 'rejected' where oid = '%s'"%(oid)
     cur.execute(sql)    
-    msg = "<script>alert('booking is rejected');window.location='/viewbookdetailsbyshop/?id=%s/';</script>"%(oid)
+    msg = "<script>alert('booking is rejected');window.location='/viewbookdetailsbyshop/?oid=%s/';</script>"%(oid)
+    return HttpResponse(msg)
+
+def completebooking(request):
+    cur = connection.cursor()
+    oid = request.GET['oid']
+    sql = "update booking set status = 'completed' where oid = '%s'"%(oid)
+    cur.execute(sql)
+    msg = "<script>alert('booking is completed');window.location='/viewbookdetailsbystaff/?oid=%s';</script>"%(oid)
     return HttpResponse(msg)
     

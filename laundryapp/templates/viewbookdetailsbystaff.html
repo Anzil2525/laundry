@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+    <h2>status : {{data.status}}</h2>
     <a href="/staffhome/">Home</a>
     <h2>Bookings Assigned to You</h2>
     <table border="1">
@@ -53,30 +54,41 @@
     {% else %}
         <p>No tracking information available.</p>
     {% endif %}
-    <form action="/updatetrackerbyoption">
-        enter update of tracker by option:
-        <select name="status">
-            <option value="Materials Collected">Materials Collected</option>
-            <option value="Materials Reached Shop">Materials Reached Shop</option>
-            <option value="Materials are being processed">Materials are being processed</option>
-            <option value="Materials are ready for pickup">Materials are ready for pickup</option>
-            <option value="Materials have been picked up">Materials have been picked up</option>
-            <option value="Materials have been dispatched">Materials have been dispatched</option>
-            <option value="Materials have been delivered">Materials have been delivered</option>
-        </select>
-        <input type="hidden" name="oid" value="{{ data.oid }}">
-        <input type="submit" value="Update Tracker">
-    </form>
+    <h2>status : {{data.status}}</h2>
+    {% if data.status != 'completed' or data.status != 'cancelled' or data.status != 'rejected' %}
+        <form action="/updatetrackerbyoption">
+            enter update of tracker by option:
+            <select name="status">
+                <option value="Materials Collected">Materials Collected</option>
+                <option value="Materials Reached Shop">Materials Reached Shop</option>
+                <option value="Materials are being processed">Materials are being processed</option>
+                <option value="Materials are ready for pickup">Materials are ready for pickup</option>
+                <option value="Materials have been picked up">Materials have been picked up</option>
+                <option value="Materials have been dispatched">Materials have been dispatched</option>
+                <option value="Materials have been delivered">Materials have been delivered</option>
+            </select>
+            <input type="hidden" name="oid" value="{{ data.oid }}">
+            <input type="submit" value="Update Tracker">
+        </form>
 
-    <br>
-    or
-    <br>
-    <br>
-    <form action="/updatetrackerbytyping">
-        enter update of tracker by typing:
-        <input type="text" name="status">
-        <input type="hidden" name="oid" value="{{ data.oid }}">
-        <input type="submit" value="Update Tracker">
-    </form>
+        <br>
+        or
+        <br>
+        <br>
+        <form action="/updatetrackerbytyping">
+            enter update of tracker by typing:
+            <input type="text" name="status">
+            <input type="hidden" name="oid" value="{{ data.oid }}">
+            <input type="submit" value="Update Tracker">
+        </form>
+    <a href="/completebooking/?oid={{ data.oid }}" onclick="return completebooking()">Job Finished</a>
+
+    {% endif %}
+
+    <script>
+        function completebooking() {
+            return confirm("Are you sure you want to mark this job as finished? This action cannot be undone.");
+        }
+    </script>
 </body>
 </html>

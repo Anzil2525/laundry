@@ -71,6 +71,8 @@
     <h3>Booking is cancelled</h3>
     {% elif dis.status == 'rejected' %}
     <h2>This booking is rejected</h2>
+    {% elif dis.status == 'completed' %}
+    <h2 style="color: green;">This booking is completed</h2>
     {% else %}
     <h3>Now this booking can not be cancelled</h3> 
     {% endif %}
