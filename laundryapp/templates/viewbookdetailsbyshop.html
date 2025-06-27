@@ -13,14 +13,14 @@
                 <!-- Service ID: {{ srid }}<br> -->
                 Service Name: {{ dis.service }}<br>
                 Amount: {{ dis.amount }}<br>
-                <!-- Order ID: {{ oid }}<br> -->
+                
 
             </td>
             <td style="text-align: center;">
                 <h2>time and date</h2>
+                Order ID: {{ dis.oid }}<br>
                 Date: {{dis.date }}<br>
                 Time: {{ dis.time }}<br>
-                name : {{ dis.name }}<br>
                 <!-- Status: {{ status }}<br> -->
                 <!-- User ID: {{ uid }}<br> -->
             </td>
@@ -62,7 +62,7 @@
             No staff assigned yet.
         {% endif %}
     </center>
-
+    {% if dis.status == 'booked' or dis.status == 'assigned' or dis.status == 'progress' %}
     <form action="/assignstaff">
         <h3>Assign Staff : </h3>
         {% if staffs %}
@@ -77,6 +77,7 @@
                 <option value="">No staff available</option>
             </select>
         {% endif %}
+    {% endif %}
     </form>
     <h2>Tracking Details</h2>
     {% if tracker %}
@@ -101,5 +102,17 @@
     {% else %}
         <p>No tracking details available.</p>
     {% endif %}
+    {% if dis.status == 'booked' %}
+    <a href="/rejectbooking/?oid={{ dis.oid }}" onclick="return reject_booking()">reject Booking</a>
+    {% elif dis.status == 'rejected' %}
+    <h2>This booking is rejected</h2>
+    {% elif dis.status == 'cancelled' %}
+    <h2>this booking is cancelled by user</h2>
+    {% endif %}
+    <script>
+        function reject_booking() {
+            return confirm("Are you sure you want to reject this booking? This action cannot be undone.");
+        }
+    </script>
 </body>
 </html>

@@ -711,6 +711,7 @@ def viewbookdetailsbyshop(request):
             'amount' : row[2],
             # 'district' : row[3],
             'shid' : row[4],
+
             'oid' : row[5],
             # 'srid' : row[6],
             # 'uid' : row[7],
@@ -1001,8 +1002,16 @@ def viewbookdetailsbyuser(request):
 def cancelbooking(request):
     cur = connection.cursor()
     oid = request.GET['oid']
-    # sql = "update booking set status = 'cancelled' where oid = '%s'"%(oid)
-    # cur.execute(sql)    
+    sql = "update booking set status = 'cancelled' where oid = '%s'"%(oid)
+    cur.execute(sql)    
     msg = "<script>alert('booking is cancelled');window.location='/viewbookdetailsbyuser/?oid=%s/';</script>"%(oid)
+    return HttpResponse(msg)
+
+def rejectbooking(request):
+    cur = connection.cursor()
+    oid = request.GET['oid']
+    sql = "update booking set status = 'rejected' where oid = '%s'"%(oid)
+    cur.execute(sql)    
+    msg = "<script>alert('booking is rejected');window.location='/viewbookdetailsbyshop/?id=%s/';</script>"%(oid)
     return HttpResponse(msg)
     

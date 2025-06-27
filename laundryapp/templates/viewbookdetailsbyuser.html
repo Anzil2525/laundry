@@ -65,11 +65,19 @@
 
     <br>
     <br>
-    <h4>status: {{dis.status}}</h4>
     {% if dis.status == 'booked' or dis.status == 'assigned'%}
-    <a href="/cancelbooking/?oid={{ dis.oid }}">Cancel Booking</a>
+    <a href="/cancelbooking/?oid={{ dis.oid }}" onclick="return cancel_booking()">Cancel Booking</a>
+    {% elif dis.status == 'cancelled' %}
+    <h3>Booking is cancelled</h3>
+    {% elif dis.status == 'rejected' %}
+    <h2>This booking is rejected</h2>
     {% else %}
-    Now this booking can not be cancelled
+    <h3>Now this booking can not be cancelled</h3> 
     {% endif %}
+    <script>
+        function cancel_booking() {
+            return confirm("Are you sure you want to cancel this booking? This action cannot be undone.");
+        }
+    </script>
 </body>
 </html>
