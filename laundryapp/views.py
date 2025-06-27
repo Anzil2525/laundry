@@ -883,7 +883,7 @@ def viewbookdetailsbystaff(request):
             'stid' : row[2],
             'asn_date' : row[3],
             # 'asn_time' : row[4],
-            # 'code' : row[5],
+            'code' : row[5],
 
             'oid' : row[6],
             # 'srid' : row[7],

@@ -6,7 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>status : {{data.status}}</h2>
     <a href="/staffhome/">Home</a>
     <h2>Bookings Assigned to You</h2>
     <table border="1">
@@ -42,8 +41,9 @@
             <td>{{ oid }}</td>
             <!-- <td><a href="/viewbookdetailsbystaff/?oid={{booking.oid}}">view details</a></td> -->
         </tr>
-
+        
     </table>
+    <h2>Code : {{data.code}}</h2>
     <h2>Tracking Information</h2>
     {% if tracker %}
         <ul>
@@ -54,8 +54,8 @@
     {% else %}
         <p>No tracking information available.</p>
     {% endif %}
-    <h2>status : {{data.status}}</h2>
-    {% if data.status != 'completed' or data.status != 'cancelled' or data.status != 'rejected' %}
+
+    {% if data.status == 'booked' or data.status == 'assigned' or data.status == 'progress' %}
         <form action="/updatetrackerbyoption">
             enter update of tracker by option:
             <select name="status">
@@ -85,6 +85,9 @@
 
     {% endif %}
 
+    {% if data.status == 'cancelled' %}
+        <h2>Booking is Cancelled</h2>
+    {% endif %}
     <script>
         function completebooking() {
             return confirm("Are you sure you want to mark this job as finished? This action cannot be undone.");
