@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/userhome/">Home</a>
+    <h2>Service Details</h2>
+    Service name: {{ dis.service }}<br>
+    Amount: {{ dis.amount }}<br>
+    Description: {{ dis.descr }}<br>
+    <h2>Shop details</h2>
+    Name: {{ dis.name }}<br>
+    Address: {{ dis.address }}<br>
+    Place: {{ dis.place }}<br>
+    District: {{ dis.district }}<br>
+    Phone: {{ dis.phn }}<br>
+    Email: {{ dis.email }}<br>
+
+    <a href="/bookservice/?srid={{ i.srid }}">Book</a>
+    <br>
+    
+    {% if cart %}
+        <a href="/removecart/?srid={{ dis.srid }}">Remove from Cart</a>
+    {% else %}
+        <a href="/addtocart/?srid={{ dis.srid }}">Add to Cart</a>
+    {% endif %}
+    
+
+
+    
+</body>
+</html>

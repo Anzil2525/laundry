@@ -80,5 +80,8 @@ urlpatterns = [
     path('cancelbooking/', cancelbooking, name='cancelbooking'),
     path('rejectbooking/', rejectbooking, name='rejectbooking'),
     path('completebooking/', completebooking, name='completebooking'),
+    path('viewservicedetails/', viewservicedetails, name='viewservicedetails'),
+    path('addtocart/', addtocart, name='addtocart'),
+    path('removecart/', removecart, name='removecart'),
 
 ]

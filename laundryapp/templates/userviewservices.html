@@ -21,7 +21,8 @@
                     <td>{{ i.service }}</td>
                     <td>{{ i.amount }}</td>
                     <td>{{ i.descr }}</td>
-                    <td><a href="/bookservice/?id={{ i.srid }}">Book</a></td>
+                    <td><a href="/bookservice/?srid={{ i.srid }}">Book</a></td>
+                    <td><a href="/viewservicedetails/?srid={{ i.srid }}">View Details</a></td>
                 </tr>
             {% endfor %}
 

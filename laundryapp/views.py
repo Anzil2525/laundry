@@ -621,7 +621,7 @@ def forgotpassaction(request):
 def bookservice(request):
     cur = connection.cursor()
     uid = request.session['uid']
-    srid = request.GET['id']
+    srid = request.GET['srid']
     
     obj = datetime.datetime.now()
     time = str(obj.time())
@@ -1023,3 +1023,51 @@ def completebooking(request):
     msg = "<script>alert('booking is completed');window.location='/viewbookdetailsbystaff/?oid=%s';</script>"%(oid)
     return HttpResponse(msg)
     
+def viewservicedetails(request):
+    cur = connection.cursor()
+    srid = request.GET['srid']
+    uid = request.session['uid']
+    sql = "select * from cart where uid = '%s' and srid = '%s'"%(uid,srid)
+    cur.execute(sql)
+    if cur.rowcount > 0:
+        cart = True
+    else:
+        cart = False
+    sql = "select * from service inner join shop on service.shid = shop.shid where srid = '%s'"%(srid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    for row in result:
+        dis = {
+            'srid' : row[0],
+            'service' : row[1],
+            'amount' : row[2],
+            'descr' : row[3],
+            
+            'shid' : row[5],
+            'name' : row[6],
+            'address' : row[7],
+            'place' : row[8],
+            'district' : row[9],
+            'phn' : row[10],
+            'email' : row[11],
+        }
+    return render(request,'viewservicedetails.html',{'dis':dis,'cart':cart})
+
+def addtocart(request):
+    cur = connection.cursor()
+    uid = request.session['uid']
+    srid = request.GET['srid']
+    sql = "insert into cart(uid,srid) values('%s','%s')"%(uid,srid)
+    cur.execute(sql)
+    msg = "<script>alert('added to cart');window.location='/viewservicedetails/?srid=%s';</script>"%(srid)
+    return HttpResponse(msg)
+
+def removecart(request):
+    cur = connection.cursor()
+    uid = request.session['uid']
+    srid = request.GET['srid']
+    sql = "delete from cart where uid = '%s' and srid = '%s'"%(uid,srid)
+    cur.execute(sql)
+    msg = "<script>alert('removed from cart');window.location='/viewservicedetails/?srid=%s';</script>"%(srid)
+    return HttpResponse(msg)
+
