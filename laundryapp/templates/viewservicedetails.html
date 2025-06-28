@@ -18,14 +18,16 @@
     District: {{ dis.district }}<br>
     Phone: {{ dis.phn }}<br>
     Email: {{ dis.email }}<br>
-
-    <a href="/bookservice/?srid={{ i.srid }}">Book</a>
     <br>
-    
+    <br>
+
+    <a href="/bookservice/?srid={{ i.srid }}"><button>Book</button></a>
+    <br>
+    <br>
     {% if cart %}
-        <a href="/removecart/?srid={{ dis.srid }}">Remove from Cart</a>
+        <a href="/removecart/?srid={{ dis.srid }}"><button>Remove from Cart</button> </a>
     {% else %}
-        <a href="/addtocart/?srid={{ dis.srid }}">Add to Cart</a>
+        <a href="/addtocart/?srid={{ dis.srid }}"><button>Add to Cart</button></a>
     {% endif %}
     
 

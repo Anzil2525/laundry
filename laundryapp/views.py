@@ -1071,3 +1071,35 @@ def removecart(request):
     msg = "<script>alert('removed from cart');window.location='/viewservicedetails/?srid=%s';</script>"%(srid)
     return HttpResponse(msg)
 
+def viewcart(request):
+    cur = connection.cursor()
+    uid = request.session['uid']
+    sql = "select * from cart inner join service inner join shop "\
+    "on cart.srid = service.srid and service.shid = shop.shid "\
+    "where cart.uid = '%s'"%(uid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    data = []
+    for row in result:
+        dis = {
+            'cid' : row[0],
+            'uid' : row[1],
+            # 'srid' : row[2],
+
+            'srid' : row[3],
+            'service' : row[4],
+            'descr' : row[5],
+            'amount' : row[6],
+            # 'shid' : row[7],
+
+            'shid' : row[8],
+            'name' : row[9],
+            'address' : row[10],
+            'place' : row[11],
+            'district' : row[12],
+            'phn' : row[13],
+            'email' : row[14],
+
+        }
+        data.append(dis)
+    return render(request,'viewcart.html',{'data':data})

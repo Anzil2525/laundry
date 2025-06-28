@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 23, 2025 at 07:47 AM
+-- Generation Time: Jun 28, 2025 at 04:05 AM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -33,26 +33,17 @@ CREATE TABLE IF NOT EXISTS `assign` (
   `time` varchar(8) NOT NULL,
   `code` varchar(4) NOT NULL,
   PRIMARY KEY (`asnid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `assign`
 --
 
 INSERT INTO `assign` (`asnid`, `oid`, `stid`, `date`, `time`, `code`) VALUES
-(1, '3', '1', '2025-06-21', '23:28:31', '7511'),
-(2, '4', '2', '2025-06-21', '23:29:42', '2133'),
-(3, '4', '1', '2025-06-21', '23:30:05', '3440'),
-(4, '4', '1', '2025-06-22', '00:13:45', '7936'),
-(5, '4', '2', '2025-06-22', '00:14:11', '9384'),
-(6, '2', '1', '2025-06-22', '00:54:18', '1428'),
-(7, '3', '2', '2025-06-22', '00:54:53', '1949'),
-(9, '4', '1', '2025-06-23', '00:12:50', '3194'),
-(10, '4', '2', '2025-06-23', '00:13:03', '6722'),
-(11, '4', '1', '2025-06-23', '00:20:54', '5672'),
-(12, '12', '2', '2025-06-23', '00:32:52', '1352'),
-(13, '12', '1', '2025-06-23', '00:34:48', '8480'),
-(14, '12', '2', '2025-06-23', '00:34:59', '7336');
+(1, '2', '1', '2025-06-27', '20:27:21', '4076'),
+(2, '3', '1', '2025-06-27', '20:45:32', '3605'),
+(3, '4', '1', '2025-06-27', '20:47:13', '5715'),
+(4, '5', '1', '2025-06-27', '21:10:12', '8845');
 
 -- --------------------------------------------------------
 
@@ -212,25 +203,39 @@ CREATE TABLE IF NOT EXISTS `booking` (
   `time` varchar(8) NOT NULL,
   `status` varchar(100) NOT NULL,
   PRIMARY KEY (`oid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `booking`
 --
 
 INSERT INTO `booking` (`oid`, `srid`, `uid`, `date`, `time`, `status`) VALUES
-(1, '0', '0', '1/3/2005', '12:00', 'booking'),
-(2, '4', '5', '2025-06-19', '12:52:42', 'assigned'),
-(3, '4', '5', '2025-06-19', '12:55:32', 'assigned'),
-(4, '5', '5', '2025-06-19', '12:57:58', 'assigned'),
-(5, '3', '5', '2025-06-19', '12:58:54', 'booked'),
-(6, '3', '5', '2025-06-19', '12:59:34', 'booked'),
-(7, '3', '5', '2025-06-19', '12:59:49', 'booked'),
-(8, '3', '2', '2025-06-19', '18:24:46', 'booked'),
-(9, '6', '5', '2025-06-19', '18:54:39', 'assigned'),
-(10, '7', '5', '2025-06-20', '18:42:02', 'booked'),
-(11, '8', '3', '2025-06-20', '19:01:31', 'booked'),
-(12, '5', '5', '2025-06-23', '00:32:32', 'assigned');
+(1, '4', '5', '2025-06-27', '20:26:13', 'rejected'),
+(2, '5', '5', '2025-06-27', '20:27:06', 'completed'),
+(3, '4', '5', '2025-06-27', '20:45:18', 'completed'),
+(4, '4', '5', '2025-06-27', '20:46:37', 'cancelled'),
+(5, '5', '5', '2025-06-27', '21:00:28', 'completed'),
+(6, '', '5', '2025-06-27', '22:08:08', 'booked');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart`
+--
+
+CREATE TABLE IF NOT EXISTS `cart` (
+  `cid` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` varchar(15) NOT NULL,
+  `srid` varchar(15) NOT NULL,
+  PRIMARY KEY (`cid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cid`, `uid`, `srid`) VALUES
+(12, '5', '6');
 
 -- --------------------------------------------------------
 
@@ -332,6 +337,7 @@ CREATE TABLE IF NOT EXISTS `django_session` (
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
+('0z8zf9cwcfgike3wyqkv1i04kvm469fe', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uUJJd:VsA9qtM4SfEzA8YD6og6UTYpPvKs2L_9gDlivxg6brw', '2025-07-09 06:09:01'),
 ('19737jvecwgoyrmlewxk9hovvihfpadt', 'N2ZmOTA1OGQzOWI0ZWY5NzcwYmE1NWQ5ODJjZTVhMTBmNDhmNWU4NTp7InR5cGUiOiJ1c2VyIiwiaWQiOjR9', '2022-11-21 07:34:17'),
 ('28kotfuwgebuulldiu609ifo7rlfncmx', 'YWIyODYxYzExOWZkNDA2ODZiYWU2ODQ0ZWEyOTNlZmMxNjJkZWJiZTp7InR5cGUiOiJhZG1pbiIsImlkIjoxfQ==', '2022-11-20 20:05:59'),
 ('29if2eyu78fzjy6370bapwiuh98q7w7n', 'ZGI3ZjVkZmJiODBmZGFmYjJiZDhkYmE3NmNmNmE2ZjdiY2VkODU1ODp7InR5cGUiOiJ1c2VyIiwiaWQiOjF9', '2022-04-23 16:34:16'),
@@ -341,17 +347,23 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('31vyi74mt1uldqag9h5ybg1wl6wemp27', 'NzM0MGNlNDEyMGMzODU0MzQzYjcxMWNlMTMzNmIwOTJkMWJjYmIxNDp7InR5cGUiOiJ1c2VyIiwiZW1haWwiOiJyZWV0aHVzaGFqaUBnbWFpbC5jb20iLCJpZCI6MX0=', '2022-04-23 05:42:43'),
 ('37c92qirmvmucrxkmho02vjn7prjcijd', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uTPwi:cBIfrUmv2WKCubuV-T6UWrp94KCOKUY884fyymBayuo', '2025-07-06 19:01:40'),
 ('3bk6g8i7n5frreixa8u7viux3ai4c6he', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1qw1Dn:9LHJT54SBRVScgKuw4rt-yqkqfwQ0VxqaPE3myWr5YU', '2023-11-09 14:20:27'),
+('3hk46av1ydwb91e5wncqfgceml7zk34t', 'eyJ1aWQiOjUsInV0eXBlIjoic3RhZmYiLCJzdGF0dXMiOiIifQ:1uTxMG:47NLjbkJdhk04tk3ULd6Y-cHJSlxVd-HhVqYpt01HO8', '2025-07-08 06:42:16'),
+('3pht75cjfgmobm9ypjvvr7p7rvbm5wem', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uVAN0:Y1GRSZnYO2jcKqIFT4aGcmgUbIEeLq7gZcGXtTDyxhY', '2025-07-11 14:48:02'),
 ('50xeiq65meam6e6y64q7acq2r91e5c28', 'eyJ1aWQiOjEsInV0eXBlIjoidXNlciJ9:1ptsbt:6PJ0DECYWHLN0BzKFTM9hc8OYqaswDR4ePwqRAZE8Dg', '2023-05-16 16:12:13'),
 ('52tj0snwhevvxelj6upjvfqp2ds2o4i8', 'eyJ1aWQiOjQsInV0eXBlIjoibGFiIn0:1sbLyC:moSqHjkaqM-VKV9SP4Y5KNEf60d2kys7WQ-hRAxQ-eQ', '2024-08-20 15:19:28'),
 ('5kfszkc3x9yyuz658lc2x0yw9oqlwzwz', 'eyJ1aWQiOjIsInV0eXBlIjoibGFiIn0:1sfvif:V1nSa_VNtOx0vt_8ix03hwKO7rayC-9uId1AWiMj2Po', '2024-09-02 06:18:21'),
 ('5qdnwcthheu9lz8pwh2orxnk7knrf6aw', 'eyJ1aWQiOjExLCJ1dHlwZSI6InVzZXIifQ:1siozx:GS6Lcedf9d4TY9Z284ZC-g_PMszElQW3sLFGc6VWIRI', '2024-09-10 05:44:09'),
 ('63emwbn31nqkxu5rass6le9tar832up5', 'eyJ1aWQiOjEsInV0eXBlIjoidXNlciJ9:1py7yC:6WUgfjx42iAORWpghkwhRjWxF3E7GRaDNyeyuI_nfFo', '2023-05-28 09:24:48'),
+('6gpj9rgj0i5gc11lrphj79aaqdjwey5s', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uTdAZ:9_9xjXcT6p-LNMDi38kKK2plsxaHPpZnQh1x73zshy0', '2025-07-07 09:08:51'),
 ('6ufrpxfatkjwgfgwp1r4d47ta8qylgpd', 'eyJ1aWQiOjEsInV0eXBlIjoidXNlciJ9:1puPOW:Dz_wywXugm_7XlGcefJkpY1977GnKBDvJm4LM4nGUfM', '2023-05-18 03:12:36'),
 ('6wwc60rrd8tug2alz8smi3lze3s4qxdp', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1sE18l:pXpvVu6T5Ct03nW1ypqc2awEto_-aKALYCj58X2n598', '2024-06-17 06:25:55'),
 ('783hk250hu3ab54hhosk84us2ljmhtw5', 'YWIyODYxYzExOWZkNDA2ODZiYWU2ODQ0ZWEyOTNlZmMxNjJkZWJiZTp7InR5cGUiOiJhZG1pbiIsImlkIjoxfQ==', '2022-10-23 16:33:39'),
+('98584wtdwat4c2df326q6st6tpd9kfxd', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uVALY:9JLE3OAWkfxUU7Oy8R4G-TiMWzQXI7Tk58Sg-OX37dI', '2025-07-11 14:46:32'),
 ('9li1wwapeum9pwihstrojwikygao5arz', 'eyJ1aWQiOjIsInV0eXBlIjoidXNlciJ9:1reyjB:bQ9SiuHxoDmsMNXlxiNSVNyk9rAR3BmH2jhxkdGCArA', '2024-03-12 14:46:41'),
 ('9stcvahc0q61ala5q20558sshqby1m8i', 'Mjg2ZjFiZjJmZWJlMzhlNmZjOThlZWIzMmI3NDE3YjQyOGI2ZjU2YTp7InR5cGUiOiJidWlsZGVyIiwiZW1haWwiOjF9', '2022-03-30 14:45:03'),
 ('ag34wrgfpkwjeo0rhfat38r80o47mmgq', 'eyJ1aWQiOjEsInV0eXBlIjoic3RhZmYiLCJzdGF0dXMiOiIifQ:1uGbGc:tN1Pd57jXO40mkeNr-X5Ieh9xI3TkZDrVD5mRdnNeII', '2025-06-01 10:29:14'),
+('aj6qgierbh17odjldn46tx3h8v98qm66', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uTbyQ:dr1XlvFpeuiOFsDM6nn0Pqif57D17MjQrDto-3SkxRg', '2025-07-07 07:52:14'),
+('bonwvktn46jxxtnaewjivqtvcgtr7kc2', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uVC3t:f-1Wntf2bqJ1afBnPfRQe022IA6GQXpsqgjzJTzTqyc', '2025-07-11 16:36:25'),
 ('c629696y9dmdnkck7dca8w3dhg3t7prv', 'N2ZmOTA1OGQzOWI0ZWY5NzcwYmE1NWQ5ODJjZTVhMTBmNDhmNWU4NTp7InR5cGUiOiJ1c2VyIiwiaWQiOjR9', '2022-11-14 12:53:43'),
 ('cybg5peltkxiq5atnsq6wvjx2qnbrvmo', 'eyJ1aWQiOjQsInV0eXBlIjoibGFiIn0:1sgciq:m3uKxEEoGUap72C73l2Bb5XUQYC42k8z80J3pn2iHI0', '2024-09-04 04:13:24'),
 ('des3cmerfxkh6glk2rgpvpwac7sco1df', 'eyJ1aWQiOjgsInV0eXBlIjoibGFiIn0:1suvQs:YFJW12kK7y8xCaNWT8FqtNo7LQT9ySiHRADOe93OmuE', '2024-10-13 15:01:58'),
@@ -361,25 +373,32 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('g8frbbo2wwwuif3x2maqmhlp9yytnnh9', 'eyJ1aWQiOjIzLCJ1dHlwZSI6InVzZXIifQ:1svAod:oaAu4uVYSuSQPy-zdROY0DcKHzZpyfXcKhchzF2RBOY', '2024-10-14 07:27:31'),
 ('gl3xr7ma0ra751br44v52yyvg01qoz4p', 'eyJ1aWQiOjUsInV0eXBlIjoibGFiIn0:1smcLB:fwObzXrdXGcehp-csywXBH7VaDmTxkM5pnm9bhcYWlA', '2024-09-20 17:01:45'),
 ('grjlrszn1gu722anwzvs4yegrwez22sh', 'eyJ1aWQiOjAsInV0eXBlIjoiYWRtaW4ifQ:1sWUfF:rPyqbEIRMnYG0W6hOt-Y0Q5ROKLjyTeoa07n6CcqAMQ', '2024-08-07 05:35:49'),
-('j1s7gtn3warudpz5oyt3oz7bf9o29n35', 'eyJ1aWQiOjEsInV0eXBlIjoic3RhZmYiLCJzdGF0dXMiOiIifQ:1uTZhW:AWyVpFR5YZfH_F6padv5pP4u07eEy1TtQPuqsnbr5ss', '2025-07-07 05:26:38'),
+('j1s7gtn3warudpz5oyt3oz7bf9o29n35', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uTfxA:k-jVq_MAXKfVKPoWumeM3D-hanZuoRQd2x_dLCIaKas', '2025-07-07 12:07:12'),
 ('j7aaiq8f1qvh4kxz4rdhz9ruhl6cehx3', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1rXbNs:1fEA5po6uuFqQg-N8xR8YwBdJlE3yia-cYg8yKt5_vw', '2024-02-21 06:26:12'),
 ('j8e2z72eh4g5b09z8pkr7m3kkomk0ox2', 'Nzk1MTdhMjk1MTVjMDc3YjI1MzQ3YzEyMTQ3ZTI1YzkwZjEzM2U5Zjp7InVpZCI6MSwidXR5cGUiOiJsYWIifQ==', '2023-10-28 07:21:24'),
 ('k3os9iv9xzmkmv4wphm7grwbpe53i3t5', 'eyJ1aWQiOjgsInV0eXBlIjoidXNlciJ9:1sWDCZ:BoNInSAjssD3TUnbwkXZ2lwdvPZX9n1ZMkArMmtxnNw', '2024-08-06 10:57:03'),
+('ki2gy5h10jb4titwgt93pdc2gvgtdash', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uVDNV:0r6AiMmegaQPEF7jmY5gqxn_Nv9sGXcV7b6lF9IKWnE', '2025-07-11 18:00:45'),
 ('kixcuakh7cx0rqv8a68axg5sly58jl25', 'eyJ1aWQiOjEsInV0eXBlIjoidXNlciJ9:1ovXDS:o4rAr0tY62A4tKKJwl8HL4Y4besW9kdeUVP5WIdbYQs', '2022-12-01 05:13:34'),
 ('l8s1wcnr1437rxmiofr7lcrwd6r5thst', 'eyJ1aWQiOjAsInV0eXBlIjoiYWRtaW4ifQ:1sGb4a:H4YgRFb1sDvy1mGlOTWM6H-FWh-QjXnSJWghCE9hzsE', '2024-06-24 09:12:16'),
 ('lze4vz9g95f5vmvzk09krw14258kejct', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1r6QAf:9vgOf1mHkpZpdYzUPorMEM2_wMjfLdmNkgmwESKzFKY', '2023-12-08 07:00:13'),
+('m37izbnhny13xdy4v4s4psj5he69p742', 'eyJ1aWQiOjEyLCJ1dHlwZSI6InNob3AiLCJzdGF0dXMiOiJhcHByb3ZlZCJ9:1uV2cZ:EhVtCLxiqxmiR279PQm2F2g_mMR7KGUu9MMtpaH_H_U', '2025-07-11 06:31:35'),
 ('mp66meb3qvin2sgga49iv0cksk180hwf', 'eyJ1aWQiOjEsInV0eXBlIjoidXNlciJ9:1seoZT:ShTrBOkpfzH5WKDJMKIxUjLF3gF4qjyxYSmEicyYtLc', '2024-08-30 04:28:15'),
+('nv2mism6fp9qvbik9mq7xybry627e3m2', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uUSXk:lsD0wr_H6JztA_mxj3xnv8ZsVeh7oN1miKuV1zkb8I8', '2025-07-09 16:00:12'),
 ('nv3cdwbamkqfb0txeibpwt6r6qwx2ow4', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1r6PaC:dka5cGwFia5Xqgm4xhnph2pXzXaHAJG6Fo1bf5lyTlc', '2023-12-08 06:22:32'),
 ('opvkhjxigismy636xb4cz7y7586u7dwk', 'eyJ1aWQiOjIwLCJ1dHlwZSI6InVzZXIifQ:1sntdi:zEGA5VZeVeqS-jjfKZMZxt5RLnSGDyvBt8fX4sGOQE4', '2024-09-24 05:42:10'),
+('pyhpk1pmylxqz1zuhnibo2jegxu8r1sz', 'eyJ1aWQiOjEyLCJ1dHlwZSI6InNob3AiLCJzdGF0dXMiOiJhcHByb3ZlZCJ9:1uV73M:u4mnlXfUtGc32DBhHVijKldFZwa5BqiO1FM7Hmfp3VU', '2025-07-11 11:15:32'),
 ('qd2x8mx0wtz9tri7urswig73ia5prjyz', 'eyJ1aWQiOjksInV0eXBlIjoidXNlciJ9:1sWaL8:zi9FAnIvec5mhyEftJDT6GCrOhxT_0MchnJmsr5qCuE', '2024-08-07 11:39:26'),
 ('qlwtn8a6cfsdb2ibatji4cg1qgtd70qj', 'eyJ1aWQiOjAsInV0eXBlIjoiYWRtaW4iLCJzdGF0dXMiOiIifQ:1uGrws:ucOozq0WSjDohELLtfyVZCrzj9a9hXLjW9TqcMwJrGs', '2025-06-02 04:17:58'),
 ('qupq6i83w1qgqgwcl7kmx1stvnkrql78', 'N2ZmOTA1OGQzOWI0ZWY5NzcwYmE1NWQ5ODJjZTVhMTBmNDhmNWU4NTp7InR5cGUiOiJ1c2VyIiwiaWQiOjR9', '2022-11-21 06:51:04'),
 ('r5ovfppd1j9ug1u76c0vle8ejhnbcy68', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1sUKgM:Q5kJEW38WMVS4aUBdep7_wMo7TrvY3gIKxRadejdWKA', '2024-08-01 06:32:02'),
 ('rk113xdeway6zrqyij6d47tfbnmpg5s0', 'N2ZmOTA1OGQzOWI0ZWY5NzcwYmE1NWQ5ODJjZTVhMTBmNDhmNWU4NTp7InR5cGUiOiJ1c2VyIiwiaWQiOjR9', '2022-11-21 04:29:45'),
 ('ruda6ve46lm7trr9m2qty3vwygmms8sl', 'YWIyODYxYzExOWZkNDA2ODZiYWU2ODQ0ZWEyOTNlZmMxNjJkZWJiZTp7InR5cGUiOiJhZG1pbiIsImlkIjoxfQ==', '2022-11-21 07:47:30'),
+('t9bllz992z02k8yxry9wyuswuvsrjp4p', 'eyJ1aWQiOjcsInV0eXBlIjoic3RhZmYiLCJzdGF0dXMiOiIifQ:1uUovX:ChG_7R_3lvYYvuI5-2OaplIrkwSP0IbQDwB6keYPeAg', '2025-07-10 15:54:15'),
 ('tg6u7diek9otbjr0kbi4ha6a12ic1rms', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1sKC7r:SVcOG6cxdUH0vnUkm7iXGxwVzYwJ4Q_hWI4yA9slV7I', '2024-07-04 07:22:31'),
 ('ti8z59wjpzcguh6a7up2k0lra2ro8alc', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1rra8K:yYko-CAGY32vnx_hF4UpmQLsWkw69Qj-CfvKrePktwY', '2024-04-16 09:08:44'),
 ('tjitunyndra4xg33ip539pxpyd45saak', 'Nzk1MTdhMjk1MTVjMDc3YjI1MzQ3YzEyMTQ3ZTI1YzkwZjEzM2U5Zjp7InVpZCI6MSwidXR5cGUiOiJsYWIifQ==', '2023-10-30 03:57:32'),
+('tmg9w03cktgzg5d4eon73vde8z082t34', 'eyJ1aWQiOjEsInV0eXBlIjoic3RhZmYiLCJzdGF0dXMiOiIifQ:1uURDI:ValrCtaYwdjP8mqDZKF3KZZBmLik61scfi2ySxQcWMQ', '2025-07-09 14:35:00'),
+('tsb6j558e9s0eqevexvt659glitvvsug', 'eyJ1aWQiOjgsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uTwZV:1DCksn3iwOzDlvIkcwaghBL4WLWk4A0kQ5mcZCPK0ig', '2025-07-08 05:51:53'),
 ('uug92q6n1wbi1f98swva1ddmzw0n2he4', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1r5kwk:5vQX2aVYsiQPgw0vn7yBQCix91l8rgAv9_6EYY5KDwA', '2023-12-06 10:59:06'),
 ('vbp155s6eh2fqotq2eaa5ugw4sd8chjm', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uOWgo:emjHPinXUgXi4hkCvOXLaxDkszDMd8SJ1x7vwAFuZ-8', '2025-06-23 07:13:02'),
 ('vomhjmwslbf8opjpf7m217f0okmakux9', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1r6REG:I8F_BZ9aIwDacjhQ_-gP85fxg3fYY61vlbrk5es8Gy4', '2023-12-08 08:08:00'),
@@ -428,7 +447,7 @@ CREATE TABLE IF NOT EXISTS `login` (
   `utype` varchar(25) NOT NULL,
   `status` varchar(25) NOT NULL,
   PRIMARY KEY (`lid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
 
 --
 -- Dumping data for table `login`
@@ -444,9 +463,11 @@ INSERT INTO `login` (`lid`, `uid`, `uname`, `upass`, `utype`, `status`) VALUES
 (15, 1, 'staff@1', '123', 'staff', ''),
 (16, 2, 'staff@2', '123', 'staff', ''),
 (17, 3, 'staff@4', '123', 'staff', ''),
-(18, 4, 'staff@5', '123', 'staff', ''),
 (19, 5, 'staff@5', '123', 'staff', ''),
-(23, 12, 'shop@10', '123', 'shop', 'approved');
+(23, 12, 'shop@10', '123', 'shop', 'approved'),
+(24, 6, 'staff@6', '123', 'staff', ''),
+(25, 7, 'staff@11', '123', 'staff', ''),
+(26, 8, 'staff@12', '123', 'staff', '');
 
 -- --------------------------------------------------------
 
@@ -461,7 +482,7 @@ CREATE TABLE IF NOT EXISTS `service` (
   `descr` varchar(200) NOT NULL,
   `shid` varchar(7) NOT NULL,
   PRIMARY KEY (`srid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `service`
@@ -469,7 +490,7 @@ CREATE TABLE IF NOT EXISTS `service` (
 
 INSERT INTO `service` (`srid`, `sname`, `amt`, `descr`, `shid`) VALUES
 (3, 'washing', '300', 'this is washing', '8'),
-(4, 'cleaning', '200', 'this is de', '7'),
+(4, 'cleaning', '200', 'this is description', '7'),
 (5, 'iorning', '120', 'our iorning is grate ', '7'),
 (6, 'dry cleaning +iorning', '250', 'this is a compination', '12');
 
@@ -496,7 +517,7 @@ CREATE TABLE IF NOT EXISTS `shop` (
 --
 
 INSERT INTO `shop` (`shid`, `name`, `address`, `place`, `district`, `phn`, `email`, `status`) VALUES
-(7, 'shop7', 'qw', 'asd', 'idukki', '0987654322', 'shop@7', 'approved'),
+(7, 'shop7', 'qw', 'asd', 'malappuram', '0987654322', 'shop@7', 'approved'),
 (8, 'shop8', 'asdf', 'asd', 'thrissur', '0987654322', 'shop@8', 'approved'),
 (12, 'shop 10', 'this is the address of the shop 10', 'kollam', 'kollam', '7091827364', 'shop@10', 'approved');
 
@@ -519,16 +540,19 @@ CREATE TABLE IF NOT EXISTS `staff` (
   `dob` varchar(10) NOT NULL,
   `email` varchar(40) NOT NULL,
   PRIMARY KEY (`stid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `staff`
 --
 
 INSERT INTO `staff` (`stid`, `shid`, `name`, `address`, `street`, `city`, `district`, `phn`, `pin`, `dob`, `email`) VALUES
-(1, 7, 'staff 1', 'asd', 'street of staff 3', 'city of staff 3', 'alappuzha', '5646464646', '345678', '2025-03-01', 'staff@1'),
+(1, 7, 'staff 1', 'asd', 'street of staff 3', 'city of staff 3', 'thiruvananthapuram', '5646464646', '345678', '2025-03-01', 'staff@1'),
 (2, 7, 'staff 2', 'asd', 'street of staff 3', 'city of staff 3', 'alappuzha', '5646464646', '345678', '2025-04-29', 'staff@2'),
-(5, 8, 'staff 5', 'asd', 'kjhkljhkljh', ',kjlkljh', 'kottayam', '9876543333', '987654', '2025-05-08', 'staff@5');
+(5, 8, 'staff 5', 'asd', 'kjhkljhkljh', ',kjlkljh', 'kottayam', '9876543333', '987654', '2025-05-08', 'staff@5'),
+(6, 8, 'staff 6', 'this is address of staff@6', 'street of staff 6', 'city', 'alappuzha', '3434343434', '312323', '2025-06-03', 'staff@6'),
+(7, 12, 'staff 11', 'asd', 'asd', 'city of staff 3', 'alappuzha', '5646464646', '345678', '2025-06-11', 'staff@11'),
+(8, 12, 'staff 12', 'lkjl;kdjfl;ks', 'm vkljvdfkvj;dfkl', 'sdfsdf', 'kollam', '2222222222', '333333', '2025-06-11', 'staff@12');
 
 -- --------------------------------------------------------
 
@@ -543,12 +567,20 @@ CREATE TABLE IF NOT EXISTS `tracker` (
   `date` varchar(10) NOT NULL,
   `time` varchar(8) NOT NULL,
   PRIMARY KEY (`tid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `tracker`
 --
 
+INSERT INTO `tracker` (`tid`, `oid`, `status`, `date`, `time`) VALUES
+(1, '1', 'booked', '2025-06-27', '20:26:13'),
+(2, '2', 'booked', '2025-06-27', '20:27:06'),
+(3, '3', 'booked', '2025-06-27', '20:45:18'),
+(4, '3', 'Materials Collected', '2025-06-27', '20:46:02'),
+(5, '4', 'booked', '2025-06-27', '20:46:37'),
+(6, '5', 'booked', '2025-06-27', '21:00:28'),
+(7, '6', 'booked', '2025-06-27', '22:08:08');
 
 -- --------------------------------------------------------
 
@@ -576,7 +608,7 @@ INSERT INTO `user` (`uid`, `name`, `address`, `district`, `phn`, `email`, `place
 (2, 'asdfg', 'asd', 'thrissur', '1234545698', 'a1@123', 'sdfghj'),
 (3, 'asdfg', 'asd', 'kozhikode', '1234545698', 'a2@123', 'sdfghj'),
 (4, 'asdfg', 'xcv', 'thiruvananthapuram', '1234545698', 'a3@123', 'sdfghj'),
-(5, 'user 5', 'asdf', 'kottayam', '1234545698', 'user@5', 'sdfghj');
+(5, 'user 5', 'asdf', 'kollam', '1234545698', 'user@5', 'sdfghj');
 
 --
 -- Constraints for dumped tables

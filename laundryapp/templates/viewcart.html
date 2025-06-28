@@ -2,10 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cart</title>
 </head>
 <body>
-    
+    <a href="/userhome">Back</a>
+    <br>
+    <h1><u><b>Cart</b></u></h1>
+    <table border="1">
+        <tr>
+            <th>Service</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Shop Name</th>
+            <th>Shop Address</th>
+            <th>Shop Place</th>
+            <th>Shop District</th>
+            <th>Shop Phone</th>
+            <th>Shop Email</th>
+        </tr>
+        {% for i in data %}
+        <tr>
+            <td>{{ i.service }}</td>
+            <td>{{ i.descr }}</td>
+            <td>{{ i.amount }}</td>
+            <td>{{ i.name }}</td>
+            <td>{{ i.address }}</td>
+            <td>{{ i.place }}</td>
+            <td>{{ i.district }}</td>
+            <td>{{ i.phn }}</td>
+            <td>{{ i.email }}</td>
+            <td><a href="/viewservicedetails/?srid={{ i.srid }}">View Details</a></td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="9"><center>No items in cart.</center></td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>
