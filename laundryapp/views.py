@@ -1099,7 +1099,6 @@ def viewcart(request):
             'district' : row[12],
             'phn' : row[13],
             'email' : row[14],
-
         }
         data.append(dis)
     return render(request,'viewcart.html',{'data':data})
