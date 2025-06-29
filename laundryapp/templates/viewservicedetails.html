@@ -1,37 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <a href="/userhome/">Home</a>
-    <h2>Service Details</h2>
-    Service name: {{ dis.service }}<br>
-    Amount: {{ dis.amount }}<br>
-    Description: {{ dis.descr }}<br>
-    <h2>Shop details</h2>
-    Name: {{ dis.name }}<br>
-    Address: {{ dis.address }}<br>
-    Place: {{ dis.place }}<br>
-    District: {{ dis.district }}<br>
-    Phone: {{ dis.phn }}<br>
-    Email: {{ dis.email }}<br>
-    <br>
-    <br>
+{% extends 'header_footer_user.html' %}
 
-    <a href="/bookservice/?srid={{ dis.srid }}">Book</a>
-    <br>
-    <br>
-    {% if cart %}
-        <a href="/removecart/?srid={{ dis.srid }}"><button>Remove from Cart</button> </a>
-    {% else %}
-        <a href="/addtocart/?srid={{ dis.srid }}"><button>Add to Cart</button></a>
-    {% endif %}
-    
+{% block content %}
+<style>
+  .service-details-container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+    padding: 30px;
+    margin-top: 30px;
+    font-family: 'Segoe UI', sans-serif;
+  }
 
+  .details-heading {
+    color: #0d6efd;
+    font-weight: 700;
+    margin-bottom: 25px;
+  }
 
-    
-</body>
-</html>
+  .detail-row {
+    margin-bottom: 10px;
+  }
+
+  .btn-orange {
+    background-color: #fd7e14;
+    border: none;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-orange:hover {
+    background-color: #0d6efd;
+  }
+
+  .btn-gray {
+    background-color: #6c757d;
+    border: none;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-gray:hover {
+    background-color: #343a40;
+  }
+
+  .action-buttons {
+    margin-top: 30px;
+  }
+
+  a {
+    text-decoration: none;
+  }
+</style>
+
+<div class="container">
+  <a href="/userhome/" class="btn btn-sm btn-outline-primary mt-3 mb-4">← Back to Home</a>
+
+  <div class="service-details-container">
+    <h2 class="details-heading">Service Details</h2>
+    <div class="detail-row"><strong>Service name:</strong> {{ dis.service }}</div>
+    <div class="detail-row"><strong>Amount:</strong> ₹{{ dis.amount }}</div>
+    <div class="detail-row"><strong>Description:</strong> {{ dis.descr }}</div>
+
+    <hr class="my-4"/>
+
+    <h2 class="details-heading">Shop Details</h2>
+    <div class="detail-row"><strong>Name:</strong> {{ dis.name }}</div>
+    <div class="detail-row"><strong>Address:</strong> {{ dis.address }}</div>
+    <div class="detail-row"><strong>Place:</strong> {{ dis.place }}</div>
+    <div class="detail-row"><strong>District:</strong> {{ dis.district }}</div>
+    <div class="detail-row"><strong>Phone:</strong> {{ dis.phn }}</div>
+    <div class="detail-row"><strong>Email:</strong> {{ dis.email }}</div>
+
+    <div class="action-buttons d-flex gap-3 mt-4">
+      <a href="/bookservice/?srid={{ dis.srid }}" class="btn btn-orange px-4">Book Now</a>
+
+      {% if cart %}
+        <a href="/removecart/?srid={{ dis.srid }}" class="btn btn-gray px-4" >Remove from Cart</a>
+      {% else %}
+        <a href="/addtocart/?srid={{ dis.srid }}" class="btn btn-gray px-4" style="background-color: red;">Add to Cart</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

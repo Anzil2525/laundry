@@ -338,8 +338,7 @@ def userprofile(request):
             'phn' : row[4],
             'email' : row[5],
             'place' : row[6],
-        }
-    
+        }    
     return render(request,'userprofile.html',dis)
 
 def shopprofile(request):
@@ -546,6 +545,20 @@ def userviewshops(request):
 def userviewservices(request):
     cur = connection.cursor()
     shid = request.GET['id']
+    sql = "select * from shop where shid = '%s'"%(shid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    for row in result:
+        shop = {
+            'shid' : row[0],
+            'name' : row[1],
+            'address' : row[2],
+            'place' : row[3],
+            'district' : row[4],
+            'phn' : row[5],
+            'email' : row[6],
+        }
+
     sql = "select * from service where shid = '%s'"%(shid)
     cur.execute(sql)
     result = cur.fetchall()
@@ -559,7 +572,7 @@ def userviewservices(request):
             
         }
         data.append(dis)
-    return render(request,'userviewservices.html',{'data':data})
+    return render(request,'userviewservices.html',{'data':data,'shop':shop})
 
 def showpassword(request):
     cur = connection.cursor()

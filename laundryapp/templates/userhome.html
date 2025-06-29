@@ -6,18 +6,21 @@
     <title>Document</title>
 </head>
 <body>
+    {% extends 'header_footer_user.html' %}
+    {% block content %}
     <a href="/">Log out</a>
     <h1>user home</h1>
-    <a href="/userprofile">User Profile</a>
+    <a href="/userprofile/">User Profile</a>
     <br>
     <a href="/feedback/">Feedback</a>
     <br>
-    <a href="/userviewshops">View Shops</a>
+    <a href="/userviewshops/">View Shops</a>
     <br>
-    <a href="/showpassword">change password</a>
+    <a href="/showpassword/">change password</a>
     <br> 
-    <a href="/showbookingsofuser">View My Bookings</a>
+    <a href="/showbookingsofuser/">View My Bookings</a>
     <br>
     <a href="/viewcart">View Cart</a>
+    {% endblock %}
 </body>
 </html>
