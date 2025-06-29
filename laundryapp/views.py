@@ -116,7 +116,7 @@ def addservice(request):
     sql = "insert into service(sname,amt,descr,shid) values('%s','%s','%s','%s')"%(ser,amt,desc,shid)
     cur.execute(sql)
 
-    msg = "<script>alert('service is entered');window.location='/shophome/';</script>"
+    msg = "<script>alert('service is entered');window.location='/shopservice/';</script>"
     return HttpResponse(msg)
 
 def addfeedback(request):

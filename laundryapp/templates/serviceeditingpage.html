@@ -6,6 +6,8 @@
     <title>Document</title>
 </head>
 <body>
+    {% extends 'header_footer_shop.html' %}
+    {% block content %}
     <a href="/shopservice/">Back</a>
     <h1><center>service editing page</center></h1>
         <form action="/editservice/?id={{srid}}">
@@ -24,5 +26,6 @@
                 </tr>
             </table>
         </form>
+        {% endblock %}
 </body>
 </html>

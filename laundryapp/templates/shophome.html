@@ -1,32 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <a href="/">log out</a>
+
+    {% extends 'header_footer_shop.html' %}
+
+    {% block content %}
+        <br>
+        <br>
+        <br>
+        <br><br><br><br>
+        <h1>shop home</h1>
     
-    <h1>shop home</h1>
+        <a href="/feedback/">Feedback</a>
+        <br>
+        <br>
+        <br>
+        <a href="/shopprofile">Shop Profile</a>
+        <br>
+        <!-- <a href="/staff">Add Staff</a>
+        <br> -->
+        <a href="/viewstaffs">Manage Staffs</a>
+        <br>
+        
+        <!-- <a href="/service/">Add Service</a>
+        <br> -->
+        <a href="/shopservice">Shop Services</a>
+        <!-- <br>
+        <a href="/showpassword">change password</a> -->
+        <br>
+        <a href="/showbookingsofshop">View Bookings</a>
+        {% endblock %}
     
-    <a href="/feedback/">Feedback</a>
-    <br>
-    <br>
-    <br>
-    <a href="/shopprofile">Shop Profile</a>
-    <br>
-    <!-- <a href="/staff">Add Staff</a>
-    <br> -->
-    <a href="/viewstaffs">Manage Staffs</a>
-    <br>
     
-    <!-- <a href="/service/">Add Service</a>
-    <br> -->
-    <a href="/shopservice">Shop Services</a>
-    <!-- <br>
-    <a href="/showpassword">change password</a> -->
-    <br>
-    <a href="/showbookingsofshop">View Bookings</a>
-</body>
-</html>

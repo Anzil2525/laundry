@@ -3,36 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Shop Services</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-top: 30px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: 500;
+            margin-right: 10px;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border-radius: 4px;
+            background-color: #3498db;
+            color: white;
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #ecf0f1;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .no-services {
+            text-align: center;
+            font-style: italic;
+            color: #888;
+        }
+
+        .actions a {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
-    <a href="/shophome">Home</a>
-    <h1>service of shop</h1>
-    <table border="1">
-        <tr>
-            <th>Service Name</th>
-            <th>Amount</th>
-            <th>Description</th>
-            <th>Delete</th>
-            <th>Edit</th>
-        </tr>
-        {% if data %}
-            {% for i in data %}
-                <tr>
-                    <td>{{ i.service }}</td>
-                    <td>{{ i.amount }}</td>
-                    <td>{{ i.descr }}</td>
-                    <td><a href="/deleteservice/?id={{ i.srid }}">Delete</a></td>
-                    <td><a href="/serviceeditingpage/?id={{ i.srid }}">Edit</a></td>
-                </tr>
-            {% endfor %}
+    {% extends 'header_footer_shop.html' %}
+    {% block content %}
+        <h1>🛠️ Services Offered</h1>
 
-        {%else%}
+        <table>
             <tr>
-                <td colspan="3">No services available</td>
+                <th>Service Name</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th colspan="2">Actions</th>
             </tr>
-        {% endif %}
-    </table>
-    <a href="/service/">+Add Service</a>
+            {% if data %}
+                {% for i in data %}
+                    <tr>
+                        <td>{{ i.service }}</td>
+                        <td>₹{{ i.amount }}</td>
+                        <td>{{ i.descr }}</td>
+                        <td class="actions"><a href="/deleteservice/?id={{ i.srid }}" onclick="return delect_service()" class="btn" style="background-color:#e74c3c;">Delete</a></td>
+                        <td class="actions"><a href="/serviceeditingpage/?id={{ i.srid }}" class="btn">Edit</a></td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5" class="no-services">No services available</td>
+                </tr>
+            {% endif %}
+        </table>
+
+        <div style="margin-top: 20px;">
+            <a href="/service/" class="btn" style="background-color:#2ecc71;">+ Add New Service</a>
+        </div>
+        <script>
+        function delect_service() {
+            return confirm("Are you sure you want to delete this service?");
+            }
+        </script>
+    {% endblock %}
+    
 </body>
 </html>

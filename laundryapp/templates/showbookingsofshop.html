@@ -1,38 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <a href="/shophome">Back</a>
-    <br>
-    <h1><center><u><b>Bookings</b></u></center></h1>
-    <table border="1">
+{% extends 'header_footer_shop.html' %}
+{% block content %}
+<style>
+    .container {
+        max-width: 95%;
+        margin: 30px auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        font-size: 28px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+        text-align: left;
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f7f7f7;
+        color: #34495e;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .view-link {
+        text-decoration: none;
+        color: #2980b9;
+        font-weight: bold;
+    }
+
+    .no-data {
+        color: red;
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="container">
+    <h1>📋 Bookings</h1>
+
+    <table>
         <tr>
             <th>Service</th>
             <th>User</th>
             <th>Amount</th>
             <th>Date</th>
             <th>Time</th>
-            <th>address</th>
+            <th>Address</th>
             <th>District</th>
-            <th>phone number</th>
+            <th>Phone Number</th>
+            <th>Actions</th>
         </tr>
 
         {% for i in data %}
         <tr>
             <td>{{ i.service }}</td>
             <td>{{ i.uname }}</td>
-            <td>{{ i.amount }}</td>
+            <td>₹{{ i.amount }}</td>
             <td>{{ i.date }}</td>
             <td>{{ i.time }}</td>
-            <td>{{ i.address }}</td>    
+            <td>{{ i.address }}</td>
             <td>{{ i.district }}</td>
             <td>{{ i.phn }}</td>
-            <td><a href="/viewbookdetailsbyshop/?oid={{ i.oid }}">View Details</a></td>
+            <td><a href="/viewbookdetailsbyshop/?oid={{ i.oid }}" class="view-link">View Details</a></td>
         </tr>
         {% endfor %}
-</body>
-</html>
+    </table>
+
+    {% if not data %}
+        <p class="no-data">No bookings found</p>
+    {% endif %}
+</div>
+{% endblock %}
