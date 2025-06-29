@@ -1,57 +1,73 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>shop</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>shop Registeration</title>
     </head>
     <body>
-        <a href="/">Back</a>
-        <h1><center>shop</center></h1>
-        <form action="/shopreg">
-            <table>
-                <tr>
-                    <td>Name Of Shop</td><td><input type="text" name="shop_name" required></td>
-                </tr>
-                <tr>
-                    <td>Address</td><td><textarea name="shop_address" rows=4 required></textarea></td>
-                 </tr>
-                 <tr>
-                    <td>Place</td><td><input type="text" name="shop_place" required></td>
-                </tr>
-                <tr>
-                    <td>District</td>
-                    <td>
-                        <select name="shop_district" required>
-                            <option ></option>
-                            <option value="thiruvananthapuram">Thiruvananthapuram</option>
-                            <option value="kollam">Kollam</option>
-                            <option value="alappuzha">Alappuzha</option>
-                            <option value="pathanamthitta">Pathanamthitta</option>
-                            <option value="kottayam">Kottayam</option>
-                            <option value="idukki">Idukki</option>
-                            <option value="ernakulam">Ernakulam</option>
-                            <option value="thrissur">Thrissur</option>
-                            <option value="palakkad">Palakkad</option>
-                            <option value="malappuram">Malappuram</option>
-                            <option value="kozhikode">Kozhikode</option>
-                            <option value="wayanad">Wayanad</option>
-                            <option value="kannur">Kannur</option>
-                            <option value="kasaragod">Kasaragod</option>
-                        </select>                       
-                    </td>
-                </tr>
-                <tr>
-                    <td>Phone Number</td><td><input type="text" name="shop_ph_no" pattern="[0-9]{10}" maxlength="10" required></td>
-                </tr>
-                <tr>
-                    <td>E-mail</td><td><input type="email" name="shop_email" required></td>
-                </tr>
-                <tr>
-                    <td>Password</td><td><input type="password" name="shop_password" required></td>
-                </tr>
-                <tr>
-                    <td></td><td><input type="submit" value="Submit"></td>
-                </tr>
-            </table>
-        </form>
+        {% extends 'header_footer_index.html' %}
+        {% block content %}
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <h1 class="text-center mb-4">Shop Registration</h1>
+        <br>
+        <br>
+        <div class="d-flex justify-content-center">
+            <form action="/shopreg" method="get" class="w-100" style="max-width: 500px;">
+                <div class="mb-3">
+                    <label for="shop_name" class="form-label">Name Of Shop</label>
+                    <input type="text" class="form-control" id="shop_name" name="shop_name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="shop_address" class="form-label">Address</label>
+                    <textarea class="form-control" id="shop_address" name="shop_address" rows="4" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="shop_place" class="form-label">Place</label>
+                    <input type="text" class="form-control" id="shop_place" name="shop_place" required>
+                </div>
+                <div class="mb-3">
+                    <label for="shop_district" class="form-label">District</label>
+                    <select class="form-select" id="shop_district" name="shop_district" required>
+                        <option value="">Select District</option>
+                        <option value="thiruvananthapuram">Thiruvananthapuram</option>
+                        <option value="kollam">Kollam</option>
+                        <option value="alappuzha">Alappuzha</option>
+                        <option value="pathanamthitta">Pathanamthitta</option>
+                        <option value="kottayam">Kottayam</option>
+                        <option value="idukki">Idukki</option>
+                        <option value="ernakulam">Ernakulam</option>
+                        <option value="thrissur">Thrissur</option>
+                        <option value="palakkad">Palakkad</option>
+                        <option value="malappuram">Malappuram</option>
+                        <option value="kozhikode">Kozhikode</option>
+                        <option value="wayanad">Wayanad</option>
+                        <option value="kannur">Kannur</option>
+                        <option value="kasaragod">Kasaragod</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="shop_ph_no" class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" id="shop_ph_no" name="shop_ph_no" pattern="[0-9]{10}" maxlength="10" required>
+                </div>
+                <div class="mb-3">
+                    <label for="shop_email" class="form-label">E-mail</label>
+                    <input type="email" class="form-control" id="shop_email" name="shop_email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="shop_password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="shop_password" name="shop_password" required>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary px-5">Submit</button>
+                </div>
+            </form>
+        </div>
+        {% endblock %}
     </body>
 </html>

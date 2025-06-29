@@ -1,57 +1,77 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>user</title>
-    </head>
-    <bdoy>
-        <a href="/">Back</a>
-        <h1><center>USER</center></h1>
-        <form action="/userreg/">
-            <table>
-                <tr>
-                    <td>Name</td><td><input type="text" name="u_name" required ></td>
-                </tr>
-                <tr>
-                    <td>Address</td><td><textarea name="u_address" rows=4 required></textarea></td>
-                 </tr>
-                 <td>District</td>
-                    <td>
-                        <select name="u_district" required>
-                            <option ></option>
-                            <option value="thiruvananthapuram">Thiruvananthapuram</option>
-                            <option value="kollam">Kollam</option>
-                            <option value="alappuzha">Alappuzha</option>
-                            <option value="pathanamthitta">Pathanamthitta</option>
-                            <option value="kottayam">Kottayam</option>
-                            <option value="idukki">Idukki</option>
-                            <option value="ernakulam">Ernakulam</option>
-                            <option value="thrissur">Thrissur</option>
-                            <option value="palakkad">Palakkad</option>
-                            <option value="malappuram">Malappuram</option>
-                            <option value="kozhikode">Kozhikode</option>
-                            <option value="wayanad">Wayanad</option>
-                            <option value="kannur">Kannur</option>
-                            <option value="kasaragod">Kasaragod</option>
-                        </select>                       
-                    </td>
-                </tr>
-
-                 <tr>
-                    <td>Phone Number</td><td><input type="text" name="u_ph_no" pattern="[0-9]{10}" maxlength="10" required></td>
-                </tr>
-                <tr>
-                    <td>E-mail</td><td><input type="email" name="u_email" required></td>
-                </tr>
-                <tr>
-                    <td>Place</td><td><input type="text" name="u_place" required></td>
-                </tr>
-                <tr>
-                    <td>Password</td><td><input type="password" name="u_password" required></td>
-                </tr>
-                <tr>
-                    <td></td><td><input type="submit" value="Submit"></td>
-                </tr>
-            </table>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+</head>
+<body>
+    {% extends 'header_footer_index.html' %}
+    {% block content %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 class="text-center mb-4">User Registration</h1>
+    <br>
+    <br>
+    <br>
+    <div class="d-flex justify-content-center">
+        <form action="/userreg/" method="get" class="w-100" style="max-width: 500px;">
+            <div class="mb-3">
+                <label for="u_name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="u_name" name="u_name" required>
+            </div>
+            <div class="mb-3">
+                <label for="u_address" class="form-label">Address</label>
+                <textarea class="form-control" id="u_address" name="u_address" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="u_district" class="form-label">District</label>
+                <select class="form-select" id="u_district" name="u_district" required>
+                    <option value="">Select District</option>
+                    <option value="thiruvananthapuram">Thiruvananthapuram</option>
+                    <option value="kollam">Kollam</option>
+                    <option value="alappuzha">Alappuzha</option>
+                    <option value="pathanamthitta">Pathanamthitta</option>
+                    <option value="kottayam">Kottayam</option>
+                    <option value="idukki">Idukki</option>
+                    <option value="ernakulam">Ernakulam</option>
+                    <option value="thrissur">Thrissur</option>
+                    <option value="palakkad">Palakkad</option>
+                    <option value="malappuram">Malappuram</option>
+                    <option value="kozhikode">Kozhikode</option>
+                    <option value="wayanad">Wayanad</option>
+                    <option value="kannur">Kannur</option>
+                    <option value="kasaragod">Kasaragod</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="u_ph_no" class="form-label">Phone Number</label>
+                <input type="text" class="form-control" id="u_ph_no" name="u_ph_no" pattern="[0-9]{10}" maxlength="10" required>
+            </div>
+            <div class="mb-3">
+                <label for="u_email" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="u_email" name="u_email" required>
+            </div>
+            <div class="mb-3">
+                <label for="u_place" class="form-label">Place</label>
+                <input type="text" class="form-control" id="u_place" name="u_place" required>
+            </div>
+            <div class="mb-3">
+                <label for="u_password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="u_password" name="u_password" required>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary px-5">Submit</button>
+            </div>
+            <br>
+            <br>
+            already have an account? <a href="/login/">Login</a>
         </form>
-    </bdoy>
+    </div>
+    
+    {% endblock %}
+</body>
 </html>
+

@@ -1,20 +1,28 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>login</title>
-    </head>
-    <body>
-        <a href="/">Back</a>
-        <h1><center>login</center></h1>
-        <center></center>
-        <form action="/loginaction/">
-            <table>
-                <tr><td>USER NAME</td><td><input type="text" name="email" required></td></tr>
-                <tr><td>PASSWORD</td><td><input type="password" name="password" required></td></tr>
-                <tr><td></td><td dir="rtl"><input type="submit" name="login" value="login"></td></tr>
-                <tr><td><br></td></tr>
-                <tr><td colspan="2"><center><a href="/forgotpass">Forgotten password?</a></center></td></tr>
-            </table>
-        </form>
-    </body>
-</html>
+
+{% extends 'header_footer_index.html' %}
+{% block content %}
+<!-- Login Form Start -->
+        <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+            <div class="col-md-6 col-lg-5">
+                <div class="card shadow p-4">
+                    <h3 class="text-center mb-4">Login</h3>
+                    <form action="/loginaction/">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                        <div class="mt-3 text-center">
+                            <a href="/forgotpass/">Forgot Password?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Login Form End -->
+{% endblock content %}
