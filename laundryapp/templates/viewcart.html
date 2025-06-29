@@ -1,43 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Cart</title>
-</head>
-<body>
-    <a href="/userhome">Back</a>
-    <br>
-    <h1><u><b>Cart</b></u></h1>
-    <table border="1">
-        <tr>
-            <th>Service</th>
-            <th>Description</th>
-            <th>Amount</th>
-            <th>Shop Name</th>
-            <th>Shop Address</th>
-            <th>Shop Place</th>
-            <th>Shop District</th>
-            <th>Shop Phone</th>
-            <th>Shop Email</th>
-        </tr>
-        {% for i in data %}
-        <tr>
-            <td>{{ i.service }}</td>
-            <td>{{ i.descr }}</td>
-            <td>{{ i.amount }}</td>
-            <td>{{ i.name }}</td>
-            <td>{{ i.address }}</td>
-            <td>{{ i.place }}</td>
-            <td>{{ i.district }}</td>
-            <td>{{ i.phn }}</td>
-            <td>{{ i.email }}</td>
-            <td><a href="/viewservicedetails/?srid={{ i.srid }}">View Details</a></td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="9"><center>No items in cart.</center></td>
-        </tr>
-        {% endfor %}
-    </table>
-</body>
-</html>
+{% extends 'header_footer_user.html' %}
+
+{% block content %}
+<style>
+  body {
+    background-color: #f1f5f9;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .cart-heading {
+    text-align: center;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #0d6efd;
+    margin: 30px 0 20px;
+  }
+
+  .cart-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #fd7e14;
+  }
+
+  .shop-info p {
+    margin-bottom: 4px;
+    font-size: 0.95rem;
+  }
+
+  .btn-details {
+    background-color: #fd7e14;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-details:hover {
+    background-color: #0d6efd;
+  }
+
+  .empty-cart {
+    text-align: center;
+    color: #888;
+    margin-top: 50px;
+  }
+</style>
+
+<div class="container pb-5">
+  <h1 class="cart-heading">🛒 Your Cart</h1>
+
+  {% if data %}
+  <div class="row g-4">
+    {% for i in data %}
+    <div class="col-md-6 col-lg-4">
+      <div class="cart-card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ i.service }}</h5>
+          <p><strong>Amount:</strong> ₹{{ i.amount }}</p>
+          <p><strong>Description:</strong> {{ i.descr }}</p>
+          
+          <hr>
+          <div class="shop-info">
+            <p><strong>Shop:</strong> {{ i.name }}</p>
+            <p><strong>Address:</strong> {{ i.address }}, {{ i.place }}, {{ i.district }}</p>
+            <p><strong>Phone:</strong> {{ i.phn }}</p>
+            <p><strong>Email:</strong> {{ i.email }}</p>
+          </div>
+        </div>
+        <div class="card-footer bg-white border-0 text-end">
+          <a href="/viewservicedetails/?srid={{ i.srid }}" class="btn btn-details">View Details</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-cart">
+    <h4>🧺 No items in your cart.</h4>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

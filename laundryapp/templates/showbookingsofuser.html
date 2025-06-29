@@ -1,33 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <a href="/userhome">Back</a>
-    <br>
-    <h1><u><b>Booked Service</b></u></h1>
-    <table border="1">
-        <tr>
-            <th>service</th>
-            <th>shop</th>
+{% extends 'header_footer_user.html' %}
+
+{% block content %}
+<style>
+  body {
+    background-color: #f1f5f9;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .section-title {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0d6efd;
+  }
+
+  .table-container {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    margin-top: 30px;
+  }
+
+  .table thead {
+    background-color: #0d6efd;
+    color: white;
+  }
+
+  .table td, .table th {
+    vertical-align: middle;
+  }
+
+  .view-link {
+    color: #fd7e14;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .view-link:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="container pb-5">
+  <h1 class="section-title">📋 Booked Services</h1>
+
+  <!-- 🔍 Search Bar -->
+  <div class="d-flex justify-content-end mb-3">
+    <input type="text" id="serviceSearch" class="form-control w-50" placeholder="Search by service or shop...">
+  </div>
+
+  <div class="table-container mt-2">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle" id="bookedServiceTable">
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Shop</th>
             <th>Amount</th>
-            <th>date</th>
-            <th>time</th>
-            <th>Status</th>
-        </tr>
-        {% for i in data %}
-        <tr>
-            <td>{{i.service}}</td>
-            <td>{{ i.shop }}</td>
-            <td>{{ i.amount }}</td>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in data %}
+          <tr>
+            <td class="service-name">{{ i.service }}</td>
+            <td class="shop-name">{{ i.shop }}</td>
+            <td>₹{{ i.amount }}</td>
             <td>{{ i.date }}</td>
             <td>{{ i.time }}</td>
-            <td>{{ i.status }}</td>
-            <td><a href="/viewbookdetailsbyuser/?oid={{ i.oid }}">View Details</a></td>
-        {% endfor %}
-    </table>
-</body>
-</html>
+            <td><a href="/viewbookdetailsbyuser/?oid={{ i.oid }}" class="view-link">View Details</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 🔍 JS Filter Logic -->
+<script>
+  document.getElementById('serviceSearch').addEventListener('input', function () {
+    const search = this.value.toLowerCase();
+    const rows = document.querySelectorAll('#bookedServiceTable tbody tr');
+
+    rows.forEach(row => {
+      const service = row.querySelector('.service-name').textContent.toLowerCase();
+      const shop = row.querySelector('.shop-name').textContent.toLowerCase();
+
+      if (service.includes(search) || shop.includes(search)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
+</script>
+{% endblock %}

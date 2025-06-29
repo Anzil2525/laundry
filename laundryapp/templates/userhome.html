@@ -1,26 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {% extends 'header_footer_user.html' %}
-    {% block content %}
-    <a href="/">Log out</a>
-    <h1>user home</h1>
-    <a href="/userprofile/">User Profile</a>
-    <br>
-    <a href="/feedback/">Feedback</a>
-    <br>
-    <a href="/userviewshops/">View Shops</a>
-    <br>
-    <a href="/showpassword/">change password</a>
-    <br> 
-    <a href="/showbookingsofuser/">View My Bookings</a>
-    <br>
-    <a href="/viewcart">View Cart</a>
-    {% endblock %}
-</body>
-</html>
+{% extends 'header_footer_user.html' %}
+
+{% block content %}
+<style>
+  body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .user-home-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  .user-home-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 700;
+    color: #0d6efd;
+  }
+
+  .nav-link-box {
+    margin: 10px 0;
+    padding: 15px 20px;
+    border-radius: 8px;
+    background-color: #e9ecef;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    color: #212529;
+    display: block;
+  }
+
+  .nav-link-box:hover {
+    background-color: #d0d7de;
+    color: #0d6efd;
+  }
+
+  .logout-link {
+    float: right;
+    font-size: 0.95rem;
+    margin-top: -10px;
+  }
+</style>
+
+<div class="container">
+  <div class="user-home-container">
+    <h2>Welcome to Your Dashboard</h2>
+
+    <a href="/userprofile/" class="nav-link-box">👤 User Profile</a>
+
+    <a href="/feedback/" class="nav-link-box">🗣️ Feedback</a>
+    <a href="/userviewshops/" class="nav-link-box">🏪 View Shops</a>
+    <a href="/showbookingsofuser/" class="nav-link-box">📋 View My Bookings</a>
+    <a href="/viewcart" class="nav-link-box">🛒 View Cart</a>
+  </div>
+</div>
+{% endblock %}

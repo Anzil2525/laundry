@@ -1,87 +1,161 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Booking Details</title>
-</head>
-<body>
-    <a href="/showbookingsofuser">Back</a>
-    <h1><center><u><b>Booking Details</b></u></center></h1>
-    <table style="width: 100%;">
-        <tr>
-            <td style="width: 33%; text-align: center;">
-                <h2>service details</h2>
-                <!-- Service ID: {{ srid }}<br> -->
-                Service Name: {{ dis.service }}<br>
-                Amount: {{ dis.amount }}<br>
-                
+{% extends 'header_footer_user.html' %}
 
-            </td>
-            <td style="text-align: center;">
-                <h2>time and date</h2>
-                <!-- User ID: {{ uid }}<br> -->
-                Order ID: {{ dis.oid }}<br>
-                Date: {{dis.date }}<br>
-                Time: {{ dis.time }}<br>
-                <!-- Status: {{ status }}<br> -->
-                
-            </td>
-            <td>
-                <h2>Shop details</h2>
-                Name: {{ dis.name }}<br>
-                Address: {{ dis.address }}<br>
-                District: {{ dis.district }}<br>
-                Phone: {{ dis.phn }}<br>
-                Email: {{ dis.email }}<br>
-                Place: {{ dis.place }}<br>
+{% block content %}
+<style>
+  body {
+    background-color: #f1f5f9;
+    font-family: 'Segoe UI', sans-serif;
+  }
 
+  .section-title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #0d6efd;
+    margin: 30px 0;
+  }
 
-            </td>
-        </tr>
-    </table>
-    {% if code %}
-    <h1>code  : {{ code }}</h1>
+  .details-card {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+
+  .tracker-line {
+    position: relative;
+    margin-left: 15px;
+    padding-left: 30px;
+    border-left: 4px solid #0d6efd;
+  }
+
+  .tracker-step {
+    position: relative;
+    margin-bottom: 30px;
+    padding-left: 10px;
+  }
+
+  .tracker-step::before {
+    content: '';
+    position: absolute;
+    left: -21px;
+    top: 3px;
+    width: 16px;
+    height: 16px;
+    background-color: #fd7e14;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 0 3px #0d6efd;
+  }
+
+  .tracker-arrow {
+    font-size: 18px;
+    color: #0d6efd;
+    margin: -10px 0 15px 10px;
+    display: block;
+  }
+
+  .cancel-link {
+    color: white;
+    background-color: red;
+    font-weight: 600;
+  }
+
+  .cancel-link:hover {
+    text-decoration: underline;
+  }
+
+  #codeBox {
+    display: none;
+  }
+</style>
+
+<div class="container pb-5">
+  <div class="d-flex justify-content-start mt-3 mb-2">
+    <a href="/showbookingsofuser" class="btn btn-sm btn-outline-primary">← Back</a>
+  </div>
+
+  <h2 class="section-title">📦 Booking Details</h2>
+
+  <!-- Detail Cards -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-4">
+      <div class="details-card">
+        <h4>Service Details</h4>
+        <p><strong>Name:</strong> {{ dis.service }}</p>
+        <p><strong>Amount:</strong> ₹{{ dis.amount }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="details-card">
+        <h4>Time & Date</h4>
+        <p><strong>Order ID:</strong> {{ dis.oid }}</p>
+        <p><strong>Date:</strong> {{ dis.date }}</p>
+        <p><strong>Time:</strong> {{ dis.time }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="details-card">
+        <h4>Shop Info</h4>
+        <p><strong>Name:</strong> {{ dis.name }}</p>
+        <p><strong>Address:</strong> {{ dis.address }}, {{ dis.place }}, {{ dis.district }}</p>
+        <p><strong>Phone:</strong> {{ dis.phn }}</p>
+        <p><strong>Email:</strong> {{ dis.email }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Code Toggle -->
+  {% if code %}
+  <div class="text-center mb-4">
+    <button class="btn btn-warning" onclick="toggleCode()">Show/Hide Booking Code</button>
+    <div id="codeBox" class="alert alert-info mt-3 fw-bold fs-5">Code: {{ code }}</div>
+  </div>
+  {% endif %}
+
+  <!-- Timeline Tracker -->
+  <h4 class="text-primary fw-bold mb-3">Tracking Status</h4>
+  {% if tracker %}
+  <div class="details-card tracker-line">
+    {% for obj in tracker %}
+    <div class="tracker-step">
+      <p class="mb-1"><strong>Status:</strong> {{ obj.status }}</p>
+      <small>{{ obj.date }} – {{ obj.time }}</small>
+    </div>
+    {% if not forloop.last %}
+      <span class="tracker-arrow">↓</span>
     {% endif %}
-    <h2>Tracking Details</h2>
-    {% if tracker %}
-        <table>
-            <tr>
-                <th>Tracking ID</th>
-                <th>Order ID</th>
-                <th>Status</th>
-                <th>Date</th>
-                <th>Time</th>
-            </tr>
-            {% for obj in tracker %}
-                <tr>
-                    <td>{{ obj.tid }}</td>
-                    <td>{{ obj.oid }}</td>
-                    <td>{{ obj.status }}</td>
-                    <td>{{ obj.date }}</td>
-                    <td>{{ obj.time }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-    {% else %}
-        <p>No tracking details available.</p>
-    {% endif %}
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-muted">No tracking details available.</p>
+  {% endif %}
 
-    <br>
-    <br>
-    {% if dis.status == 'booked' or dis.status == 'assigned'%}
-    <a href="/cancelbooking/?oid={{ dis.oid }}" onclick="return cancel_booking()">Cancel Booking</a>
+  <!-- Status Display -->
+  <div class="mt-4">
+    {% if dis.status == 'booked' or dis.status == 'assigned' %}
+      <a href="/cancelbooking/?oid={{ dis.oid }}" class="cancel-link" onclick="return cancel_booking()"><button style="background-color: red;color: white;"> Cancel Booking</button></a>
     {% elif dis.status == 'cancelled' %}
-    <h3>Booking is cancelled</h3>
+      <h5 class="text-danger">🚫 Booking is cancelled</h5>
     {% elif dis.status == 'rejected' %}
-    <h2>This booking is rejected</h2>
+      <h5 class="text-warning">❗ This booking is rejected by shop</h5>
     {% elif dis.status == 'completed' %}
-    <h2 style="color: green;">This booking is completed</h2>
+      <h5 class="text-success">✅ This booking is completed</h5>
     {% else %}
-    <h3>Now this booking can not be cancelled</h3> 
+      <h5 class="text-muted">⚠️ Now this booking cannot be cancelled</h5>
     {% endif %}
-    <script>
-        function cancel_booking() {
-            return confirm("Are you sure you want to cancel this booking? This action cannot be undone.");
-        }
-    </script>
-</body>
-</html>
+  </div>
+</div>
+
+<script>
+  function cancel_booking() {
+    return confirm("Are you sure you want to cancel this booking? This action cannot be undone.");
+  }
+
+  function toggleCode() {
+    const codeBox = document.getElementById("codeBox");
+    codeBox.style.display = codeBox.style.display === "none" ? "block" : "none";
+  }
+</script>
+{% endblock %}

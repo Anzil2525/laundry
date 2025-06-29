@@ -1106,8 +1106,8 @@ def viewcart(request):
 
             'srid' : row[3],
             'service' : row[4],
-            'descr' : row[5],
-            'amount' : row[6],
+            'amount' : row[5],
+            'descr' : row[6],
             # 'shid' : row[7],
 
             'shid' : row[8],

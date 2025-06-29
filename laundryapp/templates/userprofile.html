@@ -1,22 +1,53 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>user</title>
-    </head>
-    <bdoy>
-        <a href="/userhome/">Home</a>
-        <h1><center>USER</center></h1>
-        <form action="/edituser/">
-            <table>
-                <tr>
-                    <td>Name</td><td><input type="text" name="name" required value="{{name}}"></td>
-                </tr>
-                <tr>
-                    <td>Address</td><td><textarea name="address" rows=4 required >{{address}}</textarea></td>
-                 </tr>
-                 <td>District</td>
-                    <td>
-                        <select name="district" required value="{{district}}">
+{% extends 'header_footer_user.html' %}
+
+{% block content %}
+<style>
+  .edit-form-container {
+    max-width: 700px;
+    margin: 40px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .edit-form-container h2 {
+    text-align: center;
+    color: #0d6efd;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+
+  .btn-submit {
+    background-color: #fd7e14;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-submit:hover {
+    background-color: #0d6efd;
+  }
+</style>
+
+<div class="container">
+  <div class="edit-form-container">
+    <h2>Edit Profile</h2>
+
+    <form action="/edituser/" method="get">
+      <div class="mb-3">
+        <label for="name" class="form-label">Full Name</label>
+        <input type="text" class="form-control" name="name" id="name" required value="{{ name }}">
+      </div>
+
+      <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <textarea class="form-control" name="address" id="address" rows="3" required>{{ address }}</textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="district" class="form-label">District</label>
+        <select name="district" required value="{{district}}">
                             <option ></option>
                             <option value="thiruvananthapuram" {% if district == "thiruvananthapuram" %}selected{% endif %}>Thiruvananthapuram</option>
                             <option value="kollam" {% if district == "kollam" %}selected{% endif %}>Kollam</option>
@@ -32,30 +63,32 @@
                             <option value="wayanad" {% if district == "wayanad" %}selected{% endif %}>Wayanad</option>
                             <option value="kannur" {% if district == "kannur" %}selected{% endif %}>Kannur</option>
                             <option value="kasaragod" {% if district == "kasaragod" %}selected{% endif %}>Kasaragod</option>
-                        </select>                       
-                    </td>
-                    <!-- <td>District</td><td><input type="text" name="district" required value="{{district}}"></td> -->
-                </tr>
+                        </select>
+      </div>
 
-                <tr>
-                    <td>Place</td><td><input type="text" name="place" required value="{{place}}"></td>
-                </tr>
+      <div class="mb-3">
+        <label for="place" class="form-label">Place</label>
+        <input type="text" class="form-control" name="place" id="place" required value="{{ place }}">
+      </div>
 
-                 <tr>
-                    <td>Phone Number</td><td><input type="text" name="phn" pattern="[0-9]{10}" maxlength="10" required value="{{phn}}"></td>
-                </tr>
-                <tr>
-                    <td>E-mail</td><td><input type="email" name="email" required value="{{email}}"></td>
-                </tr>
-                
-                <!-- <tr>
-                    <td>Password</td><td><input type="password" name="u_password" required value="{{upass}}"></td>
-                </tr> -->
-                <tr>
-                    <td></td><td><input type="submit" value="Submit"></td>
-                </tr>
-            </table>
-        </form>
-        <a href="/showpassword">change password</a>
-    </bdoy>
-</html>
+      <div class="mb-3">
+        <label for="phn" class="form-label">Phone</label>
+        <input type="text" class="form-control" name="phn" id="phn" required pattern="[0-9]{10}" maxlength="10" value="{{ phn }}">
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">E-mail</label>
+        <input type="email" class="form-control" name="email" id="email" required value="{{ email }}">
+      </div>
+
+      <div class="d-grid">
+        <input type="submit" value="Update Profile" class="btn btn-submit">
+      </div>
+    </form>
+
+    <div class="text-center mt-4">
+      <a href="/showpassword" class="text-decoration-none text-primary">Change Password</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
