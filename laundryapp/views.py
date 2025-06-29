@@ -434,6 +434,11 @@ def staffprofile(request):
 
             'utype' : request.session['utype']
         }
+    if request.session['utype'] == 'shop':
+        temp = 'header_footer_shop.html'
+    elif request.session['utype'] == 'staff':
+        temp = 'header_footer_staff.html'
+    dis['temp'] = temp
     return render(request,'staffprofile.html',dis)
 
 def editstaff(request):

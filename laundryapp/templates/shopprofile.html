@@ -1,26 +1,122 @@
+{% extends 'header_footer_shop.html' %}
+{% block content %}
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>shop</title>
-    </head>
-    <body>
-        <a href="/shophome">Home</a>
-        <h1><center>shop</center></h1>
-        <form action="/editshop">
-            <table>
-                <tr>
-                    <td>Name Of Shop</td><td><input type="text" name="name" required value="{{name}}"></td>
-                </tr>
-                <tr>
-                    <td>Address</td><td><textarea name="address" rows=4 required >{{address}}</textarea></td>
-                 </tr>
-                 <tr>
-                    <td>Place</td><td><input type="text" name="place" required value="{{place}}"></td>
-                </tr>
-                <tr>
-                    <td>District</td>
-                    <td>
-                        <select name="district" required value="{{district}}">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop Profile</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0 20px;
+        }
+
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px auto 10px auto;
+            max-width: 800px;
+        }
+
+        .profile-header h1 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 28px;
+        }
+
+        .logout-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .form-container {
+            background-color: white;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 18px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+
+        .extra-links {
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        .extra-links a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .extra-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-header">
+        <h1>🏬 Shop Profile</h1>
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+
+    <div class="form-container">
+        <form action="/editshop" method="get">
+            <label for="name">Name of Shop</label>
+            <input type="text" id="name" name="name" required value="{{name}}">
+
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="4" required>{{address}}</textarea>
+
+            <label for="place">Place</label>
+            <input type="text" id="place" name="place" required value="{{place}}">
+
+            <label for="district">District</label>
+            <select name="district" required value="{{district}}">
                             <option ></option>
                             <option value="thiruvananthapuram" {% if district == "thiruvananthapuram" %}selected{% endif %}>Thiruvananthapuram</option>
                             <option value="kollam" {% if district == "kollam" %}selected{% endif %}>Kollam</option>
@@ -36,21 +132,21 @@
                             <option value="wayanad" {% if district == "wayanad" %}selected{% endif %}>Wayanad</option>
                             <option value="kannur" {% if district == "kannur" %}selected{% endif %}>Kannur</option>
                             <option value="kasaragod" {% if district == "kasaragod" %}selected{% endif %}>Kasaragod</option>
-                        </select>                       
-                    </td>                   
-                </tr>
-                <tr>
-                    <td>Phone Number</td><td><input type="text" name="phn" pattern="[0-9]{10}" maxlength="10" required value="{{phn}}"></td>
-                </tr>
-                <tr>
-                    <td>E-mail</td><td><input type="email" name="email" required value="{{email}}"></td>
-                </tr>
-                <tr>
-                    <td></td><td><input type="submit" value="Submit"></td>
-                </tr>
-            </table>
+                        </select>
+
+            <label for="phn">Phone Number</label>
+            <input type="text" id="phn" name="phn" pattern="[0-9]{10}" maxlength="10" required value="{{phn}}">
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required value="{{email}}">
+
+            <input type="submit" value="Update Profile">
         </form>
-        <br>
-        <a href="/showpassword">change password</a>
-    </body>
+
+        <div class="extra-links">
+            <a href="/showpassword">🔑 Change Password</a>
+        </div>
+    </div>
+</body>
 </html>
+{% endblock %}

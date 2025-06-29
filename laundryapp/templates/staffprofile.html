@@ -1,38 +1,125 @@
+{% extends temp %}
+{% block content %}
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>staff</title>
-    </head>
-    <body>
-        {% if utype == 'staff' %}
-        <a href="/staffhome/">Home</a>
-        {% endif %}
-        {% if utype == 'shop' %}
-        <a href="/viewstaffs/">Back</a>
-        {% endif %}
-        <h1><center>staff profile</center></h1>
-        
-        <br>
-        <br>
-        <br>
-        <form action="/editstaff/">
-            <table>
-                <tr>
-                    <td>Name</td><td><input type="text" name="name" required value="{{name}}"></td>
-                </tr>
-                <tr>
-                    <td>Address</td><td><textarea name="address" rows=4 required>{{address}}</textarea></td>
-                 </tr>
-                 <tr>
-                    <td>Street</td><td><input type="text" name="street" required value="{{street}}"></td>
-                </tr>
-                <tr>
-                    <td>City</td><td><input type="text" name="city" required value="{{city}}"></td>
-                </tr>
-                <tr>
-                    <td>District</td>
-                    <td>
-                        <select name="district" required value="{{district}}">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Profile</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0 20px;
+        }
+
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px auto 10px auto;
+            max-width: 800px;
+        }
+
+        .profile-header h1 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 28px;
+        }
+
+        .logout-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .form-container {
+            background-color: white;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 18px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+
+        .extra-links {
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        .extra-links a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .extra-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-header">
+        <h1>👨‍🔧 Staff Profile</h1>
+    </div>
+
+    <div class="form-container">
+        <form action="/editstaff/" method="get">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required value="{{ name }}">
+
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="4" required>{{ address }}</textarea>
+
+            <label for="street">Street</label>
+            <input type="text" id="street" name="street" required value="{{ street }}">
+
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" required value="{{ city }}">
+
+            <label for="district">District</label>
+            <select name="district" required value="{{district}}">
                             <option ></option>
                             <option value="thiruvananthapuram" {% if district == "thiruvananthapuram" %}selected{% endif %}>Thiruvananthapuram</option>
                             <option value="kollam" {% if district == "kollam" %}selected{% endif %}>Kollam</option>
@@ -48,31 +135,29 @@
                             <option value="wayanad" {% if district == "wayanad" %}selected{% endif %}>Wayanad</option>
                             <option value="kannur" {% if district == "kannur" %}selected{% endif %}>Kannur</option>
                             <option value="kasaragod" {% if district == "kasaragod" %}selected{% endif %}>Kasaragod</option>
-                        </select>                       
-                    </td>
-                </tr>
+                        </select>
 
-                <tr>
-                    <td>Phone Number</td><td><input type="text" name="ph_no" pattern="[0-9]{10}" maxlength="10" required value="{{phn}}"></td>
-                </tr>
-                <tr>
-                    <td>Pincode</td><td><input type="text" name="pincode" pattern="[0-9]{6}" maxlength="6" required value="{{pin}}"></td>
-                </tr>
-                <tr>
-                    <td>Date Of Birth</td><td><input type="date" name="dob" required value="{{dob}}"></td>
-                </tr>
-                <tr>
-                    <td>E-mail</td><td><input type="email" name="email" required value="{{email}}"></td>
-                </tr>
-                <tr>
-                    <td></td><td><button type="submit" name="id" value="{{stid}}">update</button></td>
-                </tr>
-            </table>
+            <label for="ph_no">Phone Number</label>
+            <input type="text" id="ph_no" name="ph_no" pattern="[0-9]{10}" maxlength="10" required value="{{ phn }}">
+
+            <label for="pincode">Pincode</label>
+            <input type="text" id="pincode" name="pincode" pattern="[0-9]{6}" maxlength="6" required value="{{ pin }}">
+
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob" required value="{{ dob }}">
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required value="{{ email }}">
+            <input type="hidden"name="id" value="{{ stid }}">
+            <input type="submit"  value="Update Profile">
         </form>
-        <br>
+
         {% if utype == 'staff' %}
-        <a href="/showpassword">change password</a>
+        <div class="extra-links">
+            <a href="/showpassword">🔐 Change Password</a>
+        </div>
         {% endif %}
-    
-    </body>
+    </div>
+</body>
 </html>
+{% endblock %}

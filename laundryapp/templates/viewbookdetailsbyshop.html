@@ -1,122 +1,233 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Booking Details</title>
-</head>
-<body>
-    <a href="/showbookingsofshop">Back</a>
-    <h1><center><u><b>Booking Details</b></u></center></h1>
-    <table style="width: 100%;">
-        <tr>
-            <td style="width: 33%; text-align: center;">
-                <h2>service details</h2>
-                <!-- Service ID: {{ srid }}<br> -->
-                Service Name: {{ dis.service }}<br>
-                Amount: {{ dis.amount }}<br>
-                
+{% extends 'header_footer_shop.html' %}
+{% block content %}
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #f7f9fb;
+        padding: 20px;
+    }
 
-            </td>
-            <td style="text-align: center;">
-                <h2>time and date</h2>
-                Order ID: {{ dis.oid }}<br>
-                Date: {{dis.date }}<br>
-                Time: {{ dis.time }}<br>
-                <!-- Status: {{ status }}<br> -->
-                <!-- User ID: {{ uid }}<br> -->
+    .section {
+        max-width: 95%;
+        margin: 30px auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+
+    h1, h2, h3 {
+        text-align: center;
+        color: #2c3e50;
+    }
+
+    a {
+        text-decoration: none;
+        color: #3498db;
+        font-weight: bold;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px 14px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #ecf0f1;
+    }
+
+    .form-section {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    select, button {
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        background-color: #2ecc71;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #27ae60;
+    }
+
+    .status-msg {
+        text-align: center;
+        margin-top: 20px;
+        font-weight: bold;
+    }
+
+    .status-msg.green { color: green; }
+    .status-msg.red { color: red; }
+</style>
+<style>
+    .tracker-timeline {
+        margin: 30px auto;
+        padding-left: 30px;
+        border-left: 4px solid #3498db;
+        max-width: 600px;
+        position: relative;
+    }
+
+    .tracker-item {
+        position: relative;
+        margin-bottom: 40px;
+        padding-left: 30px;
+    }
+
+    .tracker-item::before {
+        content: '↓';
+        position: absolute;
+        top: -4px;
+        left: -28px;
+        font-size: 20px;
+        color: #3498db;
+        font-weight: bold;
+    }
+
+    .tracker-item:first-child::before {
+        content: '🚀';
+    }
+
+    .tracker-item:last-child::before {
+        content: '🏁';
+    }
+
+    .tracker-item .status {
+        font-weight: bold;
+        font-size: 16px;
+        color: #2c3e50;
+    }
+
+    .tracker-item .datetime {
+        font-size: 14px;
+        color: #7f8c8d;
+        margin-top: 4px;
+    }
+</style>
+
+<div class="section">
+    <a href="/showbookingsofshop">← Back to Bookings</a>
+    <h1>📦 Booking Details</h1>
+
+    <table>
+        <tr>
+            <th>Service Details</th>
+            <th>Booking Info</th>
+            <th>User Info</th>
+        </tr>
+        <tr>
+            <td>
+                <strong>Service:</strong> {{ dis.service }}<br>
+                <strong>Amount:</strong> ₹{{ dis.amount }}
             </td>
             <td>
-                <h2>user details</h2>
-                Name: {{ dis.name }}<br>
-                Address: {{ dis.address }}<br>
-                District: {{ dis.district }}<br>
-                Phone: {{ dis.phn }}<br>
-                Email: {{ dis.email }}<br>
-                Place: {{ dis.place }}<br>
-
-
+                <strong>Order ID:</strong> {{ dis.oid }}<br>
+                <strong>Date:</strong> {{ dis.date }}<br>
+                <strong>Time:</strong> {{ dis.time }}
+            </td>
+            <td>
+                <strong>Name:</strong> {{ dis.name }}<br>
+                <strong>Address:</strong> {{ dis.address }}<br>
+                <strong>District:</strong> {{ dis.district }}<br>
+                <strong>Place:</strong> {{ dis.place }}<br>
+                <strong>Phone:</strong> {{ dis.phn }}<br>
+                <strong>Email:</strong> {{ dis.email }}
             </td>
         </tr>
     </table>
-    <center>
-        <h2>Work assign Details</h2>
-        {% if assign_data %}
-            <table cellspacing="10" >
-                {% for obj in assign_data %}
-                    <tr>
-                        <td>{{obj.date}}</td>
-                        <td rowspan="2">{{obj.name}}</td>
-                        <td rowspan="2"><a href="/viewstaffdetails?stid={{ obj.stid }}">View Staff Details</a></td>      
-                        {% if current_asnid == obj.asnid %}      
-                        <td rowspan="2">&nbsp;&lt;-current assign staff</a></td>
-                        {% endif %}               
-                    </tr>
-                    
-                    <tr>
-                        <td>{{obj.time}}</td>
-                    </tr>
-                    <tr><td><br></td></tr>
-                {% endfor %}
-            </table>
-                    
-        {% else %}
-            No staff assigned yet.
-        {% endif %}
-    </center>
-    {% if dis.status == 'booked' or dis.status == 'assigned' or dis.status == 'progress' %}
-    <form action="/assignstaff">
-        <h3>Assign Staff : </h3>
-        {% if staffs %}
-            <select name="stid">
-                {% for obj in staffs %}
-                    <option value="{{ obj.stid }}">{{ obj.name }}</option>
-                {% endfor %}
-            </select>
-            <button type="submit" value="{{ dis.oid }}" name="oid">Assign</button>
-        {% else %}
-            <select>
-                <option value="">No staff available</option>
-            </select>
-        {% endif %}
-    {% endif %}
-    </form>
-    <h2>Tracking Details</h2>
-    {% if tracker %}
+
+    <h2>👷 Work Assignment</h2>
+    {% if assign_data %}
         <table>
             <tr>
-                <th>Tracking ID</th>
-                <th>Order ID</th>
-                <th>Status</th>
                 <th>Date</th>
-                <th>Time</th>
+                <th>Staff Name</th>
+                <th>Details</th>
+                <th>Status</th>
             </tr>
-            {% for obj in tracker %}
+            {% for obj in assign_data %}
                 <tr>
-                    <td>{{ obj.tid }}</td>
-                    <td>{{ obj.oid }}</td>
-                    <td>{{ obj.status }}</td>
-                    <td>{{ obj.date }}</td>
-                    <td>{{ obj.time }}</td>
+                    <td>{{ obj.date }}<br>{{ obj.time }}</td>
+                    <td>{{ obj.name }}</td>
+                    <td><a href="/staffprofile?id={{ obj.stid }}">View Staff Details</a></td>
+                    <td>
+                        {% if current_asnid == obj.asnid %}
+                            ✅ Current Staff
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
         </table>
     {% else %}
-        <p>No tracking details available.</p>
+        <p class="status-msg red">No staff assigned yet.</p>
     {% endif %}
 
-    {% if dis.status == 'booked' %}
-    <a href="/rejectbooking/?oid={{ dis.oid }}" onclick="return reject_booking()">reject Booking</a>
-    {% elif dis.status == 'rejected' %}
-    <h2>This booking is rejected</h2>
-    {% elif dis.status == 'completed' %}
-    <h2 style="color: green;">This booking is completed</h2>
-    {% elif dis.status == 'cancelled' %}
-    <h2>this booking is cancelled by user</h2>
+    {% if dis.status == 'booked' or dis.status == 'assigned' or dis.status == 'progress'%}
+    <div class="form-section">
+        <h3>Assign Staff</h3>
+        <form action="/assignstaff">
+            {% if staffs %}
+                <select name="stid">
+                    {% for obj in staffs %}
+                        <option value="{{ obj.stid }}">{{ obj.name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" name="oid" value="{{ dis.oid }}">Assign</button>
+            {% else %}
+                <select disabled>
+                    <option>No staff available</option>
+                </select>
+            {% endif %}
+        </form>
+    </div>
     {% endif %}
-    
-    <script>
-        function reject_booking() {
-            return confirm("Are you sure you want to reject this booking? This action cannot be undone.");
-        }
-    </script>
-</body>
-</html>
+
+    <h2>📍 Tracking Progress</h2>
+{% if tracker %}
+    <div class="tracker-timeline">
+        {% for obj in tracker %}
+        <div class="tracker-item">
+            <div class="status">🧭 {{ obj.status }}</div>
+            <div class="datetime">{{ obj.date }} at {{ obj.time }}</div>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="no-tracker">No tracking updates available.</p>
+{% endif %}
+
+    {% if dis.status == 'booked' %}
+        <div class="form-section">
+            <a href="/rejectbooking/?oid={{ dis.oid }}" onclick="return reject_booking()">❌ Reject Booking</a>
+        </div>
+    {% elif dis.status == 'rejected' %}
+        <p class="status-msg red">This booking is rejected</p>
+    {% elif dis.status == 'completed' %}
+        <p class="status-msg green">This booking is completed</p>
+    {% elif dis.status == 'cancelled' %}
+        <p class="status-msg red">This booking was cancelled by the user</p>
+    {% endif %}
+</div>
+
+<script>
+    function reject_booking() {
+        return confirm("Are you sure you want to reject this booking? This action cannot be undone.");
+    }
+</script>
+{% endblock %}

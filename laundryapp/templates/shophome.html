@@ -1,31 +1,77 @@
+{% extends 'header_footer_shop.html' %}
+{% block content %}
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #f9fbfd;
+        margin: 0;
+        padding: 0;
+    }
 
-    {% extends 'header_footer_shop.html' %}
+    .dashboard-container {
+        max-width: 900px;
+        margin: 40px auto;
+        text-align: center;
+    }
 
-    {% block content %}
-        <br>
-        <br>
-        <br>
-        <br><br><br><br>
-        <h1>shop home</h1>
-    
-        <a href="/feedback/">Feedback</a>
-        <br>
-        <br>
-        <br>
-        <a href="/shopprofile">Shop Profile</a>
-        <br>
-        <!-- <a href="/staff">Add Staff</a>
-        <br> -->
-        <a href="/viewstaffs">Manage Staffs</a>
-        <br>
-        
-        <!-- <a href="/service/">Add Service</a>
-        <br> -->
-        <a href="/shopservice">Shop Services</a>
-        <!-- <br>
-        <a href="/showpassword">change password</a> -->
-        <br>
-        <a href="/showbookingsofshop">View Bookings</a>
-        {% endblock %}
-    
-    
+    .dashboard-container h1 {
+        font-size: 32px;
+        color: #2c3e50;
+        margin-bottom: 40px;
+    }
+
+    .nav-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 25px;
+        padding: 0 20px;
+    }
+
+    .nav-card {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+        transition: all 0.2s ease-in-out;
+    }
+
+    .nav-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    }
+
+    .nav-card a {
+        display: block;
+        color: #3498db;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 18px;
+    }
+
+    .nav-card a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="dashboard-container">
+    <h1>🏪 Shop Dashboard</h1>
+    <div class="nav-grid">
+        <div class="nav-card">
+            <a href="/shopprofile">📋 Shop Profile</a>
+        </div>
+        <div class="nav-card">
+            <a href="/viewstaffs">👥 Manage Staffs</a>
+        </div>
+        <div class="nav-card">
+            <a href="/shopservice">🛠️ Shop Services</a>
+        </div>
+        <div class="nav-card">
+            <a href="/showbookingsofshop">📦 View Bookings</a>
+        </div>
+        <div class="nav-card">
+            <a href="/feedback/">💬 Feedback</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
