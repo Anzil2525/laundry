@@ -1,46 +1,95 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Bookings of Staff</title>
-</head>
-<body>
-    <a href="/staffhome/">Home</a>
-    <h2>Bookings Assigned to You</h2>
-    <table border="1">
+{% extends 'header_footer_staff.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .section-heading {
+    text-align: center;
+    margin: 40px 0 20px;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #0d6efd;
+  }
+
+  .table-container {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 50px;
+  }
+
+  .table thead {
+    background-color: #0d6efd;
+    color: white;
+  }
+
+  .table td,
+  .table th {
+    vertical-align: middle;
+    font-size: 0.9rem;
+  }
+
+  .details-link {
+    color: #fd7e14;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .details-link:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="container pb-5">
+  <h2 class="section-heading">📋 Bookings Assigned to You</h2>
+
+  <div class="table-container table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+      <thead>
         <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Service</th>
-            <th>Amount</th>
-            <th>Description</th>
-            <!-- <th>Shop ID</th> -->
-            <th>Name</th>
-            <th>Address</th>
-            <th>District</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Place</th>
-            <th>Order ID</th>
-            <th>Details</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Service</th>
+          <th>Amount</th>
+          <th>Description</th>
+          <th>Customer</th>
+          <th>Address</th>
+          <th>District</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Place</th>
+          <th>Order ID</th>
+          <th>Action</th>
         </tr>
+      </thead>
+      <tbody>
         {% for booking in data %}
         <tr>
-            <td>{{ booking.date }}</td>
-            <td>{{ booking.time }}</td>
-            <td>{{ booking.service }}</td>
-            <td>{{ booking.amount }}</td>
-            <td>{{ booking.descr }}</td>
-            <!-- <td>{{ booking.shid }}</td> -->
-            <td>{{ booking.name }}</td>
-            <td>{{ booking.address }}</td>
-            <td>{{ booking.district }}</td>
-            <td>{{ booking.phn }}</td>
-            <td>{{ booking.email }}</td>
-            <td>{{ booking.place }}</td>
-            <td>{{ booking.oid }}</td>
-            <td><a href="/viewbookdetailsbystaff/?oid={{booking.oid}}">view details</a></td>
+          <td>{{ booking.date }}</td>
+          <td>{{ booking.time }}</td>
+          <td>{{ booking.service }}</td>
+          <td>₹{{ booking.amount }}</td>
+          <td>{{ booking.descr }}</td>
+          <td>{{ booking.name }}</td>
+          <td>{{ booking.address }}</td>
+          <td>{{ booking.district }}</td>
+          <td>{{ booking.phn }}</td>
+          <td>{{ booking.email }}</td>
+          <td>{{ booking.place }}</td>
+          <td>{{ booking.oid }}</td>
+          <td>
+            <a href="/viewbookdetailsbystaff/?oid={{ booking.oid }}" class="details-link">View Details</a>
+          </td>
         </tr>
         {% endfor %}
+      </tbody>
     </table>
-</body>
-</html>
+  </div>
+</div>
+{% endblock %}

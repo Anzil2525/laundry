@@ -1,97 +1,198 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <a href="/staffhome/">Home</a>
-    <h2>Bookings Assigned to You</h2>
-    <table border="1">
-        <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Service</th>
-            <th>Amount</th>
-            <th>Description</th>
-            <!-- <th>Shop ID</th> -->
-            <th>Name</th>
-            <th>Address</th>
-            <th>District</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Place</th>
-            <th>Order ID</th>
-            <!-- <th>Details</th> -->
-        </tr>
-        <tr>
-            <td>{{ data.odate }}</td>
-            <td>{{ data.otime }}</td>
-            <td>{{ data.service }}</td>
-            <td>{{ data.amount }}</td>
-            <td>{{ data.descr }}</td>
-            <!-- <td>{{ data.shid }}</td> -->
-            <td>{{ data.name }}</td>
-            <td>{{ data.address }}</td>
-            <td>{{ data.district }}</td>
-            <td>{{ data.phn }}</td>
-            <td>{{ data.email }}</td>
-            <td>{{ data.place }}</td>
-            <td>{{ oid }}</td>
-            <!-- <td><a href="/viewbookdetailsbystaff/?oid={{booking.oid}}">view details</a></td> -->
-        </tr>
-        
-    </table>
-    <h2>Code : {{data.code}}</h2>
-    <h2>Tracking Information</h2>
-    {% if tracker %}
-        <ul>
-        {% for obj in tracker %}
-            <li>{{ obj.oid }} - {{ obj.status }} - {{ obj.date }} - {{ obj.time }}</li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No tracking information available.</p>
-    {% endif %}
+{% extends 'header_footer_staff.html' %}
+{% load static %}
 
-    {% if data.status == 'booked' or data.status == 'assigned' or data.status == 'progress' %}
-        <form action="/updatetrackerbyoption">
-            enter update of tracker by option:
-            <select name="status">
-                <option value="Materials Collected">Materials Collected</option>
-                <option value="Materials Reached Shop">Materials Reached Shop</option>
-                <option value="Materials are being processed">Materials are being processed</option>
-                <option value="Materials are ready for pickup">Materials are ready for pickup</option>
-                <option value="Materials have been picked up">Materials have been picked up</option>
-                <option value="Materials have been dispatched">Materials have been dispatched</option>
-                <option value="Materials have been delivered">Materials have been delivered</option>
-            </select>
-            <input type="hidden" name="oid" value="{{ data.oid }}">
-            <input type="submit" value="Update Tracker">
-        </form>
+{% block content %}
+<style>
+  body {
+    background-color: #f1f5f9;
+    font-family: 'Segoe UI', sans-serif;
+  }
 
-        <br>
-        or
-        <br>
-        <br>
-        <form action="/updatetrackerbytyping">
-            enter update of tracker by typing:
-            <input type="text" name="status">
-            <input type="hidden" name="oid" value="{{ data.oid }}">
-            <input type="submit" value="Update Tracker">
-        </form>
-    <a href="/completebooking/?oid={{ data.oid }}" onclick="return completebooking()">Job Finished</a>
+  .section-title {
+    font-weight: bold;
+    font-size: 1.8rem;
+    margin-top: 30px;
+    color: #0d6efd;
+  }
 
-    {% endif %}
+  .details-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    margin-bottom: 30px;
+  }
 
-    {% if data.status == 'cancelled' %}
-        <h2>Booking is Cancelled</h2>
-    {% endif %}
-    <script>
-        function completebooking() {
-            return confirm("Are you sure you want to mark this job as finished? This action cannot be undone.");
-        }
-    </script>
-</body>
-</html>
+  .tracker-line {
+    border-left: 4px solid #0d6efd;
+    padding-left: 20px;
+    margin-top: 15px;
+  }
+
+  .tracker-step {
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: 10px;
+  }
+
+  .tracker-step::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    background-color: #fd7e14;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 0 3px #0d6efd;
+  }
+
+  .tracker-arrow {
+    font-size: 18px;
+    color: #0d6efd;
+    margin: -10px 0 15px 10px;
+    display: block;
+  }
+
+  .btn-orange {
+    background-color: #fd7e14;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-orange:hover {
+    background-color: #0d6efd;
+  }
+
+  .btn-complete {
+    margin-top: 20px;
+    display: inline-block;
+    font-weight: 600;
+    color: red;
+  }
+
+  .btn-complete:hover {
+    text-decoration: underline;
+  }
+
+  .cancelled-text {
+    font-size: 1.2rem;
+    color: #dc3545;
+    margin-top: 20px;
+  }
+
+  .code-box {
+    font-size: 1.25rem;
+    background: #e9ecef;
+    padding: 10px 15px;
+    display: inline-block;
+    border-radius: 6px;
+    margin-top: 10px;
+    font-weight: 600;
+  }
+
+  .flow-info {
+    margin-bottom: 10px;
+    font-style: italic;
+    color: #555;
+  }
+</style>
+
+<div class="container pb-5">
+  <h2 class="section-title">📋 Assigned Booking Details</h2>
+
+  <div class="details-card">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <p><strong>Date:</strong> {{ data.odate }}</p>
+        <p><strong>Time:</strong> {{ data.otime }}</p>
+        <p><strong>Service:</strong> {{ data.service }}</p>
+        <p><strong>Amount:</strong> ₹{{ data.amount }}</p>
+        <p><strong>Description:</strong> {{ data.descr }}</p>
+        <p><strong>Order ID:</strong> {{ oid }}</p>
+        <p><strong>Code:</strong> <span class="code-box">{{ data.code }}</span></p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Customer:</strong> {{ data.name }}</p>
+        <p><strong>Address:</strong> {{ data.address }}</p>
+        <p><strong>District:</strong> {{ data.district }}</p>
+        <p><strong>Place:</strong> {{ data.place }}</p>
+        <p><strong>Phone:</strong> {{ data.phn }}</p>
+        <p><strong>Email:</strong> {{ data.email }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flow Direction Header -->
+  <h4 class="text-primary fw-bold mb-1">📍 Progress Flow</h4>
+  <p class="flow-info">Tracking updates are shown from latest (top) to earliest (bottom) ↓</p>
+
+  <!-- Timeline Tracker -->
+  {% if tracker %}
+    <div class="details-card tracker-line">
+      {% for obj in tracker %}
+        <div class="tracker-step">
+          <p class="mb-1"><strong>{{ obj.status }}</strong></p>
+          <small>{{ obj.date }} – {{ obj.time }}</small>
+        </div>
+        {% if not forloop.last %}
+          <span class="tracker-arrow">↓</span>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-muted">No tracking information available.</p>
+  {% endif %}
+
+  <!-- Tracker Update Forms / Complete Button -->
+  {% if data.status == 'booked' or data.status == 'assigned' or data.status == 'progress' %}
+    <div class="mt-4 mb-4">
+      <form action="/updatetrackerbyoption" class="mb-3">
+        <label class="form-label">Update Tracker (choose):</label>
+        <div class="d-flex gap-3 flex-wrap">
+          <select class="form-select" name="status" required>
+            <option >Choose status update</option>
+            <option value="Materials Collected">Materials Collected</option>
+            <option value="Materials Reached Shop">Materials Reached Shop</option>
+            <option value="Materials are being processed">Materials are being processed</option>
+            <option value="Materials are ready for pickup">Materials are ready for pickup</option>
+            <option value="Materials have been picked up">Materials have been picked up</option>
+            <option value="Materials have been dispatched">Materials have been dispatched</option>
+            <option value="Materials have been delivered">Materials have been delivered</option>
+          </select>
+          <input type="hidden" name="oid" value="{{ data.oid }}">
+          <button type="submit" class="btn btn-orange">Update</button>
+        </div>
+      </form>
+
+      <form action="/updatetrackerbytyping" class="mb-3">
+        <label class="form-label">Or enter custom update:</label>
+        <div class="d-flex gap-3 flex-wrap">
+          <input type="text" name="status" class="form-control" placeholder="Type custom status..." required>
+          <input type="hidden" name="oid" value="{{ data.oid }}">
+          <button type="submit" class="btn btn-orange">Update</button>
+        </div>
+      </form>
+
+    <form action="/completebooking/" method="get" onsubmit="return completebooking()">
+        <input type="hidden" name="oid" value="{{ data.oid }}">
+        <button type="submit" class="btn btn-success mt-2">✅ Mark Job as Finished</button>
+    </form>
+
+
+    </div>
+  {% endif %}
+
+  {% if data.status == 'cancelled' %}
+    <div class="cancelled-text">🚫 Booking is Cancelled</div>
+  {% endif %}
+</div>
+
+<script>
+  function completebooking() {
+    return confirm("Are you sure you want to mark this job as finished? This action cannot be undone.");
+  }
+</script>
+{% endblock %}

@@ -413,8 +413,11 @@ def deletestaff(request):
 
 def staffprofile(request):
     cur = connection.cursor()
-    id = request.GET['id']
-    sql = "select * from staff where stid = '%s'"%(id)
+    try:
+        stid = request.GET['id']
+    except:
+        stid = request.session['uid']
+    sql = "select * from staff where stid = '%s'"%(stid)
     cur.execute(sql)
     result = cur.fetchall()
     for row in result:
