@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <a href="/">log out</a>
-    <h1>admin home</h1>
+
+    {% extends 'header_footer_admin.html' %}
+    {% block content %}
     <a href="/viewusers/">view user</a><br>
     <a href="/viewshops/">view shops</a><br>
     <!-- <a href="/viewservices/">view services</a><br> -->
     <a href="/viewfeedbacks/">view feedbacks</a><br>
-</body>
-</html>
+    {% endblock %}

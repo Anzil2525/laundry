@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Elite Shop Cards | Door2Deter</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     body {
       background-color: #f1f5f9;
@@ -56,17 +56,20 @@
     }
 
     .view-btn {
-        background-color: #fd7e14; /* ORANGE default */
-        border: none;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        transition: background-color 0.3s ease;
-        color: white;
+      background-color: #fd7e14;
+      border: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: background-color 0.3s ease;
+      color: white;
+      padding: 6px 12px;
+      height: 38px;
+      width: 148;
     }
 
     .view-btn:hover {
-        background-color: #0d6efd; /* BLUE on hover */
+      background-color: #0d6efd;
+      color: white;
     }
-
 
     .card-body {
       padding: 25px;
@@ -81,6 +84,21 @@
     .card-text {
       font-size: 0.95rem;
     }
+
+    #shopSearch {
+      max-width: 500px;
+      margin: 0 auto 30px;
+      display: block;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border: 1px solid #ced4da;
+    }
+
+    #noResultsMessage {
+      display: none;
+      font-size: 1.1rem;
+    }
   </style>
 </head>
 <body>
@@ -90,27 +108,33 @@
   <div class="container pb-5">
     <h1 class="shop-heading">Explore All Shops</h1>
 
+    <!-- 🔍 Search Bar -->
+    <input type="text" id="shopSearch" placeholder="Search shops by name or district..." class="form-control form-control-lg" />
+
     {% if data %}
-    <div class="row g-5">
+    <div class="row g-5 mt-4" id="shopCardContainer">
       {% for i in data %}
-      <div class="col-sm-12 col-md-6 col-lg-4 position-relative">
+      <div class="col-sm-12 col-md-6 col-lg-4 position-relative shop-card-item">
         <div class="card shop-card shadow-sm h-100">
           <div class="card-body">
             <div class="shop-icon"><i class="fas fa-store"></i></div>
-            <h5 class="card-title">{{ i.name }}</h5>
-            <p class="card-text"><strong>District:</strong> {{ i.district }}</p>
+            <h5 class="card-title shop-name">{{ i.name }}</h5>
+            <p class="card-text"><strong>District:</strong> <span class="shop-district">{{ i.district }}</span></p>
             <p class="card-text"><strong>Address:</strong> {{ i.address }}</p>
-        </div>
-
-        <!-- Hover Slide-up Button -->
-        <div class="view-btn-container">
-            <a href="/userviewservices/?id={{ i.shid }}" class="btn view-btn text-white px-4" style="background-color: #fd7e14;border: none;box-shadow: 0 4px 12px rgba(0,0,0,0.15);transition: background-color 0.3s ease;color: white;">View Services</a>
-        </div>
-
+          </div>
+          <div class="view-btn-container">
+            <a href="/userviewservices/?id={{ i.shid }}" class="view-btn">View Services</a>
+          </div>
         </div>
       </div>
       {% endfor %}
     </div>
+
+    <!-- 🔍 No Results Message -->
+    <div id="noResultsMessage" class="text-center text-muted mt-4">
+      <p>No matching shops found.</p>
+    </div>
+
     {% else %}
     <div class="text-center text-danger mt-5">
       <p>No shops available at the moment.</p>
@@ -118,6 +142,32 @@
     {% endif %}
   </div>
 
+
+
+  <!-- 🔧 JavaScript for Search -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.getElementById("shopSearch");
+      const cards = document.querySelectorAll(".shop-card-item");
+      const noResults = document.getElementById("noResultsMessage");
+
+      searchInput.addEventListener("input", () => {
+        const searchText = searchInput.value.toLowerCase();
+        let matchCount = 0;
+
+        cards.forEach(card => {
+          const name = card.querySelector(".shop-name")?.textContent.toLowerCase() || "";
+          const district = card.querySelector(".shop-district")?.textContent.toLowerCase() || "";
+          const matches = name.includes(searchText) || district.includes(searchText);
+
+          card.style.display = matches ? "block" : "none";
+          if (matches) matchCount++;
+        });
+
+        noResults.style.display = matchCount === 0 ? "block" : "none";
+      });
+    });
+  </script>
   {% endblock %}
 </body>
 </html>

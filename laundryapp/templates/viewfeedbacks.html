@@ -6,7 +6,9 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="/adminhome/">Home</a>
+    {% extends 'header_footer_admin.html' %}
+
+    {% block content %}
     <h1>view feedbacks</h1>
     <table border="1">
         <tr>
@@ -32,5 +34,6 @@
             <td colspan="5" style="text-align: center;">no record</td>
         </tr>
         {% endif %}
+        {% endblock %}
 </body>
 </html>

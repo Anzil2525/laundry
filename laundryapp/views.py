@@ -590,6 +590,13 @@ def showpassword(request):
             'prepass' : row[3],
             'utype' : row[4],
         }
+    if request.session['utype'] == 'user':
+        dis['temp'] = 'header_footer_user.html'
+    elif request.session['utype'] == 'shop':
+        dis['temp'] = 'header_footer_shop.html'
+    elif request.session['utype'] == 'staff':
+        dis['temp'] = 'header_footer_staff.html'
+    
     return render(request,'password.html',dis)
 
 def changepass(request):
