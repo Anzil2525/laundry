@@ -618,7 +618,18 @@ def changepass(request):
     return HttpResponse(msg)
 
 def forgotpass(request):
-    return render(request,'forgotpassform.html')
+    try:
+        if request.session['utype'] == 'user':
+            temp = 'header_footer_user.html'
+        elif request.session['utype'] == 'shop':
+            temp = 'header_footer_shop.html'
+        elif request.session['utype'] == 'staff':
+            temp = 'header_footer_staff.html'
+        else:
+            temp = 'header_footer_index.html'
+    except:
+        temp = 'header_footer_index.html'
+    return render(request,'forgotpassform.html',{'temp':temp})
 
 def forgotpassaction(request):
     cur = connection.cursor()

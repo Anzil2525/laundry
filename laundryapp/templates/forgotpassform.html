@@ -1,26 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Forgot password</h1>
-    <form action="/forgotpassaction/">
-        <table>
-            <tr>
-                <td>Email</td>
-                <td><input type="email" name="email" required></td>
-            </tr>
-            <tr>
-                <td>Phone number</td>
-                <td><input type="text" name="phn" required></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" value="Submit"></td>
-            </tr>
-        </table>
-</body>
-</html>
+{% extends temp %}
+
+{% block title %}Forgot Password{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center vh-100" style="background-color: #f8f9fa;">
+    <div class="form-container bg-white p-4 rounded shadow" style="width: 100%; max-width: 400px;">
+        <h3 class="text-center text-primary mb-4">🔑 Forgot Password</h3>
+        <form action="/forgotpassaction/" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="email" class="form-label">📧 Email address</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="phn" class="form-label">📞 Phone Number</label>
+                <input type="text" class="form-control" id="phn" name="phn" required>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
