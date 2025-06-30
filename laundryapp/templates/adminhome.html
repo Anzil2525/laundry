@@ -1,8 +1,48 @@
+{% extends 'header_footer_admin.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4 text-primary text-center">📊 Admin Dashboard</h2>
 
-    {% extends 'header_footer_admin.html' %}
-    {% block content %}
-    <a href="/viewusers/">view user</a><br>
-    <a href="/viewshops/">view shops</a><br>
-    <!-- <a href="/viewservices/">view services</a><br> -->
-    <a href="/viewfeedbacks/">view feedbacks</a><br>
-    {% endblock %}
+    <!-- Dashboard Summary Cards -->
+    <div class="row text-center g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm border-primary">
+                <div class="card-body">
+                    <h5 class="card-title">👤 Users</h5>
+                    <p class="card-text display-6 text-primary">{{ total_users }}</p>
+                    <a href="/viewusers/" class="btn btn-outline-primary btn-sm">View Users</a>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-success">
+                <div class="card-body">
+                    <h5 class="card-title">🏪 Shops</h5>
+                    <p class="card-text display-6 text-success">{{ total_shops }}</p>
+                    <a href="/viewshops/" class="btn btn-outline-success btn-sm">View Shops</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-info">
+                <div class="card-body">
+                    <h5 class="card-title">💬 Feedbacks</h5>
+                    <p class="card-text display-6 text-info">{{ total_feedbacks }}</p>
+                    <a href="/viewfeedbacks/" class="btn btn-outline-info btn-sm">View Feedbacks</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional quick links -->
+    <div class="text-center">
+        <a href="/viewusers/" class="btn btn-link">👁 View All Users</a>
+        <a href="/viewshops/" class="btn btn-link">👁 View All Shops</a>
+        <a href="/viewfeedbacks/" class="btn btn-link">👁 View All Feedbacks</a>
+    </div>
+</div>
+{% endblock %}
