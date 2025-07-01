@@ -684,9 +684,24 @@ def bookservice(request):
 def showbookingsofuser(request):
     cur = connection.cursor()
     uid = request.session['uid']
-    sql = "select * from booking inner join service inner join shop " \
-    "on service.srid=booking.srid and service.shid = shop.shid " \
-    "where booking.uid = '%s' order by booking.oid desc"%(uid)
+    try:
+        if request.GET['filter'] == 'progress':
+            fil = ('progress','booked','assigned',)
+        elif request.GET['filter'] == 'completed':
+            fil = ('completed','')
+        elif request.GET['filter'] == 'rejected':
+            fil = ('rejected','')
+      
+        sql = "select * from booking inner join service inner join shop " \
+            "on service.srid=booking.srid and service.shid = shop.shid " \
+            "where booking.uid = '%s'and booking.status in %s order by booking.oid desc"%(uid,fil)       
+        print( ' not error')
+        print(sql)
+    except:
+        print('error')
+        sql = "select * from booking inner join service inner join shop " \
+        "on service.srid=booking.srid and service.shid = shop.shid " \
+        "where booking.uid = '%s' order by booking.oid desc"%(uid)
     cur.execute(sql)
     result = cur.fetchall()
     data = []
