@@ -1098,7 +1098,7 @@ def addtocart(request):
     srid = request.GET['srid']
     sql = "insert into cart(uid,srid) values('%s','%s')"%(uid,srid)
     cur.execute(sql)
-    msg = "<script>alert('added to cart');window.location='/viewservicedetails/?srid=%s';</script>"%(srid)
+    msg = "<script>window.location='/viewservicedetails/?srid=%s';</script>"%(srid)
     return HttpResponse(msg)
 
 def removecart(request):
@@ -1107,7 +1107,7 @@ def removecart(request):
     srid = request.GET['srid']
     sql = "delete from cart where uid = '%s' and srid = '%s'"%(uid,srid)
     cur.execute(sql)
-    msg = "<script>alert('removed from cart');window.location='/viewservicedetails/?srid=%s';</script>"%(srid)
+    msg = "<script>window.location='/viewservicedetails/?srid=%s';</script>"%(srid)
     return HttpResponse(msg)
 
 def viewcart(request):

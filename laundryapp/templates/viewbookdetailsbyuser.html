@@ -85,6 +85,7 @@
         <h4>Service Details</h4>
         <p><strong>Name:</strong> {{ dis.service }}</p>
         <p><strong>Amount:</strong> ₹{{ dis.amount }}</p>
+        <a href="/viewservicedetails/?srid={{ dis.srid }}" class="btn btn-sm btn-outline-primary">View Service</a>
       </div>
     </div>
     <div class="col-md-4">
@@ -102,6 +103,8 @@
         <p><strong>Address:</strong> {{ dis.address }}, {{ dis.place }}, {{ dis.district }}</p>
         <p><strong>Phone:</strong> {{ dis.phn }}</p>
         <p><strong>Email:</strong> {{ dis.email }}</p>
+        <a href="/userviewservices/?id={{dis.shid}}" class="btn btn-sm btn-outline-primary mt-3 mb-4">visit shop</a>
+
       </div>
     </div>
   </div>
