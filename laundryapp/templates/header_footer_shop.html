@@ -55,7 +55,7 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
                         <a href="/shophome/" class="nav-item nav-link {% if request.path == '/shophome/' %}active{% endif %}">Home</a>
-                        <a href="/viewstaffs/" class="nav-item nav-link {% if request.path == '/viewstaffs/' %}active{% endif %}">Manage Staffs</a>
+                        <a href="/viewstaffs/" class="nav-item nav-link {% if request.path == '/viewstaffs/' or request.path == '/staff/' %}active{% endif %}">Manage Staffs</a>
                         <a href="/shopservice/" class="nav-item nav-link {% if request.path == '/shopservice/' or request.path == '/service/' or request.path == '/serviceeditingpage/'%}active{% endif %}">Shop Services</a>
                         <a href="/showbookingsofshop/" class="nav-item nav-link {% if request.path == '/showbookingsofshop/' or request.path == '/viewbookdetailsbyshop/'%}active{% endif %}">View Bookings</a>
                         <a href="/shopprofile" class="nav-item nav-link {% if request.path == '/shopprofile/' or request.path == '/showpassword/'%}active{% endif %}" style="font-size: 16px;">
