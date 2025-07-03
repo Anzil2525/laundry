@@ -47,41 +47,140 @@
         text-align: center;
         margin-top: 20px;
     }
+
+    .filter-links-box {
+        margin: 20px;
+        text-align: center;
+    }
+
+    .filter-link {
+        margin: 0 10px;
+        text-decoration: none;
+        color: #3498db;
+        font-weight: bold;
+    }
+
+    .view-link {
+    color: #fd7e14;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .view-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Filter links row styling */
+  .filter-links-box {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    padding: 18px 10px;
+    margin: 30px 0 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .filter-link {
+    display: inline-block;
+    padding: 8px 22px;
+    border-radius: 20px;
+    background: #e9ecef;
+    color: #0d6efd;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid #d0d7de;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+  }
+  .filter-link:hover, .filter-link.active {
+    background: #0d6efd;
+    color: #fff;
+    border-color: #0d6efd;
+    text-decoration: none;
+  }
+  .filter-link.active {
+    background: #0d6efd;
+    color: #fff;
+    border-color: #0d6efd;
+  }
 </style>
+
+<div class="filter-links-box">
+    <a href="/showbookingsofshop/?filter=all" class="filter-link {% if request.GET.filter == 'all' or not request.GET.filter %}active{% endif %}">All ({{count.all}})</a>
+    <a href="/showbookingsofshop/?filter=booked" class="filter-link {% if request.GET.filter == 'booked' %}active{% endif %}">New/unassigned  ({{count.booked}})</a>
+    <a href="/showbookingsofshop/?filter=progress" class="filter-link {% if request.GET.filter == 'progress' %}active{% endif %}">Progress  ({{count.progress}})</a>
+    <a href="/showbookingsofshop/?filter=completed" class="filter-link {% if request.GET.filter == 'completed' %}active{% endif %}">Completed ({{count.completed}})</a>
+    <a href="/showbookingsofshop/?filter=rejected" class="filter-link {% if request.GET.filter == 'rejected' %}active{% endif %}">Rejected  ({{count.rejected}})</a>
+    <a href="/showbookingsofshop/?filter=cancelled" class="filter-link {% if request.GET.filter == 'cancelled' %}active{% endif %}">Cancelled  ({{count.cancelled}})</a>
+</div>
+
+<div class="d-flex justify-content-end mb-3">
+    <input type="text" id="serviceSearch" class="form-control w-50" placeholder="Search by service or user...">
+</div>
 
 <div class="container">
     <h1>📋 Bookings</h1>
 
-    <table>
-        <tr>
-            <th>Service</th>
-            <th>User</th>
-            <th>Amount</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Address</th>
-            <th>District</th>
-            <th>Phone Number</th>
-            <th>Actions</th>
-        </tr>
-
-        {% for i in data %}
-        <tr>
-            <td>{{ i.service }}</td>
-            <td>{{ i.uname }}</td>
-            <td>₹{{ i.amount }}</td>
-            <td>{{ i.date }}</td>
-            <td>{{ i.time }}</td>
-            <td>{{ i.address }}</td>
-            <td>{{ i.district }}</td>
-            <td>{{ i.phn }}</td>
-            <td><a href="/viewbookdetailsbyshop/?oid={{ i.oid }}" class="view-link">View Details</a></td>
-        </tr>
-        {% endfor %}
+    <table id="bookedServiceTable">
+        <thead>
+            <tr>
+                <th>Service</th>
+                <th>User</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Address</th>
+                <th>District</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr>
+                <td class="service-name">{{ i.service }}</td>
+                <td class="shop-name">{{ i.uname }}</td>
+                <td>₹{{ i.amount }}</td>
+                <td>{{ i.date }}</td>
+                <td>{{ i.time }}</td>
+                <td>{{ i.address }}</td>
+                <td>{{ i.district }}</td>
+                <td>{{ i.phn }}</td>
+                <td><a href="/viewbookdetailsbyshop/?oid={{ i.oid }}" class="view-link">View Details</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
     </table>
-
+        <p id="noMatchMessage" class="no-data" style="display: none;">Nothing found</p>
     {% if not data %}
         <p class="no-data">No bookings found</p>
     {% endif %}
 </div>
+
+<script>
+document.getElementById('serviceSearch').addEventListener('input', function () {
+    const search = this.value.toLowerCase();
+    const rows = document.querySelectorAll('#bookedServiceTable tbody tr');
+    const noMatchMessage = document.getElementById('noMatchMessage');
+
+    let matchFound = false;
+
+    rows.forEach(row => {
+        const service = row.querySelector('.service-name').textContent.toLowerCase();
+        const user = row.querySelector('.shop-name').textContent.toLowerCase();
+
+        if (service.includes(search) || user.includes(search)) {
+            row.style.display = '';
+            matchFound = true;
+        } else {
+            row.style.display = 'none';
+        }
+    });
+
+    noMatchMessage.style.display = matchFound ? 'none' : 'block';
+});
+</script>
+
 {% endblock %}

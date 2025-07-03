@@ -82,10 +82,10 @@
   <h1 class="">📋 Booked Services</h1>
 
   <div class="filter-links-box">
-    <a href="/showbookingsofuser/?filter=all" class="filter-link {% if request.GET.filter == 'all' or not request.GET.filter %}active{% endif %}">All</a>
-    <a href="/showbookingsofuser/?filter=progress" class="filter-link {% if request.GET.filter == 'progress' %}active{% endif %}">Still in Progress</a>
-    <a href="/showbookingsofuser/?filter=completed" class="filter-link {% if request.GET.filter == 'completed' %}active{% endif %}">Completed</a>
-    <a href="/showbookingsofuser/?filter=rejected" class="filter-link {% if request.GET.filter == 'rejected' %}active{% endif %}">Rejected</a>
+    <a href="/showbookingsofuser/?filter=all" class="filter-link {% if request.GET.filter == 'all' or not request.GET.filter %}active{% endif %}">All ({{count.all  }})</a>
+    <a href="/showbookingsofuser/?filter=progress" class="filter-link {% if request.GET.filter == 'progress' %}active{% endif %}">Still in Progress  ({{count.progress}})</a>
+    <a href="/showbookingsofuser/?filter=completed" class="filter-link {% if request.GET.filter == 'completed' %}active{% endif %}">Completed ({{count.completed}})</a>
+    <a href="/showbookingsofuser/?filter=rejected" class="filter-link {% if request.GET.filter == 'rejected' %}active{% endif %}">Rejected ({{count.rejected}})</a>
   </div>
 
   <!-- 🔍 Search Bar -->

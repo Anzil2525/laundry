@@ -684,6 +684,32 @@ def bookservice(request):
 def showbookingsofuser(request):
     cur = connection.cursor()
     uid = request.session['uid']
+    sql = "select count(oid) from booking where uid = '%s'"%(uid)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        all_count = row[0]
+
+    sql = "select count(oid) from booking where uid = '%s' and status in ('booked','assigned','progress')"%(uid)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        progress_count = row[0]
+    
+    sql = "select count(oid) from booking where uid = '%s' and status = 'completed'"%(uid)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        completed_count = row[0]
+    
+    sql = "select count(oid) from booking where uid = '%s' and status = 'rejected'"%(uid)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        rejected_count = row[0]
+    
+    count = {
+        'all' : all_count,
+        'progress' : progress_count,
+        'completed' : completed_count,
+        'rejected' : rejected_count,
+    }
     try:
         if request.GET['filter'] == 'progress':
             fil = ('progress','booked','assigned',)
@@ -691,6 +717,8 @@ def showbookingsofuser(request):
             fil = ('completed','')
         elif request.GET['filter'] == 'rejected':
             fil = ('rejected','')
+        else:
+            fil = ('','')
       
         sql = "select * from booking inner join service inner join shop " \
             "on service.srid=booking.srid and service.shid = shop.shid " \
@@ -719,14 +747,80 @@ def showbookingsofuser(request):
             
         }
         data.append(dis)
-    return render(request,'showbookingsofuser.html',{'data':data})
+    return render(request,'showbookingsofuser.html',{'data':data,'count':count})
 
 def showbookingsofshop(request):
     cur = connection.cursor()
     shid = request.session['uid']
-    sql = "select * from service inner join booking inner join user " \
-    "on service.srid = booking.srid and booking.uid = user.uid " \
-    "where service.shid= '%s' order by booking.oid desc"%(shid)
+    print("and we entered the function")
+
+    sql = "select count(oid) from booking inner join service " \
+    "on service.srid = booking.srid where service.shid = '%s'"%(shid)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        all_count = row[0]
+
+    sql = "select count(oid) from booking inner join service " \
+    "on service.srid = booking.srid where service.shid = '%s'and booking.status = 'booked'"%(shid)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        booked_count = row[0]
+    
+    sql = "select count(oid) from booking inner join service " \
+    "on service.srid = booking.srid where service.shid = '%s'and booking.status = 'completed'"%(shid)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        completed_count = row[0]
+    
+    sql = "select count(oid) from booking inner join service " \
+    "on service.srid = booking.srid where service.shid = '%s'and booking.status = 'rejected'"%(shid)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        rejected_count = row[0]
+    
+    sql = "select count(oid) from booking inner join service " \
+    "on service.srid = booking.srid where service.shid = '%s'and booking.status in ('progress','assigned')"%(shid)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        progress_count = row[0]
+
+    sql = "select count(oid) from booking inner join service " \
+    "on service.srid = booking.srid where service.shid = '%s'and booking.status = 'cancelled'"%(shid)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        cancelled_count = row[0]
+    
+    count = {
+        'booked' : booked_count,
+        'completed' : completed_count,
+        'rejected' : rejected_count,
+        'cancelled' : cancelled_count,
+        'all' : all_count,
+        'progress' : progress_count,
+
+    }
+    try:
+        print('fil :::',request.GET['filter'])
+        if request.GET['filter'] == 'progress':
+            fil = ('progress','assigned')
+        elif request.GET['filter'] == 'booked':
+            fil = ('booked','')
+        elif request.GET['filter'] == 'cancelled':
+            fil = ('cancelled','')
+        elif request.GET['filter'] == 'rejected':
+            fil = ('rejected','')
+        elif request.GET['filter'] == 'completed':
+            fil = ('completed','')
+        sql = "select * from service inner join booking inner join user " \
+        "on service.srid = booking.srid and booking.uid = user.uid " \
+        "where service.shid= '%s' and booking.status in %s order by booking.oid desc"%(shid,fil)
+        print('**************not errror************')
+    except:
+        print("*************hi*****************")
+        sql = "select * from service inner join booking inner join user " \
+        "on service.srid = booking.srid and booking.uid = user.uid " \
+        "where service.shid= '%s' order by booking.oid desc"%(shid)
+
     cur.execute(sql)
     result = cur.fetchall()
     data = []
@@ -746,7 +840,7 @@ def showbookingsofshop(request):
             'phn' : row[15],
         }
         data.append(dis)
-    return render(request,'showbookingsofshop.html',{'data':data})
+    return render(request,'showbookingsofshop.html',{'data':data,'count':count})
 
 def viewbookdetailsbyshop(request):
     cur = connection.cursor()
@@ -865,10 +959,14 @@ def assignstaff(request):
 def showbookingsofstaff(request):
     cur = connection.cursor()
     stid = request.session['uid']
+    try:
+        pass
+    except:
+        pass
     
     sql = "select * from assign inner join booking inner join service inner join user "\
     "on assign.oid = booking.oid and booking.srid = service.srid and booking.uid = user.uid "\
-    "where assign.stid = '%s' and assign.asnid in (select max(asnid) from assign group by oid) order by booking.oid desc"%(stid)
+    "where assign.stid = '%s' and assign.asnid in (select max(asnid) from assign group by oid) order by assign.asnid desc"%(stid)
     cur.execute(sql)
     result = cur.fetchall()
     data = []
