@@ -44,50 +44,106 @@
   .details-link:hover {
     text-decoration: underline;
   }
+  .view-link {
+    color: #fd7e14;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .view-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Filter links row styling */
+  .filter-links-box {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    padding: 18px 10px;
+    margin: 30px 0 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .filter-link {
+    display: inline-block;
+    padding: 8px 22px;
+    border-radius: 20px;
+    background: #e9ecef;
+    color: #0d6efd;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid #d0d7de;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+  }
+  .filter-link:hover, .filter-link.active {
+    background: #0d6efd;
+    color: #fff;
+    border-color: #0d6efd;
+    text-decoration: none;
+  }
+  .filter-link.active {
+    background: #0d6efd;
+    color: #fff;
+    border-color: #0d6efd;
+  }
 </style>
 
 <div class="container pb-5">
   <h2 class="section-heading">📋 Bookings Assigned to You</h2>
+  <a href="/showbookingsofstaff/?filter=all" class="filter-link {% if request.GET.filter == 'all' or not request.GET.filter %}active{% endif %}">All ({{count.all  }})</a>
+    <a href="/showbookingsofstaff/?filter=incompleted" class="filter-link {% if request.GET.filter == 'incompleted' %}active{% endif %}">Incompleted  ({{count.incompleted}})</a>
+    <a href="/showbookingsofstaff/?filter=completed" class="filter-link {% if request.GET.filter == 'completed' %}active{% endif %}">Completed ({{count.completed}})</a>
+    <a href="/showbookingsofstaff/?filter=cancelled" class="filter-link {% if request.GET.filter == 'cancelled' %}active{% endif %}">Cancelled  ({{count.cancelled}})</a>
 
   <div class="table-container table-responsive">
     <table class="table table-bordered table-hover align-middle">
       <thead>
         <tr>
+          <th>Order ID</th>
           <th>Date</th>
           <th>Time</th>
           <th>Service</th>
           <th>Amount</th>
-          <th>Description</th>
+          <!-- <th>Description</th> -->
           <th>Customer</th>
           <th>Address</th>
           <th>District</th>
           <th>Phone</th>
           <th>Email</th>
           <th>Place</th>
-          <th>Order ID</th>
+          
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        {% for booking in data %}
+        {% if data %}
+          {% for booking in data %}
+          <tr style="color: black;font-size: 15px;">
+            <td>{{ booking.oid }}</td>
+            <td>{{ booking.date }}</td>
+            <td>{{ booking.time }}</td>
+            <td>{{ booking.service }}</td>
+            <td>₹{{ booking.amount }}</td>
+            <!-- <td>{{ booking.descr }}</td> -->
+            <td>{{ booking.name }}</td>
+            <td>{{ booking.address }}</td>
+            <td>{{ booking.district }}</td>
+            <td>{{ booking.phn }}</td>
+            <td>{{ booking.email }}</td>
+            <td>{{ booking.place }}</td>
+            
+            <td>
+              <a href="/viewbookdetailsbystaff/?oid={{ booking.oid }}" class="details-link">View Details</a>
+            </td>
+          </tr>
+          {% endfor %}
+        {% else %}
         <tr>
-          <td>{{ booking.date }}</td>
-          <td>{{ booking.time }}</td>
-          <td>{{ booking.service }}</td>
-          <td>₹{{ booking.amount }}</td>
-          <td>{{ booking.descr }}</td>
-          <td>{{ booking.name }}</td>
-          <td>{{ booking.address }}</td>
-          <td>{{ booking.district }}</td>
-          <td>{{ booking.phn }}</td>
-          <td>{{ booking.email }}</td>
-          <td>{{ booking.place }}</td>
-          <td>{{ booking.oid }}</td>
-          <td>
-            <a href="/viewbookdetailsbystaff/?oid={{ booking.oid }}" class="details-link">View Details</a>
-          </td>
+          <td colspan="12" class="text-center">NOT RECORD FOUND!</td>
         </tr>
-        {% endfor %}
+        {% endif %}
       </tbody>
     </table>
   </div>

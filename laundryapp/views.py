@@ -728,7 +728,9 @@ def showbookingsofuser(request):
         elif request.GET['filter'] == 'rejected':
             fil = ('rejected','')
         else:
-            fil = ('','')
+            sql = "select * from booking inner join service inner join shop " \
+            "on service.srid=booking.srid and service.shid = shop.shid " \
+            "where booking.uid = '%s' order by booking.oid desc"%(uid)
       
         sql = "select * from booking inner join service inner join shop " \
             "on service.srid=booking.srid and service.shid = shop.shid " \
@@ -824,9 +826,7 @@ def showbookingsofshop(request):
         sql = "select * from service inner join booking inner join user " \
         "on service.srid = booking.srid and booking.uid = user.uid " \
         "where service.shid= '%s' and booking.status in %s order by booking.oid desc"%(shid,fil)
-        print('**************not errror************')
     except:
-        print("*************hi*****************")
         sql = "select * from service inner join booking inner join user " \
         "on service.srid = booking.srid and booking.uid = user.uid " \
         "where service.shid= '%s' order by booking.oid desc"%(shid)
@@ -969,14 +969,56 @@ def assignstaff(request):
 def showbookingsofstaff(request):
     cur = connection.cursor()
     stid = request.session['uid']
-    try:
-        pass
-    except:
-        pass
+
+    sql = "select count(oid) from assign where stid = '%s' and asnid in (select max(asnid) from assign group by oid)"%(stid)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        all_count = row[0]
     
-    sql = "select * from assign inner join booking inner join service inner join user "\
-    "on assign.oid = booking.oid and booking.srid = service.srid and booking.uid = user.uid "\
-    "where assign.stid = '%s' and assign.asnid in (select max(asnid) from assign group by oid) order by assign.asnid desc"%(stid)
+    sql = "select count(assign.oid) from assign inner join booking on assign.oid = booking.oid " \
+    "where assign.stid = '%s' and assign.asnid in (select max(asnid) from assign group by oid) and booking.status in ('progress','assigned','booked')"%(stid)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        incompleted_count = row[0]
+    
+    sql = "select count(assign.oid) from assign inner join booking on assign.oid = booking.oid " \
+    "where assign.stid = '%s' and assign.asnid in (select max(asnid) from assign group by oid) and booking.status in ('completed')"%(stid)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        completed_count = row[0]
+    
+    sql = "select count(assign.oid) from assign inner join booking on assign.oid = booking.oid " \
+    "where assign.stid = '%s' and assign.asnid in (select max(asnid) from assign group by oid) and booking.status in ('cancelled')"%(stid)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        cancelled_count = row[0]
+
+    count = {
+        'completed' : completed_count,
+        'cancelled' : cancelled_count,
+        'all' : all_count,
+        'incompleted' : incompleted_count,
+
+    }
+
+    try:
+        if request.GET['filter'] == 'incompleted':
+            fil = ('progress','assigned','booked')
+        elif request.GET['filter'] == 'completed':
+            fil = ('completed','')
+        elif request.GET['filter'] == 'cancelled':
+            fil = ('cancelled','')
+        else:
+            pass
+        sql = "select * from assign inner join booking inner join service inner join user "\
+        "on assign.oid = booking.oid and booking.srid = service.srid and booking.uid = user.uid "\
+        "where assign.stid = '%s' and assign.asnid in (select max(asnid) from assign group by oid)  and booking.status in %s order by assign.asnid desc"%(stid,fil)
+
+    except: 
+        sql = "select * from assign inner join booking inner join service inner join user "\
+        "on assign.oid = booking.oid and booking.srid = service.srid and booking.uid = user.uid "\
+        "where assign.stid = '%s' and assign.asnid in (select max(asnid) from assign group by oid) order by assign.asnid desc"%(stid)
+
     cur.execute(sql)
     result = cur.fetchall()
     data = []
@@ -1011,7 +1053,7 @@ def showbookingsofstaff(request):
             'place' : row[23],
         }
         data.append(dis)
-    return render(request,'showbookingsofstaff.html',{'data':data})
+    return render(request,'showbookingsofstaff.html',{'data':data,'count':count})
 
 def viewbookdetailsbystaff(request):
     cur = connection.cursor()

@@ -101,7 +101,7 @@
 </style>
 
 <div class="container pb-5">
-  <h2 class="section-title">📋 Assigned Booking Details</h2>
+  <h2 class="">📋 Assigned Booking Details</h2>
 
   <div class="details-card">
     <div class="row g-4">
@@ -187,6 +187,9 @@
 
   {% if data.status == 'cancelled' %}
     <div class="cancelled-text">🚫 Booking is Cancelled</div>
+  {% endif %}
+  {% if data.status == 'completed' %}
+    <div class="cancelled-text" style="color: #198754;">✅Deal is Completed</div>
   {% endif %}
 </div>
 
