@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Feedbacks</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .filter-form {
+            width: 90%;
+            margin: 0 auto 30px auto;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-form input, .filter-form button {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .filter-form button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .filter-form button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 90%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .no-record {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    {% extends 'viewfeedbacks.html' %}
+
+    {% block feedback_content %}
+    <h1>View Feedbacks</h1>
+
+    <form method="post" class="filter-form">
+        {% csrf_token %}
+        <!-- <input type="text" name="uname" placeholder="User Name" value="{{ request.POST.uname }}"> -->
+        <input type="date" name="date" value="{{ request.POST.date }}">
+        <button type="submit">Filter</button>
+        <a href="/viewfeedbacksofshop/" style="text-decoration: none;">
+            <button type="button" style="background-color: #6c757d;">Reset</button>
+        </a>
+    </form>
+
+    <table>
+        <tr>
+            <th>Shop Name</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Feedback</th>
+        </tr>
+        {% if data %}
+            {% for obj in data %}
+                <tr>
+                    <td>{{ obj.uname }}</td>
+                    <td>{{ obj.date }}</td>
+                    <td>{{ obj.time }}</td>
+                    <td>{{ obj.feedback }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="4" class="no-record">No Record Found</td>
+        </tr>
+        {% endif %}
+    </table>
+    {% endblock %}
+</body>
+</html>

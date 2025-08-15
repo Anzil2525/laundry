@@ -98,18 +98,18 @@
 
     <table>
         <tr>
-            <th>Feedback</th>
+            <th>User Name</th>
             <th>Date</th>
             <th>Time</th>
-            <th>User Name</th>
+            <th>Feedback</th>
         </tr>
         {% if data %}
             {% for obj in data %}
                 <tr>
-                    <td>{{ obj.feedback }}</td>
+                    <td>{{ obj.uname }}</td>
                     <td>{{ obj.date }}</td>
                     <td>{{ obj.time }}</td>
-                    <td>{{ obj.uname }}</td>
+                    <td>{{ obj.feedback }}</td>
                 </tr>
             {% endfor %}
         {% else %}

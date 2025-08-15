@@ -231,39 +231,20 @@ def viewservices(request):
     return render(request,'viewservices.html',{'data':data})
 
 def viewfeedbacks(request):
-    cur = connection.cursor()
-    sql = "select * from feedback order by fid desc"
-    cur.execute(sql)
-    result = cur.fetchall()
-
-    data = []
-    for row in result:
-        dis = {
-            'fid' : row[0],
-            'feedback' : row[1],
-            'date' : row[2],
-            'time' : row[3],
-            'uid' : row[4],
-            'utype' : row[5],
-        }
-        data.append(dis)
-    return render(request,'viewfeedbacks.html',{'data':data})
+    return render(request,'viewfeedbacks.html')
 
 def viewfeedbacksofuser(request):
     cur = connection.cursor()
-    sql = "select * from feedback inner join user on feedback.uid = user.uid order by fid desc"
-    
+    sql = "select * from feedback inner join user on feedback.uid = user.uid order by fid desc"    
     if request.POST:
         date = request.POST.get('date')
         uname = request.POST.get('uname')
         print(f"name = {uname}\ndate = {date}")
         if date:
             sql = "select * from feedback inner join user on feedback.uid = user.uid " \
-            "where feedback.date = '%s'  order by fid desc"%(date)
-    
+            "where feedback.date = '%s'  order by fid desc"%(date)    
     cur.execute(sql) 
-    result = cur.fetchall()
-    
+    result = cur.fetchall()    
     data = []
     for row in result:
         dis = {
@@ -273,11 +254,36 @@ def viewfeedbacksofuser(request):
             'time' : row[3],
             'uid' : row[4],
             'utype' : row[5],
-
             'uname' : row[7],
         }
         data.append(dis)
     return render(request,'viewfeedbacksofuser.html',{'data':data})
+
+def viewfeedbacksofshop(request):
+    cur = connection.cursor()
+    sql = "select * from feedback inner join shop on feedback.uid = shop.shid order by fid desc"    
+    if request.POST:
+        date = request.POST.get('date')
+        uname = request.POST.get('uname')
+        print(f"name = {uname}\ndate = {date}")
+        if date:
+            sql = "select * from feedback inner join shop on feedback.uid = shop.shid " \
+            "where feedback.date = '%s'  order by fid desc"%(date)    
+    cur.execute(sql) 
+    result = cur.fetchall()    
+    data = []
+    for row in result:
+        dis = {
+            'fid' : row[0],
+            'feedback' : row[1],
+            'date' : row[2],
+            'time' : row[3],
+            'uid' : row[4],
+            'utype' : row[5],
+            'uname' : row[7],
+        }
+        data.append(dis)
+    return render(request,'viewfeedbacksofshop.html',{'data':data})
 
 def login(request):
     
