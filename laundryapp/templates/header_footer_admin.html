@@ -56,7 +56,7 @@
         <a href="/viewusers/" class="{% if request.path == '/viewusers/' %}active{% endif %}">👤 View Users</a>
         <a href="/viewshops/" class="{% if request.path == '/viewshops/' %}active{% endif %}">🏪 View Shops</a>
         <!-- <a href="/viewservices/">🧺 View Services</a> -->
-        <a href="/viewfeedbacks/" class="{% if request.path == '/viewfeedbacks/' %}active{% endif %}">💬 View Feedbacks</a>
+        <a href="/viewfeedbacksofuser/" class="{% if request.path == '/viewfeedbacksofuser/' or request.path == '/viewfeedbacksofshop/' or request.path == '/viewfeedbacksofstaff/' %}active{% endif %}">💬 View Feedbacks</a>
         <a href="/" class="logout-link">🚪 Logout</a>
     </div>
 
