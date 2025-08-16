@@ -86,6 +86,7 @@ urlpatterns = [
     path('viewcart/', viewcart, name='viewcart'),
     path('viewfeedbacksofuser/',viewfeedbacksofuser,name = 'viewfeedbacksofuser'),
     path('viewfeedbacksofshop/',viewfeedbacksofshop,name = 'viewfeedbacksofshop'),
+    path('viewfeedbacksofstaff/',viewfeedbacksofstaff,name = 'viewfeedbacksofstaff'),
     
 
 
