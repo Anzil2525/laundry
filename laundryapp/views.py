@@ -950,7 +950,20 @@ def viewbookdetailsbyshop(request):
             'email' : row[16],
             'place' : row[17],
         }
-    
+
+
+    sql = "select * from  transaction where oid = '%s'"%(oid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    transaction = []
+    for row in result:
+        trans = {
+            'date' : row[1],
+            'time' : row[2],
+            'amount' : row[4],
+        }
+        transaction.append(trans)
+
     sql = "select * from tracker where oid = '%s' order by tid asc"%(oid)
     cur.execute(sql)
     result = cur.fetchall()
@@ -995,9 +1008,9 @@ def viewbookdetailsbyshop(request):
             
             assign_data.append(assign)
         
-        return render(request,'viewbookdetailsbyshop.html',{'dis':dis,'tracker':tracker_data,'staffs':staffs,'assign_data':assign_data, 'current_asnid':current_asnid})
+        return render(request,'viewbookdetailsbyshop.html',{'dis':dis,'tracker':tracker_data,'staffs':staffs,'transaction' : transaction,'assign_data':assign_data, 'current_asnid':current_asnid})
     else:
-        return render(request,'viewbookdetailsbyshop.html',{'dis':dis,'tracker':tracker_data,'staffs':staffs})
+        return render(request,'viewbookdetailsbyshop.html',{'dis':dis,'tracker':tracker_data,'staffs':staffs,'transaction' : transaction})
 
 def assignstaff(request):
     cur = connection.cursor()
@@ -1371,3 +1384,31 @@ def viewcart(request):
         }
         data.append(dis)
     return render(request,'viewcart.html',{'data':data})
+    
+def addtransaction(request):
+    cur = connection.cursor()
+    if request.session['utype'] == 'staff':
+        stid = request.session['uid']
+        sql = "select shid from staff where stid = '%s'"%(stid)
+        cur.execute(sql)
+        result = cur.fetchall()
+        for row in result:
+            shid = row[0]
+        print(f'shid = {shid}')
+    elif request.session['utype'] == 'shop':
+        shid = request.session['uid']
+
+    obj = datetime.datetime.now()
+    time = str(obj.time())
+    date = str(obj.date())
+    oid = request.GET['oid']
+    amt = request.GET['amount']
+    sql = "insert into transaction(date,time,oid,amount,shid) values('%s','%s','%s','%s','%s')"%(date,time,oid,amt,shid)
+    print(f'sql = {sql}')
+    cur.execute(sql)
+    if request.session['utype'] == 'staff':
+        msg = "<script>alert('transaction added');window.location='/viewbookdetailsbystaff/?oid=%s';</script>"%(oid)
+    elif request.session['utype'] == 'shop':
+        msg = "<script>alert('transaction added');window.location='/viewbookdetailsbyshop/?oid=%s';</script>"%(oid)
+    
+    return HttpResponse(msg)

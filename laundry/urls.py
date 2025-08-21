@@ -87,6 +87,7 @@ urlpatterns = [
     path('viewfeedbacksofuser/',viewfeedbacksofuser,name = 'viewfeedbacksofuser'),
     path('viewfeedbacksofshop/',viewfeedbacksofshop,name = 'viewfeedbacksofshop'),
     path('viewfeedbacksofstaff/',viewfeedbacksofstaff,name = 'viewfeedbacksofstaff'),
+    path('addtransaction/',addtransaction,name='addtransaction')
     
 
 
