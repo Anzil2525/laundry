@@ -1,257 +1,264 @@
 {% extends 'header_footer_shop.html' %}
 {% block content %}
 <style>
-    body {
-        font-family: 'Segoe UI', sans-serif;
-        background-color: #f7f9fb;
-        padding: 20px;
-    }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8fafc;
+  }
 
-    .section {
-        max-width: 95%;
-        margin: 30px auto;
-        background: #fff;
-        padding: 25px;
-        border-radius: 8px;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-    }
+  .container-custom {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+  }
 
-    h1, h2, h3 {
-        text-align: center;
-        color: #2c3e50;
-    }
+  .card-section {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    padding: 30px;
+    margin-bottom: 30px;
+  }
 
-    a {
-        text-decoration: none;
-        color: #3498db;
-        font-weight: bold;
-    }
+  .section-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #0d6efd;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 15px;
-    }
+  .table-custom {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
 
-    th, td {
-        border: 1px solid #ddd;
-        padding: 10px 14px;
-        text-align: center;
-    }
+  .table-custom th, .table-custom td {
+    border: 1px solid #dee2e6;
+    padding: 12px;
+    text-align: left;
+  }
 
-    th {
-        background-color: #ecf0f1;
-    }
+  .table-custom th {
+    background-color: #f1f3f5;
+    font-weight: 600;
+  }
 
-    .form-section {
-        text-align: center;
-        margin-top: 20px;
-    }
+  .status-msg {
+    font-weight: bold;
+    margin-top: 10px;
+  }
 
-    select, button {
-        padding: 6px 12px;
-        border-radius: 4px;
-        font-size: 14px;
-        border: 1px solid #ccc;
-    }
+  .status-msg.green { color: #198754; }
+  .status-msg.red { color: #dc3545; }
 
-    button {
-        background-color: #2ecc71;
-        color: white;
-        border: none;
-        cursor: pointer;
-    }
+  .form-inline {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
 
-    button:hover {
-        background-color: #27ae60;
-    }
+  .form-inline select, .form-inline button {
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+  }
 
-    .status-msg {
-        text-align: center;
-        margin-top: 20px;
-        font-weight: bold;
-    }
+  .btn-green {
+    background-color: #198754;
+    color: white;
+    border: none;
+  }
 
-    .status-msg.green { color: green; }
-    .status-msg.red { color: red; }
+  .btn-green:hover {
+    background-color: #157347;
+  }
+
+  .btn-red {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+  }
+
+  .btn-red:hover {
+    background-color: #bb2d3b;
+  }
+
+  .tracker-timeline {
+    border-left: 4px solid #0d6efd;
+    padding-left: 20px;
+    margin-top: 20px;
+  }
+
+  .tracker-item {
+    position: relative;
+    margin-bottom: 30px;
+    padding-left: 20px;
+  }
+
+  .tracker-item::before {
+    content: '⬤';
+    position: absolute;
+    left: -18px;
+    top: 0;
+    font-size: 14px;
+    color: #0d6efd;
+  }
+
+  .tracker-item .status {
+    font-weight: bold;
+    font-size: 16px;
+    color: #343a40;
+  }
+
+  .tracker-item .datetime {
+    font-size: 14px;
+    color: #6c757d;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #0d6efd;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
 </style>
-<style>
-    .tracker-timeline {
-        margin: 30px auto;
-        padding-left: 30px;
-        border-left: 4px solid #3498db;
-        max-width: 600px;
-        position: relative;
-    }
 
-    .tracker-item {
-        position: relative;
-        margin-bottom: 40px;
-        padding-left: 30px;
-    }
+<div class="container-custom">
+  <a href="/showbookingsofshop" class="back-link">← Back to Bookings</a>
 
-    .tracker-item::before {
-        content: '↓';
-        position: absolute;
-        top: -4px;
-        left: -28px;
-        font-size: 20px;
-        color: #3498db;
-        font-weight: bold;
-    }
-
-    .tracker-item:first-child::before {
-        content: '🚀';
-    }
-
-    .tracker-item:last-child::before {
-        content: '🏁';
-    }
-
-    .tracker-item .status {
-        font-weight: bold;
-        font-size: 16px;
-        color: #2c3e50;
-    }
-
-    .tracker-item .datetime {
-        font-size: 14px;
-        color: #7f8c8d;
-        margin-top: 4px;
-    }
-</style>
-
-<div class="section">
-    <a href="/showbookingsofshop">← Back to Bookings</a>
-    <h1>📦 Booking Details</h1>
-
-    <table>
-        <tr>
-            <th>Service Details</th>
-            <th>Booking Info</th>
-            <th>User Info</th>
-        </tr>
-        <tr>
-            <td>
-                <strong>Service:</strong> {{ dis.service }}<br>
-                <strong>Amount:</strong> ₹{{ dis.amount }}
-            </td>
-            <td>
-                <strong>Order ID:</strong> {{ dis.oid }}<br>
-                <strong>Date:</strong> {{ dis.date }}<br>
-                <strong>Time:</strong> {{ dis.time }}
-            </td>
-            <td>
-                <strong>Name:</strong> {{ dis.name }}<br>
-                <strong>Address:</strong> {{ dis.address }}<br>
-                <strong>District:</strong> {{ dis.district }}<br>
-                <strong>Place:</strong> {{ dis.place }}<br>
-                <strong>Phone:</strong> {{ dis.phn }}<br>
-                <strong>Email:</strong> {{ dis.email }}
-            </td>
-        </tr>
+  <div class="card-section">
+    <div class="section-title">📦 Booking Details</div>
+    <table class="table-custom">
+      <tr>
+        <th>Service</th>
+        <th>Booking Info</th>
+        <th>User Info</th>
+      </tr>
+      <tr>
+        <td>
+          <strong>{{ dis.service }}</strong><br>
+          ₹{{ dis.amount }}
+        </td>
+        <td>
+          Order ID: {{ dis.oid }}<br>
+          Date: {{ dis.date }}<br>
+          Time: {{ dis.time }}
+        </td>
+        <td>
+          {{ dis.name }}<br>
+          {{ dis.address }}<br>
+          {{ dis.district }}, {{ dis.place }}<br>
+          📞 {{ dis.phn }}<br>
+          ✉️ {{ dis.email }}
+        </td>
+      </tr>
     </table>
+  </div>
 
-    <br>
-    <h2>Payment Details</h2>
+  <div class="card-section">
+    <div class="section-title">💳 Payment Status</div>
     {% if transaction %}
-        <table>
-            {% for i in transaction %}
-                <tr><td><h5>Date :</h5></td> <td>{{i.date}}</h5></td></tr>
-                <tr><td><h5>Time :</h5></td> <td>{{i.time}}</h5></td></tr>
-                <tr><td><h5>Amount :</h5></td> <td>{{i.amount}}/- Rs</h5></td></tr>
-            {% endfor %}
-        </table>        
+      {% for i in transaction %}
+        <div class="status-msg green">
+          ✅ Paid ₹{{ i.amount }} on {{ i.date }} at {{ i.time }}
+        </div>
+      {% endfor %}
     {% else %}
-        <form action="/addtransaction/">
-            <input type="hidden" name="amount" value="{{ dis.amount }}">
-
-            <button type="submit" name="oid" value="{{ dis.oid }}" onclick="return payed()">Set as payed</button>
-        </form>
+      <div class="status-msg red">⚠️ Payment Pending</div>
+      <form action="/addtransaction/" method="post" class="form-inline">
+        {% csrf_token %}
+        <input type="hidden" name="amount" value="{{ dis.amount }}">
+        <input type="hidden" name="oid" value="{{ dis.oid }}">
+        <button type="submit" class="btn-green" onclick="return payed()">Set as Paid</button>
+      </form>
     {% endif %}
+  </div>
 
-
-    <h2>👷 Work Assignment</h2>
+  <div class="card-section">
+    <div class="section-title">👷 Work Assignment</div>
     {% if assign_data %}
-        <table>
-            <tr>
-                <th>Date</th>
-                <th>Staff Name</th>
-                <th>Details</th>
-                <th>Status</th>
-            </tr>
-            {% for obj in assign_data %}
-                <tr>
-                    <td>{{ obj.date }}<br>{{ obj.time }}</td>
-                    <td>{{ obj.name }}</td>
-                    <td><a href="/staffprofile?id={{ obj.stid }}">View Staff Details</a></td>
-                    <td>
-                        {% if current_asnid == obj.asnid %}
-                            ✅ Current Staff
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
+      <table class="table-custom">
+        <tr>
+          <th>Date</th>
+          <th>Staff Name</th>
+          <th>Details</th>
+          <th>Status</th>
+        </tr>
+        {% for obj in assign_data %}
+          <tr>
+            <td>{{ obj.date }}<br>{{ obj.time }}</td>
+            <td>{{ obj.name }}</td>
+            <td><a href="/staffprofile?id={{ obj.stid }}">View Profile</a></td>
+            <td>{% if current_asnid == obj.asnid %}✅ Current Staff{% endif %}</td>
+          </tr>
+        {% endfor %}
+      </table>
     {% else %}
-        <p class="status-msg red">No staff assigned yet.</p>
+      <p class="status-msg red">No staff assigned yet.</p>
     {% endif %}
 
     {% if dis.status == 'booked' or dis.status == 'assigned' or dis.status == 'progress'%}
-    <div class="form-section">
-
-        <h3>Assign Staff</h3>
-        <form action="/assignstaff">
-            {% if staffs %}
-                <select name="stid">
-                    {% for obj in staffs %}
-                        <option value="{{ obj.stid }}">{{ obj.name }}</option>
-                    {% endfor %}
-                </select>
-                <button type="submit" name="oid" value="{{ dis.oid }}">Assign</button>
-            {% else %}
-                <select disabled>
-                    <option>No staff available</option>
-                </select>
-            {% endif %}
-        </form>
-    </div>
+      <form action="/assignstaff" class="form-inline">
+        {% if staffs %}
+          <select name="stid">
+            {% for obj in staffs %}
+              <option value="{{ obj.stid }}">{{ obj.name }}</option>
+            {% endfor %}
+          </select>
+          <button type="submit" name="oid" value="{{ dis.oid }}" class="btn-green">Assign</button>
+        {% else %}
+          <select disabled><option>No staff available</option></select>
+        {% endif %}
+      </form>
     {% endif %}
+  </div>
 
-    <h2>📍 Tracking Progress</h2>
-{% if tracker %}
-    <div class="tracker-timeline">
+  <div class="card-section">
+    <div class="section-title">📍 Tracking Progress</div>
+    {% if tracker %}
+      <div class="tracker-timeline">
         {% for obj in tracker %}
-        <div class="tracker-item">
+          <div class="tracker-item">
             <div class="status">🧭 {{ obj.status }}</div>
             <div class="datetime">{{ obj.date }} at {{ obj.time }}</div>
-        </div>
+          </div>
         {% endfor %}
-    </div>
-{% else %}
-    <p class="no-tracker">No tracking updates available.</p>
-{% endif %}
-
-    {% if dis.status == 'booked' %}
-        <div class="form-section">
-            <a href="/rejectbooking/?oid={{ dis.oid }}" onclick="return reject_booking()">❌ Reject Booking</a>
-        </div>
-    {% elif dis.status == 'rejected' %}
-        <p class="status-msg red">This booking is rejected</p>
-    {% elif dis.status == 'completed' %}
-        <p class="status-msg green">This booking is completed</p>
-    {% elif dis.status == 'cancelled' %}
-        <p class="status-msg red">This booking was cancelled by the user</p>
+      </div>
+    {% else %}
+      <p class="status-msg red">No tracking updates available.</p>
     {% endif %}
+  </div>
+
+  {% if dis.status == 'booked' %}
+    <div class="form-inline">
+      <a href="/rejectbooking/?oid={{ dis.oid }}" class="btn-red" onclick="return reject_booking()">❌ Reject Booking</a>
+    </div>
+  {% elif dis.status == 'rejected' %}
+    <p class="status-msg red">This booking is rejected</p>
+  {% elif dis.status == 'completed' %}
+    <p class="status-msg green">This booking is completed</p>
+  {% elif dis.status == 'cancelled' %}
+    <p class="status-msg red">This booking was cancelled by the user</p>
+  {% endif %}
 </div>
 
 <script>
-    function reject_booking() {
-        return confirm("Are you sure you want to reject this booking? This action cannot be undone.");
-    }
+  function reject_booking() {
+    return confirm("Are you sure you want to reject this booking? This action cannot be undone.");
+  }
 
-    function payed(){
-        return confirm("Are you sure you want to set this booking as payed ? this action cannot be undone.")
-    }
+  function payed() {
+    return confirm("Are you sure you want to mark this booking as paid? This action cannot be undone.");
+  }
 </script>
 {% endblock %}

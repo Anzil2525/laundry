@@ -1157,7 +1157,6 @@ def viewbookdetailsbystaff(request):
     "where assign.oid = '%s' and assign.stid = '%s' and assign.asnid in (select max(asnid) from assign group by oid) order by booking.oid desc"%(oid,stid)
     cur.execute(sql)
     result = cur.fetchall()
-    data = []
     for row in result:
         dis = {
             # 'asnid' : row[0],
@@ -1188,8 +1187,19 @@ def viewbookdetailsbystaff(request):
             'email' : row[22],
             'place' : row[23],
         }
-        data.append(dis)
-    return render(request,'viewbookdetailsbystaff.html',{'data': dis ,'tracker':tracker})
+
+    sql = "select * from  transaction where oid = '%s'"%(oid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    transaction = []
+    for row in result:
+        trans = {
+            'date' : row[1],
+            'time' : row[2],
+            'amount' : row[4],
+        }
+        transaction.append(trans)
+    return render(request,'viewbookdetailsbystaff.html',{'data': dis ,'transaction':transaction,'tracker':tracker})
 
 def updatetrackerbyoption(request):
     cur = connection.cursor()

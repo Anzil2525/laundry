@@ -4,106 +4,81 @@
 {% block content %}
 <style>
   body {
-    background-color: #f1f5f9;
+    background-color: #f8fafc;
     font-family: 'Segoe UI', sans-serif;
   }
 
-  .section-title {
-    font-weight: bold;
-    font-size: 1.8rem;
-    margin-top: 30px;
-    color: #0d6efd;
-  }
-
-  .details-card {
-    background: white;
-    padding: 25px;
+  .card-custom {
+    background: #fff;
     border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    padding: 30px;
     margin-bottom: 30px;
   }
 
-  .tracker-line {
-    border-left: 4px solid #0d6efd;
-    padding-left: 20px;
-    margin-top: 15px;
-  }
-
-  .tracker-step {
-    position: relative;
+  .section-header {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0d6efd;
     margin-bottom: 20px;
-    padding-left: 10px;
   }
 
-  .tracker-step::before {
+  .code-box {
+    background-color: #e2e8f0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    display: inline-block;
+  }
+
+  .timeline-step {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 20px;
+  }
+
+  .timeline-step::before {
     content: '';
     position: absolute;
-    left: -24px;
-    top: 4px;
+    left: 0;
+    top: 6px;
     width: 14px;
     height: 14px;
-    background-color: #fd7e14;
+    background-color: #0d6efd;
     border-radius: 50%;
-    border: 2px solid white;
+    border: 2px solid #fff;
     box-shadow: 0 0 0 3px #0d6efd;
-  }
-
-  .tracker-arrow {
-    font-size: 18px;
-    color: #0d6efd;
-    margin: -10px 0 15px 10px;
-    display: block;
   }
 
   .btn-orange {
     background-color: #fd7e14;
-    color: white;
-    border: none;
-    transition: background-color 0.3s ease;
+    color: #fff;
+    font-weight: 600;
   }
 
   .btn-orange:hover {
-    background-color: #0d6efd;
+    background-color: #e96c0a;
   }
 
-  .btn-complete {
-    margin-top: 20px;
-    display: inline-block;
-    font-weight: 600;
-    color: red;
-  }
-
-  .btn-complete:hover {
-    text-decoration: underline;
-  }
-
-  .cancelled-text {
+  .status-message {
     font-size: 1.2rem;
-    color: #dc3545;
+    font-weight: 600;
     margin-top: 20px;
   }
 
-  .code-box {
-    font-size: 1.25rem;
-    background: #e9ecef;
-    padding: 10px 15px;
-    display: inline-block;
-    border-radius: 6px;
-    margin-top: 10px;
-    font-weight: 600;
+  .status-completed {
+    color: #198754;
   }
 
-  .flow-info {
-    margin-bottom: 10px;
-    font-style: italic;
-    color: #555;
+  .status-cancelled {
+    color: #dc3545;
   }
 </style>
 
-<div class="container pb-5">
-  <h2 class="">📋 Assigned Booking Details</h2>
+<div class="container py-5">
+  <div class="section-header">📋 Booking Overview</div>
 
-  <div class="details-card">
+  <div class="card-custom">
     <div class="row g-4">
       <div class="col-md-6">
         <p><strong>Date:</strong> {{ data.odate }}</p>
@@ -112,7 +87,10 @@
         <p><strong>Amount:</strong> ₹{{ data.amount }}</p>
         <p><strong>Description:</strong> {{ data.descr }}</p>
         <p><strong>Order ID:</strong> {{ oid }}</p>
-        <p><strong>Code:</strong> <span class="code-box">{{ data.code }}</span></p>
+        <p><strong>Code:</strong> 
+          <button class="btn btn-sm btn-outline-primary" onclick="toggleCode()">Show Code</button>
+          <span id="secret-code" class="code-box" style="display: none;">{{ data.code }}</span>
+        </p>
       </div>
       <div class="col-md-6">
         <p><strong>Customer:</strong> {{ data.name }}</p>
@@ -125,35 +103,58 @@
     </div>
   </div>
 
-  <!-- Flow Direction Header -->
-  <h4 class="text-primary fw-bold mb-1">📍 Progress Flow</h4>
-  <p class="flow-info">Tracking updates are shown from latest (top) to earliest (bottom) ↓</p>
+  <div class="section-header">💳 Payment Status</div>
 
-  <!-- Timeline Tracker -->
+{% if transaction %}
+  {% for i in transaction %}
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+      <i class="bi bi-check-circle-fill me-2"></i>
+      <div>
+        <strong>Paid:</strong> ₹{{ i.amount }} on {{ i.date }} at {{ i.time }}
+      </div>
+    </div>
+  {% endfor %}
+{% else %}
+  <div class="alert alert-warning d-flex align-items-center" role="alert">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+    <div>
+      <strong>Status:</strong> Not Paid
+    </div>
+  </div>
+
+  <form action="/addtransaction/" class="mt-2">
+    {% csrf_token %}
+    <input type="hidden" name="amount" value="{{ data.amount }}">
+    <input type="hidden" name="oid" value="{{ data.oid }}">
+    <button type="submit" class="btn btn-orange">Set as Paid</button>
+  </form>
+{% endif %}
+
+
+  <div class="section-header">📍 Progress Tracker</div>
+  <p class="text-muted">Latest updates appear first ↓</p>
   {% if tracker %}
-    <div class="details-card tracker-line">
+    <div class="card-custom">
       {% for obj in tracker %}
-        <div class="tracker-step">
-          <p class="mb-1"><strong>{{ obj.status }}</strong></p>
+        <div class="timeline-step">
+          <p><strong>{{ obj.status }}</strong></p>
           <small>{{ obj.date }} – {{ obj.time }}</small>
         </div>
-        {% if not forloop.last %}
-          <span class="tracker-arrow">↓</span>
-        {% endif %}
       {% endfor %}
     </div>
   {% else %}
     <p class="text-muted">No tracking information available.</p>
   {% endif %}
 
-  <!-- Tracker Update Forms / Complete Button -->
   {% if data.status == 'booked' or data.status == 'assigned' or data.status == 'progress' %}
-    <div class="mt-4 mb-4">
-      <form action="/updatetrackerbyoption" class="mb-3">
-        <label class="form-label">Update Tracker (choose):</label>
+    <div class="section-header">🔧 Update Tracker</div>
+    <div class="card-custom">
+      <form action="/updatetrackerbyoption" method="post" class="mb-3">
+        {% csrf_token %}
+        <label for="status-select" class="form-label">Choose a status:</label>
         <div class="d-flex gap-3 flex-wrap">
-          <select class="form-select" name="status" required>
-            <option >Choose status update</option>
+          <select id="status-select" class="form-select" name="status" required>
+            <option value="">Select status</option>
             <option value="Materials Collected">Materials Collected</option>
             <option value="Materials Reached Shop">Materials Reached Shop</option>
             <option value="Materials are being processed">Materials are being processed</option>
@@ -167,35 +168,38 @@
         </div>
       </form>
 
-      <form action="/updatetrackerbytyping" class="mb-3">
-        <label class="form-label">Or enter custom update:</label>
+      <form action="/updatetrackerbytyping" method="post">
+        {% csrf_token %}
+        <label for="custom-status" class="form-label">Or type a custom status:</label>
         <div class="d-flex gap-3 flex-wrap">
-          <input type="text" name="status" class="form-control" placeholder="Type custom status..." required>
+          <input type="text" id="custom-status" name="status" class="form-control" placeholder="Enter custom status..." required>
           <input type="hidden" name="oid" value="{{ data.oid }}">
           <button type="submit" class="btn btn-orange">Update</button>
         </div>
       </form>
 
-    <form action="/completebooking/" method="get" onsubmit="return completebooking()">
+      <form action="/completebooking/" method="get" onsubmit="return completebooking()">
         <input type="hidden" name="oid" value="{{ data.oid }}">
-        <button type="submit" class="btn btn-success mt-2">✅ Mark Job as Finished</button>
-    </form>
-
-
+        <button type="submit" class="btn btn-success mt-3">✅ Mark as Completed</button>
+      </form>
     </div>
   {% endif %}
 
   {% if data.status == 'cancelled' %}
-    <div class="cancelled-text">🚫 Booking is Cancelled</div>
-  {% endif %}
-  {% if data.status == 'completed' %}
-    <div class="cancelled-text" style="color: #198754;">✅Deal is Completed</div>
+    <div class="status-message status-cancelled">🚫 Booking Cancelled</div>
+  {% elif data.status == 'completed' %}
+    <div class="status-message status-completed">✅ Booking Completed</div>
   {% endif %}
 </div>
 
 <script>
   function completebooking() {
     return confirm("Are you sure you want to mark this job as finished? This action cannot be undone.");
+  }
+
+  function toggleCode() {
+    const codeEl = document.getElementById("secret-code");
+    codeEl.style.display = codeEl.style.display === "none" ? "inline-block" : "none";
   }
 </script>
 {% endblock %}
