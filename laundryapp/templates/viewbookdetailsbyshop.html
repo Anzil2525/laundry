@@ -20,7 +20,7 @@
     margin-bottom: 30px;
   }
 
-  .section-title {
+  .section-title-custom {
     font-size: 1.6rem;
     font-weight: 700;
     color: #0d6efd;
@@ -137,7 +137,7 @@
   <a href="/showbookingsofshop" class="back-link">← Back to Bookings</a>
 
   <div class="card-section">
-    <div class="section-title">📦 Booking Details</div>
+    <div class="section-title-custom">📦 Booking Details</div>
     <table class="table-custom">
       <tr>
         <th>Service</th>
@@ -166,7 +166,7 @@
   </div>
 
   <div class="card-section">
-    <div class="section-title">💳 Payment Status</div>
+    <div class="section-title-custom">💳 Payment Status</div>
     {% if transaction %}
       {% for i in transaction %}
         <div class="status-msg green">
@@ -175,7 +175,7 @@
       {% endfor %}
     {% else %}
       <div class="status-msg red">⚠️ Payment Pending</div>
-      <form action="/addtransaction/" method="post" class="form-inline">
+      <form action="/addtransaction/" class="form-inline">
         {% csrf_token %}
         <input type="hidden" name="amount" value="{{ dis.amount }}">
         <input type="hidden" name="oid" value="{{ dis.oid }}">
@@ -185,7 +185,7 @@
   </div>
 
   <div class="card-section">
-    <div class="section-title">👷 Work Assignment</div>
+    <div class="section-title-custom">👷 Work Assignment</div>
     {% if assign_data %}
       <table class="table-custom">
         <tr>
@@ -224,7 +224,7 @@
   </div>
 
   <div class="card-section">
-    <div class="section-title">📍 Tracking Progress</div>
+    <div class="section-title-custom">📍 Tracking Progress</div>
     {% if tracker %}
       <div class="tracker-timeline">
         {% for obj in tracker %}
