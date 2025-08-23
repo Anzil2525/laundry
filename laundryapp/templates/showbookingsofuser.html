@@ -7,6 +7,12 @@
     font-family: 'Segoe UI', sans-serif;
   }
 
+  .no-data {
+        color: red;
+        text-align: center;
+        margin-top: 20px;
+  }
+
   .section-title {
     text-align: center;
     margin-top: 40px;
@@ -98,6 +104,7 @@
       <table class="table table-bordered table-hover align-middle" id="bookedServiceTable">
         <thead>
           <tr>
+            <th>S.no</th>
             <th>Service</th>
             <th>Shop</th>
             <th>Amount</th>
@@ -109,6 +116,7 @@
         <tbody>
           {% for i in data %}
           <tr>
+            <td>{{forloop.counter}}</td>
             <td class="service-name">{{ i.service }}</td>
             <td class="shop-name">{{ i.shop }}</td>
             <td>₹{{ i.amount }}</td>
@@ -119,6 +127,9 @@
           {% endfor %}
         </tbody>
       </table>
+      {% if not data %}
+        <p class="no-data">No bookings found</p>
+    {% endif %}
     </div>
   </div>
 </div>

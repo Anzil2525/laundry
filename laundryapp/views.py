@@ -829,7 +829,6 @@ def showbookingsofuser(request):
 def showbookingsofshop(request):
     cur = connection.cursor()
     shid = request.session['uid']
-    print("and we entered the function")
 
     sql = "select count(oid) from booking inner join service " \
     "on service.srid = booking.srid where service.shid = '%s'"%(shid)
@@ -1441,4 +1440,19 @@ def addtransaction(request):
 def viewtransactionbyshop(request):
     cur = connection.cursor()
     shid = request.session['uid']
-    return render(request,'viewtransactionbyshop.html')
+    sql = "select * from transaction where shid = '%s'"%(shid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    trans = []
+    for row in result:
+        dis = {
+            'tid' : row[0],
+            'date' : row[1],
+            'time' : row[2],
+            'oid' : row[3],
+            'amount' : row[4],
+            'shid' : row[5],
+
+        }
+        trans.append(dis)
+    return render(request,'viewtransactionbyshop.html',{'trans':trans})

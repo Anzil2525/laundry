@@ -126,6 +126,7 @@
     <table id="bookedServiceTable">
         <thead>
             <tr>
+                <th>S.no.</th>
                 <th>Service</th>
                 <th>User</th>
                 <th>Amount</th>
@@ -140,6 +141,7 @@
         <tbody>
             {% for i in data %}
             <tr>
+                <td>{{forloop.counter}}</td>
                 <td class="service-name">{{ i.service }}</td>
                 <td class="shop-name">{{ i.uname }}</td>
                 <td>₹{{ i.amount }}</td>

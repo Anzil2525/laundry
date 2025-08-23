@@ -101,6 +101,7 @@
     <table class="table table-bordered table-hover align-middle">
       <thead>
         <tr>
+          <th>S.no</th>
           <th>Order ID</th>
           <th>Date</th>
           <th>Time</th>
@@ -121,6 +122,7 @@
         {% if data %}
           {% for booking in data %}
           <tr style="color: black;font-size: 15px;">
+            <td>{{forloop.counter}}</td>
             <td>{{ booking.oid }}</td>
             <td>{{ booking.date }}</td>
             <td>{{ booking.time }}</td>
