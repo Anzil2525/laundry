@@ -113,6 +113,7 @@
     <a href="/showbookingsofshop/?filter=completed" class="filter-link {% if request.GET.filter == 'completed' %}active{% endif %}">Completed ({{count.completed}})</a>
     <a href="/showbookingsofshop/?filter=rejected" class="filter-link {% if request.GET.filter == 'rejected' %}active{% endif %}">Rejected  ({{count.rejected}})</a>
     <a href="/showbookingsofshop/?filter=cancelled" class="filter-link {% if request.GET.filter == 'cancelled' %}active{% endif %}">Cancelled  ({{count.cancelled}})</a>
+    <a href="/showbookingsofshop/?filter=unpaid" class="filter-link {% if request.GET.filter == 'unpaid' %}active{% endif %}">unpaid  ({{count.unpaid}})</a>
 </div>
 
 <div class="d-flex justify-content-end mb-3">

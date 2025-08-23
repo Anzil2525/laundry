@@ -866,6 +866,13 @@ def showbookingsofshop(request):
     cur.execute(sql)
     for row in cur.fetchall():
         cancelled_count = row[0]
+
+    sql = "select count(oid) from booking inner join service " \
+    "on service.srid = booking.srid where service.shid = '%s'" \
+    "and booking.oid not in (select oid from transaction where shid = '%s')"%(shid,shid)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        unpaid_count = row[0]
     
     count = {
         'booked' : booked_count,
@@ -874,10 +881,10 @@ def showbookingsofshop(request):
         'cancelled' : cancelled_count,
         'all' : all_count,
         'progress' : progress_count,
+        'unpaid' : unpaid_count,
 
     }
     try:
-        print('fil :::',request.GET['filter'])
         if request.GET['filter'] == 'progress':
             fil = ('progress','assigned')
         elif request.GET['filter'] == 'booked':
@@ -888,9 +895,17 @@ def showbookingsofshop(request):
             fil = ('rejected','')
         elif request.GET['filter'] == 'completed':
             fil = ('completed','')
-        sql = "select * from service inner join booking inner join user " \
-        "on service.srid = booking.srid and booking.uid = user.uid " \
-        "where service.shid= '%s' and booking.status in %s order by booking.oid desc"%(shid,fil)
+
+        if request.GET['filter'] == 'unpaid':
+            sql = "select * from service inner join booking inner join user " \
+            "on service.srid = booking.srid and booking.uid = user.uid " \
+            "where service.shid= '%s' and booking.oid not in (select oid from transaction where shid = '%s') " \
+            "order by booking.oid desc"%(shid,shid)
+
+        else:   
+            sql = "select * from service inner join booking inner join user " \
+            "on service.srid = booking.srid and booking.uid = user.uid " \
+            "where service.shid= '%s' and booking.status in %s order by booking.oid desc"%(shid,fil)
     except:
         sql = "select * from service inner join booking inner join user " \
         "on service.srid = booking.srid and booking.uid = user.uid " \
@@ -1422,3 +1437,8 @@ def addtransaction(request):
         msg = "<script>alert('transaction added');window.location='/viewbookdetailsbyshop/?oid=%s';</script>"%(oid)
     
     return HttpResponse(msg)
+
+def viewtransactionbyshop(request):
+    cur = connection.cursor()
+    shid = request.session['uid']
+    return render(request,'viewtransactionbyshop.html')
