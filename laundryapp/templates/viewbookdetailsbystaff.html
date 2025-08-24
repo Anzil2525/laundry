@@ -122,12 +122,17 @@
     </div>
   </div>
 
+  {% if data.status == 'cancelled' or data.status == 'rejected' %}
+  
+  {% else %}
   <form action="/addtransaction/" class="mt-2">
     {% csrf_token %}
     <input type="hidden" name="amount" value="{{ data.amount }}">
     <input type="hidden" name="oid" value="{{ data.oid }}">
     <button type="submit" class="btn btn-orange">Set as Paid</button>
   </form>
+  {% endif %}
+
 {% endif %}
 
 

@@ -1,5 +1,12 @@
 {% extends 'header_footer_shop.html' %}
 
 {% block content %}
-
+<!-- Quick Filter Links -->
+    <div class="text-center mb-4">
+        <a href="/viewtransactionbyshopdaily/" class="btn btn-outline-secondary me-2">Daily</a>
+        <a href="/viewtransactionbyshopmonthly/" class="btn btn-outline-secondary me-2">Monthly</a>
+        <a href="/viewtransactionbyshopyearly/" class="btn btn-outline-secondary">Yearly</a>
+    </div>
+    {% block content_inner %}
+    {% endblock %}
 {% endblock %}

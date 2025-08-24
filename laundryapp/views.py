@@ -1437,10 +1437,17 @@ def addtransaction(request):
     
     return HttpResponse(msg)
 
-def viewtransactionbyshop(request):
+def viewtransactionbyshopdaily(request):
     cur = connection.cursor()
     shid = request.session['uid']
-    sql = "select * from transaction where shid = '%s'"%(shid)
+
+    if request.method == "POST":
+        date = request.POST.get('date')
+    else:
+        obj = datetime.datetime.now()
+        time = str(obj.time())
+        date = str(obj.date())
+    sql = "select * from transaction where shid = '%s' and date = '%s'order by time desc"%(shid,date)
     cur.execute(sql)
     result = cur.fetchall()
     trans = []
@@ -1452,7 +1459,13 @@ def viewtransactionbyshop(request):
             'oid' : row[3],
             'amount' : row[4],
             'shid' : row[5],
-
         }
         trans.append(dis)
-    return render(request,'viewtransactionbyshop.html',{'trans':trans})
+
+    sql = "select sum(amount) from transaction where shid = '%s' and date = '%s'"%(shid,date)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        amount = row[0]
+        if amount == None:
+            amount = 0
+    return render(request,'viewtransactionbyshopdaily.html',{'trans':trans,'date':date,'amount':amount})

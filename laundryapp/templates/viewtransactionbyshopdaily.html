@@ -1,0 +1,46 @@
+{% extends 'viewtransactionbyshop.html' %}
+
+{% block content_inner %}
+<div class="container my-5">
+    <h2 class="mb-4 text-center">💳 Transaction History</h2>
+
+    <!-- Date Filter Form -->
+    <form method="post" class="row g-3 justify-content-center mb-4">
+        {% csrf_token %}
+        <div class="col-auto">
+            <input type="date" name="date" value="{{ date }}" class="form-control" />
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-search"></i> Go
+            </button>
+        </div>
+    </form>
+
+    <!-- Transactions List -->
+    <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <span>Transactions</span>
+            <span class="fw-bold text-primary">
+                Total: {{ amount }}/- Rs
+            </span>
+        </div>
+        <div class="card-body p-0">
+            {% if trans %}
+                <ul class="list-group list-group-flush">
+                    {% for i in trans %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>Paid on:</strong> {{ i.date }} at {{ i.time }}
+                            </div>
+                            <span class="badge bg-success fs-6">{{ i.amount }}/- Rs</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-muted text-center my-3">No Transactions Found</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

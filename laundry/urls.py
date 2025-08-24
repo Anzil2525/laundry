@@ -88,6 +88,6 @@ urlpatterns = [
     path('viewfeedbacksofshop/',viewfeedbacksofshop,name = 'viewfeedbacksofshop'),
     path('viewfeedbacksofstaff/',viewfeedbacksofstaff,name = 'viewfeedbacksofstaff'),
     path('addtransaction/',addtransaction,name='addtransaction'),
-    path('viewtransactionbyshop/',viewtransactionbyshop,name='viewtransactionbyshop'),
+    path('viewtransactionbyshopdaily/',viewtransactionbyshopdaily,name='viewtransactionbyshopdaily'),
     
 ]
