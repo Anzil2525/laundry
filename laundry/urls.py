@@ -89,5 +89,8 @@ urlpatterns = [
     path('viewfeedbacksofstaff/',viewfeedbacksofstaff,name = 'viewfeedbacksofstaff'),
     path('addtransaction/',addtransaction,name='addtransaction'),
     path('viewtransactionbyshopdaily/',viewtransactionbyshopdaily,name='viewtransactionbyshopdaily'),
+    path('viewtransactionbyshopmonthly/',viewtransactionbyshopmonthly,name='viewtransactionbyshopmonthly'),
+    path('viewtransactionbyshopyearly/',viewtransactionbyshopyearly,name='viewtransactionbyshopyearly'),
+
     
 ]

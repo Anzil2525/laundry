@@ -1,5 +1,87 @@
 {% extends 'viewtransactionbyshop.html' %}
 
 {% block content_inner %}
+<style>
+    form {
+        margin-bottom: 1em;
+    }
+    select, button {
+        padding: 5px 10px;
+        margin-right: 5px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1em;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: center;
+    }
+    th {
+        background-color: #f3f3f3;
+    }
+    tr:nth-child(even) {
+        background-color: #fafafa;
+    }
+    .no-data {
+        text-align: center;
+        font-style: italic;
+        color: #888;
+    }
+</style>
 
+<!-- Updated Total Amount design -->
+<div class="alert alert-primary text-center fs-5 fw-bold shadow-sm">
+    💰 Total: {{ amount|floatformat:2 }} ₹
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="year">Select Year:</label>
+    <select name="year" id="year">
+        {% for y in select_year %}
+            <option value="{{ y }}" {% if year|stringformat:"s" == y|stringformat:"s" %}selected{% endif %}>
+                {{ y }}
+            </option>
+        {% endfor %}
+    </select>
+    <button type="submit">GO</button>
+</form>
+
+<table>
+    <tr>
+        <th>Month</th>
+        <th>Number of Transactions</th>
+        <th>Amount</th>
+    </tr>
+    {% if trans %}
+        {% for t in trans %}
+        <tr>
+            <td>
+                {% if t.month == '01' %}January
+                {% elif t.month == '02' %}February
+                {% elif t.month == '03' %}March
+                {% elif t.month == '04' %}April
+                {% elif t.month == '05' %}May
+                {% elif t.month == '06' %}June
+                {% elif t.month == '07' %}July
+                {% elif t.month == '08' %}August
+                {% elif t.month == '09' %}September
+                {% elif t.month == '10' %}October
+                {% elif t.month == '11' %}November
+                {% elif t.month == '12' %}December
+                {% endif %}
+            </td>
+            <td>{{ t.count }}</td>
+            <td>{{ t.amount }}</td>
+        </tr>
+        {% endfor %}
+    {% else %}
+    <tr>
+        <td colspan="3" class="no-data">No transactions found</td>
+    </tr>
+    {% endif %}
+</table>
 {% endblock %}

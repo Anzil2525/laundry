@@ -1,12 +1,26 @@
 {% extends 'header_footer_shop.html' %}
 
 {% block content %}
-<!-- Quick Filter Links -->
-    <div class="text-center mb-4">
-        <a href="/viewtransactionbyshopdaily/" class="btn btn-outline-secondary me-2">Daily</a>
-        <a href="/viewtransactionbyshopmonthly/" class="btn btn-outline-secondary me-2">Monthly</a>
-        <a href="/viewtransactionbyshopyearly/" class="btn btn-outline-secondary">Yearly</a>
+<div class="filter-bar text-center mb-4">
+    <div class="btn-group" role="group" aria-label="Transaction Filters">
+        <a href="/viewtransactionbyshopdaily/"
+           class="btn {% if request.path == '/viewtransactionbyshopdaily/' %}btn-primary active{% else %}btn-outline-primary{% endif %}">
+           Daily
+        </a>
+        <a href="/viewtransactionbyshopmonthly/"
+           class="btn {% if request.path == '/viewtransactionbyshopmonthly/' %}btn-primary active{% else %}btn-outline-primary{% endif %}">
+           Monthly
+        </a>
+        <a href="/viewtransactionbyshopyearly/"
+           class="btn {% if request.path == '/viewtransactionbyshopyearly/' %}btn-primary active{% else %}btn-outline-primary{% endif %}">
+           Yearly
+        </a>
     </div>
+</div>
+
+<div class="content-wrapper p-4 shadow-sm bg-white rounded">
     {% block content_inner %}
+    <!-- Inner content here -->
     {% endblock %}
+</div>
 {% endblock %}

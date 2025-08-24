@@ -1445,7 +1445,6 @@ def viewtransactionbyshopdaily(request):
         date = request.POST.get('date')
     else:
         obj = datetime.datetime.now()
-        time = str(obj.time())
         date = str(obj.date())
     sql = "select * from transaction where shid = '%s' and date = '%s'order by time desc"%(shid,date)
     cur.execute(sql)
@@ -1469,3 +1468,100 @@ def viewtransactionbyshopdaily(request):
         if amount == None:
             amount = 0
     return render(request,'viewtransactionbyshopdaily.html',{'trans':trans,'date':date,'amount':amount})
+
+def viewtransactionbyshopmonthly(request):
+    cur = connection.cursor()
+    shid = request.session['uid']
+
+    if request.method == "POST":
+        month = request.POST.get('month')
+        year = request.POST.get('year')
+    else:
+        obj = datetime.datetime.now()
+        date = str(obj.date())
+        month = date[5:7]
+        year = date[0:4]
+    date = {
+        'month' : month,
+        'year' : year,
+    }
+    sql = "select date,count(tid),sum(amount) from transaction where shid = '%s' and date like '%s_%s___' group by date order by date desc"%(shid,year,month)
+    cur.execute(sql)
+    result = cur.fetchall()
+    trans = []
+    for row in result:
+        dis = {
+            'date' : row[0],
+            'count' : row[1],
+            'amount' : row[2],
+        }
+        trans.append(dis)
+
+    current_year = datetime.datetime.now().year
+    select_year = []
+    for y in range(2020,current_year+1):
+        select_year.append(y)
+    
+    sql = "select sum(amount) from transaction where shid = '%s' and date like '%s_%s___' group by date order by date desc"%(shid,year,month)
+    amount = 0
+    cur.execute(sql)
+    for row in cur.fetchall():
+        amount = row[0]
+        if amount == None:
+            amount = 0
+    return render(request,'viewtransactionbyshopmonthly.html',{'trans':trans,'date':date,'amount':amount,'select_year':select_year})
+
+def viewtransactionbyshopyearly(request):
+    cur = connection.cursor()
+    shid = request.session['uid']
+    if request.method == "POST":
+        year = request.POST.get('year')
+    else:
+        obj = datetime.datetime.now()
+        date = str(obj.date())
+        year = date[0:4]
+    
+    current_year = datetime.datetime.now().year
+    select_year = []
+    for y in range(2020,current_year+1):
+        select_year.append(y)
+
+    sql = "select date,count(tid),sum(amount) from transaction where shid = '%s' and date like '%s______' group by date having date"%(shid,year)
+    cur.execute(sql)
+    result = cur.fetchall()
+    trans = []
+    for row in result:
+        dis = {
+            'date' : row[0],
+            'count' : row[1],
+            'amount' : row[2],
+        }
+        trans.append(dis)
+    year_tans =[]
+    for m in range(1,13):
+        if m < 10:
+            month = '0'+str(m)
+        else:
+            month = str(m)
+        total_amount = 0
+        total_count = 0
+        for t in trans:
+            if t['date'][5:7] == month:
+                total_amount += t['amount']
+                total_count += t['count']
+        dis = {
+            'month' : month,
+            'count' : total_count,
+            'amount' : total_amount,
+        }
+        year_tans.append(dis) 
+
+    sql = "select sum(amount) from transaction where shid = '%s' and date like '%s______'"%(shid,year)
+    amount = 0
+    cur.execute(sql)
+    for row in cur.fetchall():
+        amount = row[0]
+        if amount == None:
+            amount = 0
+
+    return render(request,'viewtransactionbyshopyearly.html',{'trans':year_tans,'select_year':select_year,'year':year,'amount':amount})
