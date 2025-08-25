@@ -1418,7 +1418,6 @@ def addtransaction(request):
         result = cur.fetchall()
         for row in result:
             shid = row[0]
-        print(f'shid = {shid}')
     elif request.session['utype'] == 'shop':
         shid = request.session['uid']
 
@@ -1452,7 +1451,7 @@ def viewtransactionbyshopdaily(request):
     trans = []
     for row in result:
         dis = {
-            'tid' : row[0],
+            'tsid' : row[0],
             'date' : row[1],
             'time' : row[2],
             'oid' : row[3],
@@ -1485,7 +1484,7 @@ def viewtransactionbyshopmonthly(request):
         'month' : month,
         'year' : year,
     }
-    sql = "select date,count(tid),sum(amount) from transaction where shid = '%s' and date like '%s_%s___' group by date order by date desc"%(shid,year,month)
+    sql = "select date,count(tsid),sum(amount) from transaction where shid = '%s' and date like '%s_%s___' group by date order by date desc"%(shid,year,month)
     cur.execute(sql)
     result = cur.fetchall()
     trans = []
@@ -1526,7 +1525,7 @@ def viewtransactionbyshopyearly(request):
     for y in range(2020,current_year+1):
         select_year.append(y)
 
-    sql = "select date,count(tid),sum(amount) from transaction where shid = '%s' and date like '%s______' group by date having date"%(shid,year)
+    sql = "select date,count(tsid),sum(amount) from transaction where shid = '%s' and date like '%s______' group by date having date"%(shid,year)
     cur.execute(sql)
     result = cur.fetchall()
     trans = []

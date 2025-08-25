@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 21, 2025 at 06:12 PM
+-- Generation Time: Aug 25, 2025 at 02:03 AM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `assign` (
   `time` varchar(8) NOT NULL,
   `code` varchar(4) NOT NULL,
   PRIMARY KEY (`asnid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `assign`
@@ -54,7 +54,9 @@ INSERT INTO `assign` (`asnid`, `oid`, `stid`, `date`, `time`, `code`) VALUES
 (12, '10', '1', '2025-07-02', '20:24:13', '9432'),
 (13, '22', '1', '2025-07-02', '21:08:38', '5182'),
 (14, '23', '1', '2025-08-21', '20:59:55', '7456'),
-(15, '23', '2', '2025-08-21', '21:03:13', '5984');
+(15, '23', '2', '2025-08-21', '21:03:13', '5984'),
+(16, '24', '1', '2025-08-22', '02:21:21', '6371'),
+(17, '24', '2', '2025-08-22', '02:21:29', '2174');
 
 -- --------------------------------------------------------
 
@@ -242,7 +244,7 @@ INSERT INTO `booking` (`oid`, `srid`, `uid`, `date`, `time`, `status`) VALUES
 (21, '5', '5', '2025-07-02', '20:18:03', 'completed'),
 (22, '4', '5', '2025-07-02', '20:49:49', 'completed'),
 (23, '5', '5', '2025-07-15', '10:19:12', 'assigned'),
-(24, '4', '5', '2025-08-15', '20:53:18', 'booked');
+(24, '4', '5', '2025-08-15', '20:53:18', 'assigned');
 
 -- --------------------------------------------------------
 
@@ -364,7 +366,7 @@ CREATE TABLE IF NOT EXISTS `django_session` (
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
-('0wrur7b1enrozft06rfxp09iznsiqdto', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1up7Dy:iOdaeILi0gK-a0fPg7FcDLTAEfDIr94iy3NFzc3zFok', '2025-09-04 15:29:10'),
+('0wrur7b1enrozft06rfxp09iznsiqdto', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uqMF8:cEaE9CejDQ1uQafqasdUNkq-lHBIoZLV5-ykcC4TUYA', '2025-09-08 01:43:30'),
 ('0z8zf9cwcfgike3wyqkv1i04kvm469fe', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uUJJd:VsA9qtM4SfEzA8YD6og6UTYpPvKs2L_9gDlivxg6brw', '2025-07-09 06:09:01'),
 ('19737jvecwgoyrmlewxk9hovvihfpadt', 'N2ZmOTA1OGQzOWI0ZWY5NzcwYmE1NWQ5ODJjZTVhMTBmNDhmNWU4NTp7InR5cGUiOiJ1c2VyIiwiaWQiOjR9', '2022-11-21 07:34:17'),
 ('1cdyumc2ik720wdm73v09wvd2a5sb17z', 'eyJ1aWQiOjAsInV0eXBlIjoiYWRtaW4iLCJzdGF0dXMiOiIifQ:1unpF3:qvXlUwNg0pBgs3bzCSk-sUQoyhKbDR6syScrYYf_8BQ', '2025-09-01 02:04:57'),
@@ -397,23 +399,28 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('ag34wrgfpkwjeo0rhfat38r80o47mmgq', 'eyJ1aWQiOjEsInV0eXBlIjoic3RhZmYiLCJzdGF0dXMiOiIifQ:1uGbGc:tN1Pd57jXO40mkeNr-X5Ieh9xI3TkZDrVD5mRdnNeII', '2025-06-01 10:29:14'),
 ('aj6qgierbh17odjldn46tx3h8v98qm66', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uTbyQ:dr1XlvFpeuiOFsDM6nn0Pqif57D17MjQrDto-3SkxRg', '2025-07-07 07:52:14'),
 ('b3067dzfqhqz0zhfr9h6gh8570okvf3b', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uWyiK:uCEIbIk-exBhfHwAhMkrYBwp8fk_xGH1UtjnmQG-5zU', '2025-07-16 14:45:32'),
+('bojisvxv28kkjma2l26bblzc5wxef4hk', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uq1zL:UdhNR7TvxCG-eGxJVVNyr5SS8eiDLGspKnX2SHuRVRM', '2025-09-07 04:05:51'),
 ('bonwvktn46jxxtnaewjivqtvcgtr7kc2', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uVVl4:E6AjKi-CkGYwSaAgl3utXKkAfPP0d5Ix3VIziuSgwNE', '2025-07-12 13:38:18'),
 ('c629696y9dmdnkck7dca8w3dhg3t7prv', 'N2ZmOTA1OGQzOWI0ZWY5NzcwYmE1NWQ5ODJjZTVhMTBmNDhmNWU4NTp7InR5cGUiOiJ1c2VyIiwiaWQiOjR9', '2022-11-14 12:53:43'),
 ('cybg5peltkxiq5atnsq6wvjx2qnbrvmo', 'eyJ1aWQiOjQsInV0eXBlIjoibGFiIn0:1sgciq:m3uKxEEoGUap72C73l2Bb5XUQYC42k8z80J3pn2iHI0', '2024-09-04 04:13:24'),
 ('ddk3asmpck0d1dq59k6cy9c677bkbv1y', 'eyJ1aWQiOjEsInV0eXBlIjoic3RhZmYiLCJzdGF0dXMiOiIifQ:1uiUgi:jJcPoijXXLTSBYEXlxrewOMV9bOBFe5oy0oz9WbmIeE', '2025-08-17 09:07:28'),
 ('des3cmerfxkh6glk2rgpvpwac7sco1df', 'eyJ1aWQiOjgsInV0eXBlIjoibGFiIn0:1suvQs:YFJW12kK7y8xCaNWT8FqtNo7LQT9ySiHRADOe93OmuE', '2024-10-13 15:01:58'),
-('duh6o6tco0vnuss6yw1w26cvp9t1xuqb', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1up9eO:AK6Qz1CXe_u-IdJSy3B-6h7tHWEwcB0q3DbSU7PiHbI', '2025-09-04 18:04:36'),
+('duh6o6tco0vnuss6yw1w26cvp9t1xuqb', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1upCAd:EVmakneKMVm9H-kJqTN9gsHverV7vdYYekYy5LdivSA', '2025-09-04 20:46:03'),
 ('e8yi3rr1jjcystikjwyouamq6mgs1q0a', 'eyJ1aWQiOjQsInV0eXBlIjoibGFiIn0:1sfuLQ:Ps9-T_31O9JPWexvsH213RQGefOJMSVfJsPIKh0TzZU', '2024-09-02 04:50:16'),
+('f25mujlalu8ng6qd8s1a4bktsygtj9kr', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uqMVJ:N-l9uuwIGethva8RWO11_iGQyiiPspqnPPdr-M2sFeI', '2025-09-08 02:00:13'),
 ('fbea568dob692rnnryno33i4e8osys00', 'eyJ1aWQiOjIsInV0eXBlIjoidXNlciJ9:1sOWdM:1QAs5zuqGV3IvFqa4l4ODjACpj0NTRMaik50ICKeaIw', '2024-07-16 06:04:56'),
 ('g2wsxfua4elkjkzrwlc3iub2l9zqd88j', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uENGI:daZ449jD82JEYiZjLuAkD_Z8p-d1KfP1iTCJmCf5YfI', '2025-05-26 07:07:42'),
 ('g8frbbo2wwwuif3x2maqmhlp9yytnnh9', 'eyJ1aWQiOjIzLCJ1dHlwZSI6InVzZXIifQ:1svAod:oaAu4uVYSuSQPy-zdROY0DcKHzZpyfXcKhchzF2RBOY', '2024-10-14 07:27:31'),
+('gey6afjzb2uz6c4p6dnegh4ltgr20uxx', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uqCFk:P5XHDoY7Hyya4rqDHVNgavUpwrty3G1f92hWMl3lmXo', '2025-09-07 15:03:28'),
 ('gl3xr7ma0ra751br44v52yyvg01qoz4p', 'eyJ1aWQiOjUsInV0eXBlIjoibGFiIn0:1smcLB:fwObzXrdXGcehp-csywXBH7VaDmTxkM5pnm9bhcYWlA', '2024-09-20 17:01:45'),
-('gqd8ln2cr43v4mlxn66i4h4vv2r3971d', 'eyJ1aWQiOjAsInV0eXBlIjoiYWRtaW4iLCJzdGF0dXMiOiIifQ:1umnUg:ulkTyNEP5hpnxvWnIpvouCZymHSYGKhRSHZoZbsqpl0', '2025-08-29 06:00:50'),
+('gqd8ln2cr43v4mlxn66i4h4vv2r3971d', 'eyJ1aWQiOjEsInV0eXBlIjoic3RhZmYiLCJzdGF0dXMiOiIifQ:1uqMLe:WnFGBZdh5tHS4NG_7fAibSdHgrefl6di4uaEAHe7RkE', '2025-09-08 01:50:14'),
 ('grjlrszn1gu722anwzvs4yegrwez22sh', 'eyJ1aWQiOjAsInV0eXBlIjoiYWRtaW4ifQ:1sWUfF:rPyqbEIRMnYG0W6hOt-Y0Q5ROKLjyTeoa07n6CcqAMQ', '2024-08-07 05:35:49'),
 ('j1s7gtn3warudpz5oyt3oz7bf9o29n35', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uTfxA:k-jVq_MAXKfVKPoWumeM3D-hanZuoRQd2x_dLCIaKas', '2025-07-07 12:07:12'),
 ('j2hwpcvzhihev21v9dodch9vzkl8zart', 'eyJ1aWQiOjAsInV0eXBlIjoiYWRtaW4iLCJzdGF0dXMiOiIifQ:1umwzN:5FGpoWvyUGi0HkhaUCuF6CY2M9ZTH3PMENfHFY_FxvI', '2025-08-29 16:09:09'),
+('j434shw3eussvfdeq8h5tn99gwt619v8', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1upqdm:yJ0Nk39KwLuVOp9_tKJLKR0BXnkfbvk6QJcwJKMIv7M', '2025-09-06 15:58:50'),
 ('j7aaiq8f1qvh4kxz4rdhz9ruhl6cehx3', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1rXbNs:1fEA5po6uuFqQg-N8xR8YwBdJlE3yia-cYg8yKt5_vw', '2024-02-21 06:26:12'),
 ('j8e2z72eh4g5b09z8pkr7m3kkomk0ox2', 'Nzk1MTdhMjk1MTVjMDc3YjI1MzQ3YzEyMTQ3ZTI1YzkwZjEzM2U5Zjp7InVpZCI6MSwidXR5cGUiOiJsYWIifQ==', '2023-10-28 07:21:24'),
+('j8nwl56dcgxymi1vyn3r4i9l22eeedwu', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1upTE6:PMBqSpTBWrAcO9oPHuaRzKkcYSv11gToym_G4UJeyEQ', '2025-09-05 14:58:46'),
 ('k3os9iv9xzmkmv4wphm7grwbpe53i3t5', 'eyJ1aWQiOjgsInV0eXBlIjoidXNlciJ9:1sWDCZ:BoNInSAjssD3TUnbwkXZ2lwdvPZX9n1ZMkArMmtxnNw', '2024-08-06 10:57:03'),
 ('ki2gy5h10jb4titwgt93pdc2gvgtdash', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uVDNV:0r6AiMmegaQPEF7jmY5gqxn_Nv9sGXcV7b6lF9IKWnE', '2025-07-11 18:00:45'),
 ('kixcuakh7cx0rqv8a68axg5sly58jl25', 'eyJ1aWQiOjEsInV0eXBlIjoidXNlciJ9:1ovXDS:o4rAr0tY62A4tKKJwl8HL4Y4besW9kdeUVP5WIdbYQs', '2022-12-01 05:13:34'),
@@ -440,6 +447,7 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('tsb6j558e9s0eqevexvt659glitvvsug', 'eyJ1aWQiOjgsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uTwZV:1DCksn3iwOzDlvIkcwaghBL4WLWk4A0kQ5mcZCPK0ig', '2025-07-08 05:51:53'),
 ('ucnkue7931glzf72k5gxvfuyhjpn1e35', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uWHPA:r997cr08SAubsOBskeUvqQI-eHJuhBtOcGzi4oZj3G4', '2025-07-14 16:30:52'),
 ('uug92q6n1wbi1f98swva1ddmzw0n2he4', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1r5kwk:5vQX2aVYsiQPgw0vn7yBQCix91l8rgAv9_6EYY5KDwA', '2023-12-06 10:59:06'),
+('v4w20nx4rla7cbyby6tg4br5gpmttxk5', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uqMFo:oZO_u7_vBPGKzyChvDHSwbLRPYKagP4FSLQyv1opITo', '2025-09-08 01:44:12'),
 ('vbp155s6eh2fqotq2eaa5ugw4sd8chjm', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uOWgo:emjHPinXUgXi4hkCvOXLaxDkszDMd8SJ1x7vwAFuZ-8', '2025-06-23 07:13:02'),
 ('vomhjmwslbf8opjpf7m217f0okmakux9', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1r6REG:I8F_BZ9aIwDacjhQ_-gP85fxg3fYY61vlbrk5es8Gy4', '2023-12-08 08:08:00'),
 ('vqllqcw86680ar2z55fps19sgr8ytmyq', 'eyJ1aWQiOjEsInV0eXBlIjoidXNlciJ9:1sbAmS:NfkTOi35dZqOewwozUyAbo4R-scnYoGT1LFNz7AeP9U', '2024-08-20 03:22:36'),
@@ -567,7 +575,7 @@ CREATE TABLE IF NOT EXISTS `shop` (
 --
 
 INSERT INTO `shop` (`shid`, `name`, `address`, `place`, `district`, `phn`, `email`, `status`) VALUES
-(7, 'shop7', 'address 7', 'asd', 'malappuram', '0987654322', 'shop@7', 'approved'),
+(7, 'shop7', 'address 7', 'asd', 'thiruvananthapuram', '0987654322', 'shop@7', 'approved'),
 (8, 'shop8', 'asdf', 'asd', 'thrissur', '0987654322', 'shop@8', 'approved'),
 (12, 'shop 10', 'this is a address of the shop 10. im making this too lengthy so that i can test this address.  and it looks like i need to again add somthing.', 'kollam', 'thiruvananthapuram', '7091827364', 'shop@10', 'approved'),
 (14, 'shop@12', 'this is the address of the shop 12', 'this is the place of the shop 12', 'kollam', '1234567899', 'shop@12', 'approved'),
@@ -666,19 +674,31 @@ INSERT INTO `tracker` (`tid`, `oid`, `status`, `date`, `time`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `transaction` (
-  `tid` int(11) NOT NULL AUTO_INCREMENT,
+  `tsid` int(11) NOT NULL AUTO_INCREMENT,
   `date` varchar(10) NOT NULL,
   `time` varchar(8) NOT NULL,
   `oid` varchar(15) NOT NULL,
   `amount` varchar(7) NOT NULL,
   `shid` varchar(10) NOT NULL,
-  PRIMARY KEY (`tid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`tsid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `transaction`
 --
 
+INSERT INTO `transaction` (`tsid`, `date`, `time`, `oid`, `amount`, `shid`) VALUES
+(1, '2025-08-21', '23:52:46', '24', '201', '7'),
+(2, '2025-08-21', '23:59:40', '22', '201', '7'),
+(3, '2025-08-22', '00:07:28', '20', '120', '7'),
+(4, '2025-08-22', '01:58:54', '22', '201', '7'),
+(5, '2025-08-22', '02:13:41', '10', '201', '7'),
+(6, '2025-08-22', '19:52:45', '5', '120', '7'),
+(7, '2025-08-22', '20:00:02', '9', '120', '7'),
+(8, '2025-08-22', '20:09:51', '23', '120', '7'),
+(9, '2025-08-23', '19:59:52', '21', '120', '7'),
+(10, '2025-08-23', '20:00:50', '19', '120', '7'),
+(11, '2025-08-23', '20:17:18', '17', '120', '7');
 
 -- --------------------------------------------------------
 
