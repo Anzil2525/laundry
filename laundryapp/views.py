@@ -270,7 +270,7 @@ def viewfeedbacksofshop(request):
         print(f"name = {uname}\ndate = {date}")
         if date:
             sql = "select * from feedback inner join shop on feedback.uid = shop.shid " \
-            "where feedback.date = '%s' utype = 'shop' order by fid desc"%(date)    
+            "where feedback.date = '%s' and feedback.utype = 'shop' order by fid desc"%(date)    
     cur.execute(sql) 
     result = cur.fetchall()    
     data = []
@@ -404,6 +404,7 @@ def userprofile(request):
     sql = "select * from user where uid = '%s'"%(uid)
     cur.execute(sql)
     result = cur.fetchall()
+    dis = {}
     for row in result:
         dis = {
             'uid' : row[0],
@@ -422,6 +423,7 @@ def shopprofile(request):
     sql = "select * from shop where shid = '%s'"%(shid)
     cur.execute(sql)
     result = cur.fetchall()
+    dis = {} 
     for row in result:
         dis = {
             'shid' : row[0],
@@ -481,7 +483,7 @@ def deletestaff(request):
     print('id = ',id)
     sql = "delete from staff where stid = '%s'"%(id)
     cur.execute(sql)
-    sql1 = "delete from login where uid = '%s' and utype = 'stid'"%(id)
+    sql1 = "delete from login where uid = '%s' and utype = 'staff'"%(id)
     cur.execute(sql1)
     msg = "<script>alert('deleted');window.location='/viewstaffs/';</script>"
     return HttpResponse(msg)
@@ -495,6 +497,7 @@ def staffprofile(request):
     sql = "select * from staff where stid = '%s'"%(stid)
     cur.execute(sql)
     result = cur.fetchall()
+    dis = {} 
     for row in result:
         dis = {
             'stid' : row[0],
@@ -578,6 +581,7 @@ def serviceeditingpage(request):
     sql = "select * from service where srid = '%s'"%(id)
     cur.execute(sql)
     result = cur.fetchall()
+    dis = {}
     for row in result:
         dis = {
             'srid' : row[0],
@@ -1432,8 +1436,7 @@ def addtransaction(request):
     if request.session['utype'] == 'staff':
         msg = "<script>alert('transaction added');window.location='/viewbookdetailsbystaff/?oid=%s';</script>"%(oid)
     elif request.session['utype'] == 'shop':
-        msg = "<script>alert('transaction added');window.location='/viewbookdetailsbyshop/?oid=%s';</script>"%(oid)
-    
+        msg = "<script>alert('transaction added');window.location='/viewbookdetailsbyshop/?oid=%s';</script>"%(oid)    
     return HttpResponse(msg)
 
 def viewtransactionbyshopdaily(request):
