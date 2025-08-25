@@ -154,8 +154,7 @@
   {% if data.status == 'booked' or data.status == 'assigned' or data.status == 'progress' %}
     <div class="section-header">🔧 Update Tracker</div>
     <div class="card-custom">
-      <form action="/updatetrackerbyoption" method="post" class="mb-3">
-        {% csrf_token %}
+      <form action="/updatetrackerbyoption" class="mb-3">
         <label for="status-select" class="form-label">Choose a status:</label>
         <div class="d-flex gap-3 flex-wrap">
           <select id="status-select" class="form-select" name="status" required>
@@ -173,8 +172,7 @@
         </div>
       </form>
 
-      <form action="/updatetrackerbytyping" method="post">
-        {% csrf_token %}
+      <form action="/updatetrackerbytyping">
         <label for="custom-status" class="form-label">Or type a custom status:</label>
         <div class="d-flex gap-3 flex-wrap">
           <input type="text" id="custom-status" name="status" class="form-control" placeholder="Enter custom status..." required>
