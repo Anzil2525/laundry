@@ -107,16 +107,14 @@
     <div class="form-container">
         <form action="/editshop" method="get">
             <label for="name">Name of Shop</label>
-            <input type="text" id="name" name="name" required value="{{name}}">
+            <input type="text" id="name" name="name" title="Enter name of the shop"  required value="{{name}}">
 
             <label for="address">Address</label>
-            <textarea id="address" name="address" rows="4" required>{{address}}</textarea>
+            <textarea id="address" name="address" rows="4" title="Enter address of the shop"" required>{{address}}</textarea>
 
-            <label for="place">Place</label>
-            <input type="text" id="place" name="place" required value="{{place}}">
 
             <label for="district">District</label>
-            <select name="district" required value="{{district}}">
+            <select name="district" title="Select your district" required value="{{district}}">
                             <option ></option>
                             <option value="thiruvananthapuram" {% if district == "thiruvananthapuram" %}selected{% endif %}>Thiruvananthapuram</option>
                             <option value="kollam" {% if district == "kollam" %}selected{% endif %}>Kollam</option>
@@ -133,12 +131,15 @@
                             <option value="kannur" {% if district == "kannur" %}selected{% endif %}>Kannur</option>
                             <option value="kasaragod" {% if district == "kasaragod" %}selected{% endif %}>Kasaragod</option>
                         </select>
+            
+            <label for="place">Place</label>
+            <input type="text" id="place" name="place" title="Use only alphabets" pattern="[A-Z a-z]+" required value="{{place}}">
 
             <label for="phn">Phone Number</label>
-            <input type="text" id="phn" name="phn" pattern="[0-9]{10}" maxlength="10" required value="{{phn}}">
+            <input type="text" id="phn" name="phn" pattern="[0-9]{10}" maxlength="10" title="Enter a valid 10-digit phone number" required value="{{phn}}">
 
             <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" required value="{{email}}">
+            <input type="email" id="email" name="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" title="Email must be in the format: example@domain.com" required value="{{email}}">
 
             <input type="submit" value="Update Profile">
         </form>
