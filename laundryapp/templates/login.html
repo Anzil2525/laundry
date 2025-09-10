@@ -10,7 +10,7 @@
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="email" required>
+                            <input type="text" class="form-control" id="username" name="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" title="Email must be in the format: example@domain.com" required>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
