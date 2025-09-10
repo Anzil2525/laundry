@@ -60,7 +60,7 @@ def userreg(request):
     sqllog = "insert into login(uid,uname,upass,utype) values('%s','%s','%s','%s')"%(uid,email,pas,'user')
     cur.execute(sqllog)
 
-    msg = "<script>alert('Added');window.location='/userhome/';</script>"
+    msg = "<script>alert('Registration completed');window.location='/login/';</script>"
     return HttpResponse(msg)
 
 def shopreg(request):
