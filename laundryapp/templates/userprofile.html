@@ -37,17 +37,17 @@
     <form action="/edituser/" method="get">
       <div class="mb-3">
         <label for="name" class="form-label">Full Name</label>
-        <input type="text" class="form-control" name="name" id="name" required value="{{ name }}">
+        <input type="text" class="form-control" name="name" id="name" pattern="[A-Z a-z]+" title="Use Ony Alphabets" required value="{{ name }}">
       </div>
 
       <div class="mb-3">
         <label for="address" class="form-label">Address</label>
-        <textarea class="form-control" name="address" id="address" rows="3" required>{{ address }}</textarea>
+        <textarea class="form-control" name="address" id="address" rows="3" title = "Enter your full address" required>{{ address }}</textarea>
       </div>
 
       <div class="mb-3">
         <label for="district" class="form-label">District</label>
-        <select name="district" required value="{{district}}">
+        <select name="district" title = "Select your district" required value="{{district}}">
                             <option ></option>
                             <option value="thiruvananthapuram" {% if district == "thiruvananthapuram" %}selected{% endif %}>Thiruvananthapuram</option>
                             <option value="kollam" {% if district == "kollam" %}selected{% endif %}>Kollam</option>
@@ -68,17 +68,17 @@
 
       <div class="mb-3">
         <label for="place" class="form-label">Place</label>
-        <input type="text" class="form-control" name="place" id="place" required value="{{ place }}">
+        <input type="text" class="form-control" name="place" id="place" title = "Use only alphabets" pattern="[A-Z a-z]+" required value="{{ place }}">
       </div>
 
       <div class="mb-3">
         <label for="phn" class="form-label">Phone</label>
-        <input type="text" class="form-control" name="phn" id="phn" required pattern="[0-9]{10}" maxlength="10" value="{{ phn }}">
+        <input type="text" class="form-control" name="phn" id="phn" required pattern="[0-9]{10}" maxlength="10" title="Enter a valid 10-digit phone number" value="{{ phn }}">
       </div>
 
       <div class="mb-3">
         <label for="email" class="form-label">E-mail</label>
-        <input type="email" class="form-control" name="email" id="email" required value="{{ email }}">
+        <input type="email" class="form-control" name="email" id="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" title="Email must be in the format: example@domain.com" required value="{{ email }}">
       </div>
 
       <div class="d-grid">
