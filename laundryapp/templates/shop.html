@@ -18,22 +18,19 @@
         <br>
         <br>
         <div class="d-flex justify-content-center">
-            <form action="/shopreg" method="get" class="w-100" style="max-width: 500px;">
+            <form action="/shopreg" class="w-100" style="max-width: 500px;">
                 <div class="mb-3">
                     <label for="shop_name" class="form-label">Name Of Shop</label>
-                    <input type="text" class="form-control" id="shop_name" name="shop_name" required>
+                    <input type="text" class="form-control" id="shop_name" name="shop_name" title="Enter name of the shop" required>
                 </div>
                 <div class="mb-3">
                     <label for="shop_address" class="form-label">Address</label>
-                    <textarea class="form-control" id="shop_address" name="shop_address" rows="4" required></textarea>
+                    <textarea class="form-control" id="shop_address" name="shop_address" rows="4" title="Enter address of the shop" required></textarea>
                 </div>
-                <div class="mb-3">
-                    <label for="shop_place" class="form-label">Place</label>
-                    <input type="text" class="form-control" id="shop_place" name="shop_place" required>
-                </div>
+                
                 <div class="mb-3">
                     <label for="shop_district" class="form-label">District</label>
-                    <select class="form-select" id="shop_district" name="shop_district" required>
+                    <select class="form-select" id="shop_district" name="shop_district" title="Select your district"" required>
                         <option value="">Select District</option>
                         <option value="thiruvananthapuram">Thiruvananthapuram</option>
                         <option value="kollam">Kollam</option>
@@ -51,17 +48,22 @@
                         <option value="kasaragod">Kasaragod</option>
                     </select>
                 </div>
+                
+                <div class="mb-3">
+                    <label for="shop_place" class="form-label">Place</label>
+                    <input type="text" class="form-control" id="shop_place" name="shop_place" title="Use only alphabets" pattern="[A-Z a-z]+" required>
+                </div>
                 <div class="mb-3">
                     <label for="shop_ph_no" class="form-label">Phone Number</label>
-                    <input type="text" class="form-control" id="shop_ph_no" name="shop_ph_no" pattern="[0-9]{10}" maxlength="10" required>
+                    <input type="text" class="form-control" id="shop_ph_no" name="shop_ph_no" pattern="[0-9]{10}" maxlength="10" title="Enter a valid 10-digit phone number"" required>
                 </div>
                 <div class="mb-3">
                     <label for="shop_email" class="form-label">E-mail</label>
-                    <input type="email" class="form-control" id="shop_email" name="shop_email" required>
+                    <input type="email" class="form-control" id="shop_email" name="shop_email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" title="Email must be in the format: example@domain.com" required>
                 </div>
                 <div class="mb-3">
                     <label for="shop_password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="shop_password" name="shop_password" required>
+                    <input type="password" class="form-control" id="shop_password" name="shop_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary px-5">Submit</button>
