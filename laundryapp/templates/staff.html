@@ -67,19 +67,19 @@
 
     <form action="/staffreg">
         <label>Name</label>
-        <input type="text" name="name" required>
+        <input type="text" name="name" pattern="[A-Z a-z]+" title="Use Ony Alphabets" required>
 
         <label>Address</label>
-        <textarea name="address" rows="4" required></textarea>
+        <textarea name="address" rows="4" title="Enter address" required></textarea>
 
         <label>Street</label>
-        <input type="text" name="street" required>
+        <input type="text" name="street" title="Use only alphabets" pattern="[A-Z a-z]+" required>
 
         <label>City</label>
-        <input type="text" name="city" required>
+        <input type="text" name="city" title="Use only alphabets" pattern="[A-Z a-z]+" required>
 
         <label>District</label>
-        <select name="district" required>
+        <select name="district" title="Select district" required>
             <option value="">-- Select District --</option>
             <option value="thiruvananthapuram">Thiruvananthapuram</option>
             <option value="kollam">Kollam</option>
@@ -98,19 +98,19 @@
         </select>
 
         <label>Phone Number</label>
-        <input type="text" name="ph_no" pattern="[0-9]{10}" maxlength="10" required>
+        <input type="text" name="ph_no" pattern="[0-9]{10}" maxlength="10" title="Enter a valid 10-digit phone number" required>
 
-        <label>Pincode</label>
-        <input type="text" name="pincode" pattern="[0-9]{6}" maxlength="6" required>
+        <label>Pin Code</label>
+        <input type="text" name="pincode" pattern="[0-9]{6}" maxlength="6" title="Enter a valid 6-digit pincode" required>
 
         <label>Date Of Birth</label>
         <input type="date" name="dob" required>
 
         <label>E-mail</label>
-        <input type="email" name="email" required>
+        <input type="email" name="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" title="Email must be in the format: example@domain.com" required>
 
         <label>Password</label>
-        <input type="password" name="password" required>
+        <input type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" required>
 
         <input type="submit" value="Submit">
     </form>

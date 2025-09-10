@@ -107,19 +107,19 @@
     <div class="form-container">
         <form action="/editstaff/" method="get">
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" required value="{{ name }}">
+            <input type="text" id="name" name="name" pattern="[A-Z a-z]+" title="Use Ony Alphabets" required value="{{ name }}">
 
             <label for="address">Address</label>
-            <textarea id="address" name="address" rows="4" required>{{ address }}</textarea>
+            <textarea id="address" name="address" rows="4" title="Enter address" required>{{ address }}</textarea>
 
             <label for="street">Street</label>
-            <input type="text" id="street" name="street" required value="{{ street }}">
+            <input type="text" id="street" name="street" pattern="[A-Z a-z]+" title="Use Ony Alphabets" required value="{{ street }}">
 
             <label for="city">City</label>
-            <input type="text" id="city" name="city" required value="{{ city }}">
+            <input type="text" id="city" name="city" pattern="[A-Z a-z]+" title="Use Ony Alphabets" required value="{{ city }}">
 
             <label for="district">District</label>
-            <select name="district" required value="{{district}}">
+            <select name="district" title="Select district" required value="{{district}}">
                             <option ></option>
                             <option value="thiruvananthapuram" {% if district == "thiruvananthapuram" %}selected{% endif %}>Thiruvananthapuram</option>
                             <option value="kollam" {% if district == "kollam" %}selected{% endif %}>Kollam</option>
@@ -138,16 +138,17 @@
                         </select>
 
             <label for="ph_no">Phone Number</label>
-            <input type="text" id="ph_no" name="ph_no" pattern="[0-9]{10}" maxlength="10" required value="{{ phn }}">
+            <input type="text" id="ph_no" name="ph_no" pattern="[0-9]{10}" maxlength="10" title="Enter a valid 10-digit phone number"" required value="{{ phn }}">
 
-            <label for="pincode">Pincode</label>
-            <input type="text" id="pincode" name="pincode" pattern="[0-9]{6}" maxlength="6" required value="{{ pin }}">
+            <label for="pincode">Pin Code</label>
+            <input type="text" id="pincode" name="pincode" pattern="[0-9]{6}" maxlength="6" title="Enter a valid 6-digit pincode"" required value="{{ pin }}">
 
             <label for="dob">Date of Birth</label>
             <input type="date" id="dob" name="dob" required value="{{ dob }}">
 
             <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" required value="{{ email }}">
+            <input type="email" id="email" name="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" title="Email must be in the format: example@domain.com" required value="{{ email }}">
+
             <input type="hidden"name="id" value="{{ stid }}">
             <input type="submit"  value="Update Profile">
         </form>
