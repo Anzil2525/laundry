@@ -70,6 +70,10 @@
                                 {% if obj.status == 'pending' %}
                                     <a href="/approve?id={{ obj.shid }}" class="btn btn-sm btn-success" onclick="return approveShop()">Approve</a>
                                     <a href="/reject?id={{ obj.shid }}" class="btn btn-sm btn-warning" onclick="return rejectShop()">Reject</a>
+                                {% elif obj.status == 'rejected' %}
+                                    <a href="/approve?id={{ obj.shid }}" class="btn btn-sm btn-success" onclick="return approveShop()">Approve</a>
+                                {% elif obj.status == 'approved' %}
+                                    <a href="/reject?id={{ obj.shid }}" class="btn btn-sm btn-warning" onclick="return rejectShop()">Reject</a>
                                 {% endif %}
                             </td>
                         </tr>
