@@ -55,13 +55,21 @@
                                 <td>{{ obj.phn }}</td>
                                 <td>{{ obj.email }}</td>
                                 <td>{{ obj.place }}</td>
-                                <td>{{ obj.status }}</td>
                                 <td>
-                                    <a href="/deleteuser/?uid={{obj.uid}}" onclick="return deleteuser()">Delete</a>
                                     {% if obj.status == 'active' %}
-                                    <a href="/deactivateuser/?uid={{obj.uid}}">Deactivate</a>
+                                    <span class="badge bg-success">
+                                    {% elif obj.status == 'deactive' %}
+                                    <span class="badge" style="background-color: red;">
+                                    {% endif %}
+                                        {{ obj.status }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="/deleteuser/?uid={{obj.uid}}" onclick="return deleteuser()"><button class="badge bg-danger">Delete</button></a>
+                                    {% if obj.status == 'active' %}
+                                    <a href="/deactivateuser/?uid={{obj.uid}}"><button class="badge bg-warning">Deactivate</button></a>
                                     {% else %}
-                                    <a href="/activateuser/?uid={{obj.uid}}">Activate</a>
+                                    <a href= "/activateuser/?uid={{obj.uid}}"><button class="badge bg-success">Activate</button></a>
                                     {% endif %}
 
                                 </td>

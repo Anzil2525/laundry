@@ -354,8 +354,8 @@ def loginaction(request):
             request.session['utype'] = row[4]
             request.session['status'] = row[5]
             if(request.session['utype'] == 'admin'):
-                msg ="<script>alert('welcome admin');window.location='/adminhome/';</script>"
-                return HttpResponse(msg)
+                messages.success(request,"Successfully logined.",extra_tags = 'success')
+                return redirect('adminhome')
             elif(request.session['utype'] == 'user'):
                 if request.session['status'] == 'active':
                     messages.success(request,"Successfully logined.",extra_tags = 'success')

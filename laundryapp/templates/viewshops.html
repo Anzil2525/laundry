@@ -66,14 +66,14 @@
                                 </span>
                             </td>
                             <td class="table-actions">
-                                <a href="/deleteshop?id={{ obj.shid }}" class="btn btn-sm btn-danger" onclick="return deleteShop()">Delete</a>
+                                <a href="/deleteshop?id={{ obj.shid }}" onclick="return deleteShop()"><button class="badge bg-danger">Delete</button></a>
                                 {% if obj.status == 'pending' %}
-                                    <a href="/approve?id={{ obj.shid }}" class="btn btn-sm btn-success" onclick="return approveShop()">Approve</a>
-                                    <a href="/reject?id={{ obj.shid }}" class="btn btn-sm btn-warning" onclick="return rejectShop()">Reject</a>
+                                    <a href="/approve?id={{ obj.shid }}" onclick="return approveShop()"><button class="badge bg-success">Approve</button></a>
+                                    <a href="/reject?id={{ obj.shid }}" onclick="return rejectShop()"><button class="badge bg-warning">Reject</button></a>
                                 {% elif obj.status == 'rejected' %}
-                                    <a href="/approve?id={{ obj.shid }}" class="btn btn-sm btn-success" onclick="return approveShop()">Approve</a>
+                                    <a href="/approve?id={{ obj.shid }}" onclick="return approveShop()"><button class="badge bg-success">Approve</button></a>
                                 {% elif obj.status == 'approved' %}
-                                    <a href="/reject?id={{ obj.shid }}" class="btn btn-sm btn-warning" onclick="return rejectShop()">Reject</a>
+                                    <a href="/reject?id={{ obj.shid }}" onclick="return rejectShop()"><button class="badge bg-warning">Reject</button></a>
                                 {% endif %}
                             </td>
                         </tr>
