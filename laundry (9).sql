@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 25, 2025 at 02:03 AM
+-- Generation Time: Sep 14, 2025 at 08:05 PM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `assign` (
   `time` varchar(8) NOT NULL,
   `code` varchar(4) NOT NULL,
   PRIMARY KEY (`asnid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `assign`
@@ -56,7 +56,13 @@ INSERT INTO `assign` (`asnid`, `oid`, `stid`, `date`, `time`, `code`) VALUES
 (14, '23', '1', '2025-08-21', '20:59:55', '7456'),
 (15, '23', '2', '2025-08-21', '21:03:13', '5984'),
 (16, '24', '1', '2025-08-22', '02:21:21', '6371'),
-(17, '24', '2', '2025-08-22', '02:21:29', '2174');
+(17, '24', '2', '2025-08-22', '02:21:29', '2174'),
+(18, '24', '1', '2025-08-25', '14:15:51', '6976'),
+(19, '26', '1', '2025-08-25', '14:53:37', '4537'),
+(20, '27', '5', '2025-09-11', '13:45:07', '3316'),
+(21, '27', '6', '2025-09-11', '13:45:53', '7692'),
+(22, '26', '2', '2025-09-11', '14:28:49', '1318'),
+(23, '28', '7', '2025-09-14', '21:27:57', '9803');
 
 -- --------------------------------------------------------
 
@@ -216,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `booking` (
   `time` varchar(8) NOT NULL,
   `status` varchar(100) NOT NULL,
   PRIMARY KEY (`oid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
 
 --
 -- Dumping data for table `booking`
@@ -244,7 +250,18 @@ INSERT INTO `booking` (`oid`, `srid`, `uid`, `date`, `time`, `status`) VALUES
 (21, '5', '5', '2025-07-02', '20:18:03', 'completed'),
 (22, '4', '5', '2025-07-02', '20:49:49', 'completed'),
 (23, '5', '5', '2025-07-15', '10:19:12', 'assigned'),
-(24, '4', '5', '2025-08-15', '20:53:18', 'assigned');
+(24, '4', '5', '2025-08-15', '20:53:18', 'assigned'),
+(25, '14', '5', '2025-08-25', '14:48:40', 'rejected'),
+(26, '14', '5', '2025-08-25', '14:53:03', 'progress'),
+(27, '3', '8', '2025-09-11', '13:43:22', 'assigned'),
+(28, '7', '5', '2025-09-14', '21:27:34', 'completed'),
+(29, '4', '8', '2025-09-15', '00:17:04', 'rejected'),
+(30, '5', '8', '2025-09-15', '00:22:49', 'booked'),
+(31, '5', '8', '2025-09-15', '00:26:19', 'rejected'),
+(32, '13', '8', '2025-09-15', '00:39:00', 'rejected'),
+(33, '13', '8', '2025-09-15', '01:12:07', 'rejected'),
+(34, '13', '8', '2025-09-15', '01:14:19', 'rejected'),
+(35, '13', '8', '2025-09-15', '01:30:51', 'rejected');
 
 -- --------------------------------------------------------
 
@@ -257,14 +274,16 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `uid` varchar(15) NOT NULL,
   `srid` varchar(15) NOT NULL,
   PRIMARY KEY (`cid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `cart`
 --
 
 INSERT INTO `cart` (`cid`, `uid`, `srid`) VALUES
-(17, '12', '6');
+(17, '12', '6'),
+(21, '5', '4'),
+(23, '5', '14');
 
 -- --------------------------------------------------------
 
@@ -366,7 +385,7 @@ CREATE TABLE IF NOT EXISTS `django_session` (
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
-('0wrur7b1enrozft06rfxp09iznsiqdto', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uqMF8:cEaE9CejDQ1uQafqasdUNkq-lHBIoZLV5-ykcC4TUYA', '2025-09-08 01:43:30'),
+('0wrur7b1enrozft06rfxp09iznsiqdto', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uqTu3:Nz3bVrUiinotiROAVedAXUJTgWJxnOSNJqKUkyoBbas', '2025-09-08 09:54:15'),
 ('0z8zf9cwcfgike3wyqkv1i04kvm469fe', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uUJJd:VsA9qtM4SfEzA8YD6og6UTYpPvKs2L_9gDlivxg6brw', '2025-07-09 06:09:01'),
 ('19737jvecwgoyrmlewxk9hovvihfpadt', 'N2ZmOTA1OGQzOWI0ZWY5NzcwYmE1NWQ5ODJjZTVhMTBmNDhmNWU4NTp7InR5cGUiOiJ1c2VyIiwiaWQiOjR9', '2022-11-21 07:34:17'),
 ('1cdyumc2ik720wdm73v09wvd2a5sb17z', 'eyJ1aWQiOjAsInV0eXBlIjoiYWRtaW4iLCJzdGF0dXMiOiIifQ:1unpF3:qvXlUwNg0pBgs3bzCSk-sUQoyhKbDR6syScrYYf_8BQ', '2025-09-01 02:04:57'),
@@ -389,6 +408,7 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('5kfszkc3x9yyuz658lc2x0yw9oqlwzwz', 'eyJ1aWQiOjIsInV0eXBlIjoibGFiIn0:1sfvif:V1nSa_VNtOx0vt_8ix03hwKO7rayC-9uId1AWiMj2Po', '2024-09-02 06:18:21'),
 ('5qdnwcthheu9lz8pwh2orxnk7knrf6aw', 'eyJ1aWQiOjExLCJ1dHlwZSI6InVzZXIifQ:1siozx:GS6Lcedf9d4TY9Z284ZC-g_PMszElQW3sLFGc6VWIRI', '2024-09-10 05:44:09'),
 ('63emwbn31nqkxu5rass6le9tar832up5', 'eyJ1aWQiOjEsInV0eXBlIjoidXNlciJ9:1py7yC:6WUgfjx42iAORWpghkwhRjWxF3E7GRaDNyeyuI_nfFo', '2023-05-28 09:24:48'),
+('6anmmxobmg4adcvk2w0cnihhiwt6wmp0', 'eyJ1aWQiOjgsInV0eXBlIjoidXNlciIsInN0YXR1cyI6ImFjdGl2ZSJ9:1uxrkO:s0pB1Ska0KWWkPTiQ3f93VUddkQ0uZjaMZLvh2ML4os', '2025-09-28 18:46:48'),
 ('6gpj9rgj0i5gc11lrphj79aaqdjwey5s', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uTdAZ:9_9xjXcT6p-LNMDi38kKK2plsxaHPpZnQh1x73zshy0', '2025-07-07 09:08:51'),
 ('6ufrpxfatkjwgfgwp1r4d47ta8qylgpd', 'eyJ1aWQiOjEsInV0eXBlIjoidXNlciJ9:1puPOW:Dz_wywXugm_7XlGcefJkpY1977GnKBDvJm4LM4nGUfM', '2023-05-18 03:12:36'),
 ('6wwc60rrd8tug2alz8smi3lze3s4qxdp', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1sE18l:pXpvVu6T5Ct03nW1ypqc2awEto_-aKALYCj58X2n598', '2024-06-17 06:25:55'),
@@ -398,13 +418,17 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('9stcvahc0q61ala5q20558sshqby1m8i', 'Mjg2ZjFiZjJmZWJlMzhlNmZjOThlZWIzMmI3NDE3YjQyOGI2ZjU2YTp7InR5cGUiOiJidWlsZGVyIiwiZW1haWwiOjF9', '2022-03-30 14:45:03'),
 ('ag34wrgfpkwjeo0rhfat38r80o47mmgq', 'eyJ1aWQiOjEsInV0eXBlIjoic3RhZmYiLCJzdGF0dXMiOiIifQ:1uGbGc:tN1Pd57jXO40mkeNr-X5Ieh9xI3TkZDrVD5mRdnNeII', '2025-06-01 10:29:14'),
 ('aj6qgierbh17odjldn46tx3h8v98qm66', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uTbyQ:dr1XlvFpeuiOFsDM6nn0Pqif57D17MjQrDto-3SkxRg', '2025-07-07 07:52:14'),
+('apra6xqmei51txhvk8oxj2whxvq9g9ht', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uxrfd:sHVU1Uz9K2fMutf8W5HGbSsOHwsOWLkQ8nvw1g1JdRI', '2025-09-28 18:41:53'),
 ('b3067dzfqhqz0zhfr9h6gh8570okvf3b', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uWyiK:uCEIbIk-exBhfHwAhMkrYBwp8fk_xGH1UtjnmQG-5zU', '2025-07-16 14:45:32'),
 ('bojisvxv28kkjma2l26bblzc5wxef4hk', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uq1zL:UdhNR7TvxCG-eGxJVVNyr5SS8eiDLGspKnX2SHuRVRM', '2025-09-07 04:05:51'),
 ('bonwvktn46jxxtnaewjivqtvcgtr7kc2', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uVVl4:E6AjKi-CkGYwSaAgl3utXKkAfPP0d5Ix3VIziuSgwNE', '2025-07-12 13:38:18'),
 ('c629696y9dmdnkck7dca8w3dhg3t7prv', 'N2ZmOTA1OGQzOWI0ZWY5NzcwYmE1NWQ5ODJjZTVhMTBmNDhmNWU4NTp7InR5cGUiOiJ1c2VyIiwiaWQiOjR9', '2022-11-14 12:53:43'),
+('ct4kneqqq5qx826b1voo9seze2ad4pzj', 'eyJ1aWQiOjAsInV0eXBlIjoiYWRtaW4iLCJzdGF0dXMiOiIifQ:1uqe2j:4qMpxctlXnaUtJORatYvCz-AkUZPMH1iHV3v4oYv4co', '2025-09-08 20:43:53'),
 ('cybg5peltkxiq5atnsq6wvjx2qnbrvmo', 'eyJ1aWQiOjQsInV0eXBlIjoibGFiIn0:1sgciq:m3uKxEEoGUap72C73l2Bb5XUQYC42k8z80J3pn2iHI0', '2024-09-04 04:13:24'),
 ('ddk3asmpck0d1dq59k6cy9c677bkbv1y', 'eyJ1aWQiOjEsInV0eXBlIjoic3RhZmYiLCJzdGF0dXMiOiIifQ:1uiUgi:jJcPoijXXLTSBYEXlxrewOMV9bOBFe5oy0oz9WbmIeE', '2025-08-17 09:07:28'),
 ('des3cmerfxkh6glk2rgpvpwac7sco1df', 'eyJ1aWQiOjgsInV0eXBlIjoibGFiIn0:1suvQs:YFJW12kK7y8xCaNWT8FqtNo7LQT9ySiHRADOe93OmuE', '2024-10-13 15:01:58'),
+('dfsybn3drv96ndvvreo7lrwfd5h4i4et', 'eyJ1aWQiOjIsInV0eXBlIjoic3RhZmYiLCJzdGF0dXMiOiIifQ:1uwdBE:KbuoB-ZWnGV-NG1QWyJPfUFoPPMxayHOOdp2crQCHZw', '2025-09-25 09:01:24'),
+('diuyiaih5k1an3cn9na888879w5uxijn', 'eyJ1aWQiOjEyLCJ1dHlwZSI6InNob3AiLCJzdGF0dXMiOiJhcHByb3ZlZCJ9:1uxozL:51Zyw_WHYjR7HaSu5HpA5eYzG4ozbpKB3nby1SUrkEU', '2025-09-28 15:50:03'),
 ('duh6o6tco0vnuss6yw1w26cvp9t1xuqb', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1upCAd:EVmakneKMVm9H-kJqTN9gsHverV7vdYYekYy5LdivSA', '2025-09-04 20:46:03'),
 ('e8yi3rr1jjcystikjwyouamq6mgs1q0a', 'eyJ1aWQiOjQsInV0eXBlIjoibGFiIn0:1sfuLQ:Ps9-T_31O9JPWexvsH213RQGefOJMSVfJsPIKh0TzZU', '2024-09-02 04:50:16'),
 ('f25mujlalu8ng6qd8s1a4bktsygtj9kr', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uqMVJ:N-l9uuwIGethva8RWO11_iGQyiiPspqnPPdr-M2sFeI', '2025-09-08 02:00:13'),
@@ -415,6 +439,7 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('gl3xr7ma0ra751br44v52yyvg01qoz4p', 'eyJ1aWQiOjUsInV0eXBlIjoibGFiIn0:1smcLB:fwObzXrdXGcehp-csywXBH7VaDmTxkM5pnm9bhcYWlA', '2024-09-20 17:01:45'),
 ('gqd8ln2cr43v4mlxn66i4h4vv2r3971d', 'eyJ1aWQiOjEsInV0eXBlIjoic3RhZmYiLCJzdGF0dXMiOiIifQ:1uqMLe:WnFGBZdh5tHS4NG_7fAibSdHgrefl6di4uaEAHe7RkE', '2025-09-08 01:50:14'),
 ('grjlrszn1gu722anwzvs4yegrwez22sh', 'eyJ1aWQiOjAsInV0eXBlIjoiYWRtaW4ifQ:1sWUfF:rPyqbEIRMnYG0W6hOt-Y0Q5ROKLjyTeoa07n6CcqAMQ', '2024-08-07 05:35:49'),
+('h4c8oqdou6mfvs5azfwy3nmjo8bn9xz7', 'eyJ1aWQiOjAsInV0eXBlIjoiYWRtaW4iLCJzdGF0dXMiOiIifQ:1uwOp3:eg_mhFBjTI789kMl25pkUxubJbk-FU5z-j-1LiS3dNA', '2025-09-24 17:41:33'),
 ('j1s7gtn3warudpz5oyt3oz7bf9o29n35', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uTfxA:k-jVq_MAXKfVKPoWumeM3D-hanZuoRQd2x_dLCIaKas', '2025-07-07 12:07:12'),
 ('j2hwpcvzhihev21v9dodch9vzkl8zart', 'eyJ1aWQiOjAsInV0eXBlIjoiYWRtaW4iLCJzdGF0dXMiOiIifQ:1umwzN:5FGpoWvyUGi0HkhaUCuF6CY2M9ZTH3PMENfHFY_FxvI', '2025-08-29 16:09:09'),
 ('j434shw3eussvfdeq8h5tn99gwt619v8', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1upqdm:yJ0Nk39KwLuVOp9_tKJLKR0BXnkfbvk6QJcwJKMIv7M', '2025-09-06 15:58:50'),
@@ -428,6 +453,7 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('lze4vz9g95f5vmvzk09krw14258kejct', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1r6QAf:9vgOf1mHkpZpdYzUPorMEM2_wMjfLdmNkgmwESKzFKY', '2023-12-08 07:00:13'),
 ('m37izbnhny13xdy4v4s4psj5he69p742', 'eyJ1aWQiOjEyLCJ1dHlwZSI6InNob3AiLCJzdGF0dXMiOiJhcHByb3ZlZCJ9:1uV2cZ:EhVtCLxiqxmiR279PQm2F2g_mMR7KGUu9MMtpaH_H_U', '2025-07-11 06:31:35'),
 ('mp66meb3qvin2sgga49iv0cksk180hwf', 'eyJ1aWQiOjEsInV0eXBlIjoidXNlciJ9:1seoZT:ShTrBOkpfzH5WKDJMKIxUjLF3gF4qjyxYSmEicyYtLc', '2024-08-30 04:28:15'),
+('ms23xa6fu3vxt3i8dlg72nt3fp88cgn5', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uxJPi:bNKzpzB87aby-AYnp0pUElPl_pkg9XUlD0mpXvoFcFw', '2025-09-27 06:07:10'),
 ('nv2mism6fp9qvbik9mq7xybry627e3m2', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uUSXk:lsD0wr_H6JztA_mxj3xnv8ZsVeh7oN1miKuV1zkb8I8', '2025-07-09 16:00:12'),
 ('nv3cdwbamkqfb0txeibpwt6r6qwx2ow4', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1r6PaC:dka5cGwFia5Xqgm4xhnph2pXzXaHAJG6Fo1bf5lyTlc', '2023-12-08 06:22:32'),
 ('opvkhjxigismy636xb4cz7y7586u7dwk', 'eyJ1aWQiOjIwLCJ1dHlwZSI6InVzZXIifQ:1sntdi:zEGA5VZeVeqS-jjfKZMZxt5RLnSGDyvBt8fX4sGOQE4', '2024-09-24 05:42:10'),
@@ -445,6 +471,7 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('tjitunyndra4xg33ip539pxpyd45saak', 'Nzk1MTdhMjk1MTVjMDc3YjI1MzQ3YzEyMTQ3ZTI1YzkwZjEzM2U5Zjp7InVpZCI6MSwidXR5cGUiOiJsYWIifQ==', '2023-10-30 03:57:32'),
 ('tmg9w03cktgzg5d4eon73vde8z082t34', 'eyJ1aWQiOjEsInV0eXBlIjoic3RhZmYiLCJzdGF0dXMiOiIifQ:1uURDI:ValrCtaYwdjP8mqDZKF3KZZBmLik61scfi2ySxQcWMQ', '2025-07-09 14:35:00'),
 ('tsb6j558e9s0eqevexvt659glitvvsug', 'eyJ1aWQiOjgsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uTwZV:1DCksn3iwOzDlvIkcwaghBL4WLWk4A0kQ5mcZCPK0ig', '2025-07-08 05:51:53'),
+('u9cd1qu0hexy7gdf7ccv5svz6ocd4rcy', 'eyJ1aWQiOjEwLCJ1dHlwZSI6InVzZXIiLCJzdGF0dXMiOiIifQ:1uwb6B:iXWF3fg6fKDWyuoIupfqmYV6iCZWkB1aCM-8osQnEqw', '2025-09-25 06:48:03'),
 ('ucnkue7931glzf72k5gxvfuyhjpn1e35', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uWHPA:r997cr08SAubsOBskeUvqQI-eHJuhBtOcGzi4oZj3G4', '2025-07-14 16:30:52'),
 ('uug92q6n1wbi1f98swva1ddmzw0n2he4', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1r5kwk:5vQX2aVYsiQPgw0vn7yBQCix91l8rgAv9_6EYY5KDwA', '2023-12-06 10:59:06'),
 ('v4w20nx4rla7cbyby6tg4br5gpmttxk5', 'eyJ1aWQiOjUsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uqMFo:oZO_u7_vBPGKzyChvDHSwbLRPYKagP4FSLQyv1opITo', '2025-09-08 01:44:12'),
@@ -452,9 +479,11 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('vomhjmwslbf8opjpf7m217f0okmakux9', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1r6REG:I8F_BZ9aIwDacjhQ_-gP85fxg3fYY61vlbrk5es8Gy4', '2023-12-08 08:08:00'),
 ('vqllqcw86680ar2z55fps19sgr8ytmyq', 'eyJ1aWQiOjEsInV0eXBlIjoidXNlciJ9:1sbAmS:NfkTOi35dZqOewwozUyAbo4R-scnYoGT1LFNz7AeP9U', '2024-08-20 03:22:36'),
 ('wfmszz9pidle9htjx7u6dywphlan8h0t', 'eyJ1aWQiOjAsInV0eXBlIjoiYWRtaW4ifQ:1puQGy:cszh9adoFPOnEjnboayMEephhxzRjFYl4r8cAhD7BJ4', '2023-05-18 04:08:52'),
+('xaqvbhh0qt4fwsmgrpo2vgd42bmi4aig', 'eyJ1aWQiOjgsInV0eXBlIjoidXNlciIsInN0YXR1cyI6IiJ9:1uxIqg:V4QRvCFvbCuOVU0bZGxQFzjPCgn_qSI2do_VB4npw5k', '2025-09-27 05:30:58'),
 ('xjisk0uhsqnljhdpdcf8mp7iozx244jv', 'eyJ1aWQiOjAsInV0eXBlIjoiYWRtaW4iLCJzdGF0dXMiOiIifQ:1uMTN6:Rybd1D9zUtdCyccrY2S3GL4iv1jA50IrbD2w__i22bU', '2025-06-17 15:16:12'),
 ('ydxjxmmd5jq3xezkslgmzdj3ts1shya7', 'eyJ1aWQiOjEsInV0eXBlIjoic3RhZmYiLCJzdGF0dXMiOiIifQ:1uW3dC:zRbveI1mm4FuLX8LesLxX7Ie-NSzaJ4ymy161jWMykA', '2025-07-14 01:48:26'),
 ('yribf6himncjnhybdxw05ea8hunxqyga', 'eyJ1aWQiOjIsInV0eXBlIjoibGFiIn0:1sRP5G:iXXtIlZdThgJbya2N8tUP80b3zrTMLebdc1_vMn98h8', '2024-07-24 04:37:38'),
+('yxoih4yhc800306qpmhsfufiwd13p7ol', 'eyJ1aWQiOjcsInV0eXBlIjoic3RhZmYiLCJzdGF0dXMiOiIifQ:1uxozu:HpbvBpx8kg2IUOtOnjp7CFxHAel2ZwZFYEfpo7oijnk', '2025-09-28 15:50:38'),
 ('zncj4alnj7ulrpdn1l8667ahnjuugsyo', 'YWIyODYxYzExOWZkNDA2ODZiYWU2ODQ0ZWEyOTNlZmMxNjJkZWJiZTp7InR5cGUiOiJhZG1pbiIsImlkIjoxfQ==', '2022-11-10 09:22:47'),
 ('zve8povwocm8qignlfm4ln3geuppv1nv', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uTPdO:vgeE_GsKfwoTnKdxqVLinko9f36ZIBbCqjgC2CoBA_M', '2025-07-06 18:41:42');
 
@@ -472,7 +501,7 @@ CREATE TABLE IF NOT EXISTS `feedback` (
   `uid` varchar(10) NOT NULL,
   `utype` varchar(10) NOT NULL,
   PRIMARY KEY (`fid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `feedback`
@@ -483,7 +512,8 @@ INSERT INTO `feedback` (`fid`, `feedback`, `date`, `time`, `uid`, `utype`) VALUE
 (2, 'this is a feedback from user 5', '2025-06-08', '20:24:31', '5', 'user'),
 (3, 'this is shop 10\r\n', '2025-07-03', '20:46:31', '12', 'shop'),
 (4, 'this is a feedback from the staff 1.\r\ni have a request, my salary is not good enough for running through a day. please said the shop owner to increase my salary', '2025-08-15', '20:37:20', '1', 'staff'),
-(5, 'this is another request about the salry', '2025-08-16', '19:50:46', '1', 'staff');
+(5, 'this is another request about the salry', '2025-08-16', '19:50:46', '1', 'staff'),
+(6, 'i have a complent about the shop 7. \r\nthey are not giveing us the refund.', '2025-09-10', '23:11:08', '8', 'user');
 
 -- --------------------------------------------------------
 
@@ -499,32 +529,54 @@ CREATE TABLE IF NOT EXISTS `login` (
   `utype` varchar(25) NOT NULL,
   `status` varchar(25) NOT NULL,
   PRIMARY KEY (`lid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
 
 --
 -- Dumping data for table `login`
 --
 
 INSERT INTO `login` (`lid`, `uid`, `uname`, `upass`, `utype`, `status`) VALUES
-(1, 0, 'admin', 'admin', 'admin', ''),
-(8, 2, 'a1@123', '123', 'user', ''),
-(9, 3, 'a2@123', '123', 'user', ''),
-(12, 5, 'user@5', '123', 'user', ''),
+(1, 0, 'admin@gmail.com', 'admin', 'admin', ''),
+(12, 5, 'user@5', '123', 'user', 'active'),
 (13, 7, 'shop@7', '123', 'shop', 'approved'),
 (14, 8, 'shop@8', '123', 'shop', 'approved'),
-(15, 1, 'staff@1', '123', 'staff', ''),
 (16, 2, 'staff@2', '123', 'staff', ''),
 (17, 3, 'staff@4', '123', 'staff', ''),
 (19, 5, 'staff@5', '123', 'staff', ''),
 (23, 12, 'shop@10', '123', 'shop', 'approved'),
-(24, 6, 'staff@6', '123', 'staff', ''),
-(25, 7, 'staff@11', '123', 'staff', ''),
-(26, 8, 'staff@12', '123', 'staff', ''),
-(27, 6, 'aa@gmail.com', 'aaa', 'user', ''),
-(29, 7, 'user@11', '123', 'user', ''),
+(27, 6, 'aa@gmail.com', 'aaa', 'user', 'active'),
+(29, 7, 'user@11', '123', 'user', 'active'),
 (30, 14, 'shop@12', '123', 'shop', 'approved'),
 (31, 15, 'shop@22', '123', 'shop', 'rejected'),
-(32, 9, 'staff@33', '123', 'staff', '');
+(32, 9, 'staffone@gmail.com', '123', 'staff', ''),
+(33, 8, 'anzilshibu5@gmail.com', 'anzil123', 'user', 'active'),
+(34, 9, 'noora@gmail.com', 'A1_noora', 'user', 'active'),
+(35, 16, 'shop@gmail.com', 'S100_password', 'shop', 'approved'),
+(36, 9, 'staffone@gmail.com', 'Staff_one123', 'staff', ''),
+(37, 10, 'a7907j@gmail.com', 'Pass@123', 'user', 'active'),
+(38, 17, 'shop11@gmail.com', 'Sshop1111', 'shop', 'pending');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reason`
+--
+
+CREATE TABLE IF NOT EXISTS `reason` (
+  `rid` int(11) NOT NULL AUTO_INCREMENT,
+  `oid` varchar(11) NOT NULL,
+  `reason` varchar(150) NOT NULL,
+  PRIMARY KEY (`rid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `reason`
+--
+
+INSERT INTO `reason` (`rid`, `oid`, `reason`) VALUES
+(1, '33', 'we do not have time'),
+(2, '34', 'reject'),
+(3, '35', 'new reject');
 
 -- --------------------------------------------------------
 
@@ -539,7 +591,7 @@ CREATE TABLE IF NOT EXISTS `service` (
   `descr` varchar(200) NOT NULL,
   `shid` varchar(7) NOT NULL,
   PRIMARY KEY (`srid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `service`
@@ -550,7 +602,8 @@ INSERT INTO `service` (`srid`, `sname`, `amt`, `descr`, `shid`) VALUES
 (4, 'cleaning', '201', 'this is description', '7'),
 (5, 'iorning', '120', 'our iorning is grate ', '7'),
 (7, 'iorning ', '199', 'our iorning is the best in the whole world', '12'),
-(13, 'stitching', '201', 'this is a good service .so im writing this for that ,i can chek wether it is a good thing that i  can check wether i can test . ohh this is amazing', '7');
+(13, 'stitching', '201', 'this is a good service .so im writing this for that ,i can chek wether it is a good thing that i  can check wether i can test . ohh this is amazing', '7'),
+(14, 'polishing', '500', 'for fresh look', '7');
 
 -- --------------------------------------------------------
 
@@ -568,7 +621,7 @@ CREATE TABLE IF NOT EXISTS `shop` (
   `email` varchar(40) NOT NULL,
   `status` varchar(25) NOT NULL,
   PRIMARY KEY (`shid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `shop`
@@ -579,7 +632,9 @@ INSERT INTO `shop` (`shid`, `name`, `address`, `place`, `district`, `phn`, `emai
 (8, 'shop8', 'asdf', 'asd', 'thrissur', '0987654322', 'shop@8', 'approved'),
 (12, 'shop 10', 'this is a address of the shop 10. im making this too lengthy so that i can test this address.  and it looks like i need to again add somthing.', 'kollam', 'thiruvananthapuram', '7091827364', 'shop@10', 'approved'),
 (14, 'shop@12', 'this is the address of the shop 12', 'this is the place of the shop 12', 'kollam', '1234567899', 'shop@12', 'approved'),
-(15, 'shop@22', 'this is address of shop 22', 'this is place of staff 22', 'kottayam', '1234567899', 'shop@22', 'rejected');
+(15, 'shop@22', 'this is address of shop 22', 'this is place of staff 22', 'kottayam', '1234567899', 'shop@22', 'rejected'),
+(16, 'shop 100', 'address of the shop 100,\r\nkottarakara,\r\nkollam,\r\nkerala,\r\nindia\r\n', 'this is place of staff', 'kollam', '9889787671', 'shop@gmail.com', 'approved'),
+(17, 'shop11', 'aaaaa', 'idukki', 'idukki', '9845762390', 'shop11@gmail.com', 'pending');
 
 -- --------------------------------------------------------
 
@@ -600,19 +655,16 @@ CREATE TABLE IF NOT EXISTS `staff` (
   `dob` varchar(10) NOT NULL,
   `email` varchar(40) NOT NULL,
   PRIMARY KEY (`stid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `staff`
 --
 
 INSERT INTO `staff` (`stid`, `shid`, `name`, `address`, `street`, `city`, `district`, `phn`, `pin`, `dob`, `email`) VALUES
-(1, 7, 'staff 1', 'asd', 'street of staff 1', 'city of staff 1', 'thiruvananthapuram', '5646464646', '345678', '2025-03-01', 'staff@1'),
 (2, 7, 'staff 2', 'this is address of staff 2', 'street of staff 2', 'city of staff 2', 'pathanamthitta', '5646464640', '345677', '2025-04-10', 'staff@2'),
 (5, 8, 'staff 5', 'asd', 'kjhkljhkljh', ',kjlkljh', 'kottayam', '9876543333', '987654', '2025-05-08', 'staff@5'),
-(6, 8, 'staff 6', 'this is address of staff@6', 'street of staff 6', 'city', 'alappuzha', '3434343434', '312323', '2025-06-03', 'staff@6'),
-(7, 12, 'staff 11', 'asd', 'asd', 'city of staff 3', 'alappuzha', '5646464646', '345678', '2025-06-11', 'staff@11'),
-(8, 12, 'staff 12', 'lkjl;kdjfl;ks', 'm vkljvdfkvj;dfkl', 'sdfsdf', 'kollam', '2222222222', '333333', '2025-06-11', 'staff@12');
+(9, 16, 'staff one', 'address of staff,\r\nkerala,\r\nindia', 'stree of staff one', 'city of staff one', 'thiruvananthapuram', '5646464641', '345671', '2025-09-11', 'staffone@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -627,7 +679,7 @@ CREATE TABLE IF NOT EXISTS `tracker` (
   `date` varchar(10) NOT NULL,
   `time` varchar(8) NOT NULL,
   PRIMARY KEY (`tid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
 
 --
 -- Dumping data for table `tracker`
@@ -665,7 +717,24 @@ INSERT INTO `tracker` (`tid`, `oid`, `status`, `date`, `time`) VALUES
 (29, '21', 'booked', '2025-07-02', '20:18:03'),
 (30, '22', 'booked', '2025-07-02', '20:49:49'),
 (31, '23', 'booked', '2025-07-15', '10:19:12'),
-(32, '24', 'booked', '2025-08-15', '20:53:18');
+(32, '24', 'booked', '2025-08-15', '20:53:18'),
+(33, '25', 'booked', '2025-08-25', '14:48:40'),
+(34, '26', 'booked', '2025-08-25', '14:53:03'),
+(35, '26', 'Materials Reached Shop', '2025-08-25', '15:02:28'),
+(36, '26', 'Materials Collected', '2025-08-25', '15:18:47'),
+(37, '26', 'Materials are ready for pickup', '2025-08-25', '15:18:58'),
+(38, '26', 'payment is done', '2025-08-25', '15:19:17'),
+(39, '27', 'booked', '2025-09-11', '13:43:22'),
+(40, '28', 'booked', '2025-09-14', '21:27:34'),
+(41, '28', 'Materials Collected', '2025-09-14', '21:29:40'),
+(42, '28', 'all completed', '2025-09-14', '21:32:31'),
+(43, '29', 'booked', '2025-09-15', '00:17:04'),
+(44, '30', 'booked', '2025-09-15', '00:22:49'),
+(45, '31', 'booked', '2025-09-15', '00:26:19'),
+(46, '32', 'booked', '2025-09-15', '00:39:00'),
+(47, '33', 'booked', '2025-09-15', '01:12:07'),
+(48, '34', 'booked', '2025-09-15', '01:14:19'),
+(49, '35', 'booked', '2025-09-15', '01:30:51');
 
 -- --------------------------------------------------------
 
@@ -681,7 +750,7 @@ CREATE TABLE IF NOT EXISTS `transaction` (
   `amount` varchar(7) NOT NULL,
   `shid` varchar(10) NOT NULL,
   PRIMARY KEY (`tsid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `transaction`
@@ -698,7 +767,8 @@ INSERT INTO `transaction` (`tsid`, `date`, `time`, `oid`, `amount`, `shid`) VALU
 (8, '2025-08-22', '20:09:51', '23', '120', '7'),
 (9, '2025-08-23', '19:59:52', '21', '120', '7'),
 (10, '2025-08-23', '20:00:50', '19', '120', '7'),
-(11, '2025-08-23', '20:17:18', '17', '120', '7');
+(11, '2025-08-23', '20:17:18', '17', '120', '7'),
+(12, '2025-08-25', '14:55:19', '26', '500', '7');
 
 -- --------------------------------------------------------
 
@@ -715,20 +785,20 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(40) NOT NULL,
   `place` varchar(50) NOT NULL,
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`uid`, `name`, `address`, `district`, `phn`, `email`, `place`) VALUES
-(1, 'asdfg', 'ertyu', 'alappuzha', '1234545698', 'aa@123', 'sdfghj'),
-(2, 'asdfg', 'asd', 'thrissur', '1234545698', 'a1@123', 'sdfghj'),
 (3, 'asdfg', 'asd', 'kozhikode', '1234545698', 'a2@123', 'sdfghj'),
-(4, 'asdfg', 'xcv', 'thiruvananthapuram', '1234545698', 'a3@123', 'sdfghj'),
 (5, 'user 5', 'this is my address', 'kollam', '1234545698', 'user@5', 'sdfghj'),
 (6, 'Achu', 'fghjk', 'kollam', '4444444444', 'aa@gmail.com', 'sss'),
-(7, 'user@11', 'this is address of the user 11', 'palakkad', '9999999999', 'user@11', 'this is the place of the user@11');
+(7, 'user@11', 'this is address of the user 11', 'palakkad', '9999999999', 'user@11', 'this is the place of the user@11'),
+(8, 'Anzil S', 'anzil manzil,\r\nchelikuzhy po,\r\npattazhy,\r\nkollam,\r\nkerala\r\nindia', 'kollam', '9188663441', 'anzilshibu5@gmail.com', 'pattazhy'),
+(9, 'noora ', 'noora', 'kollam', '9876543211', 'noora@gmail.com', 'pattazhy'),
+(10, 'Amaljith A', 'address one', 'kollam', '7907070278', 'a7907j@gmail.com', 'pattazhy');
 
 --
 -- Constraints for dumped tables

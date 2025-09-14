@@ -525,12 +525,21 @@ def staffhome(request):
 
 def deletestaff(request):
     cur = connection.cursor()
-    id = request.GET['id']
-    sql = "delete from staff where stid = '%s'"%(id)
+    stid = request.GET['id']
+    sql = "select count(assign.oid) from assign inner join booking on assign.oid = booking.oid " \
+    "where assign.stid = '%s' and assign.asnid in (select max(asnid) from assign group by oid) and booking.status in ('progress','assigned','booked')"%(stid)
     cur.execute(sql)
-    sql1 = "delete from login where uid = '%s' and utype = 'staff'"%(id)
-    cur.execute(sql1)
-    msg = "<script>alert('deleted');window.location='/viewstaffs/';</script>"
+    for row in cur.fetchall():
+        incompleted_count = row[0]
+        print('incompleted_count = ',incompleted_count)
+    if incompleted_count > 0:
+        msg = "<script>alert('You cant delete this staff.Because this staff have incompleted works');window.location='/viewstaffs/';</script>"
+    else:
+        sql = "delete from staff where stid = '%s'"%(stid)
+        cur.execute(sql)
+        sql1 = "delete from login where uid = '%s' and utype = 'staff'"%(stid)
+        cur.execute(sql1)
+        msg = "<script>alert('deleted');window.location='/viewstaffs/';</script>"
     return HttpResponse(msg)
 
 def staffprofile(request):
@@ -802,7 +811,7 @@ def bookservice(request):
     sql = "insert into tracker(oid,status,date,time) values('%s','%s','%s','%s')"%(oid,'booked',date,time)
     cur.execute(sql)
 
-    msg = "<script>alert('service booked');window.location='/userviewshops/';</script>"
+    msg = "<script>alert('service booked');window.location='/viewbookdetailsbyuser/?oid=%s';</script>"%(oid)
     return HttpResponse(msg)
 
 def showbookingsofuser(request):
@@ -1051,6 +1060,14 @@ def viewbookdetailsbyshop(request):
             'name' : row[2]
         }
         staffs.append(data)
+
+    reason = []
+    sql = "select reason from reason where oid = '%s'"%(oid)
+    print(sql)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        reason.append(row[0])
+        print(reason)
     
     sql = "select * from assign inner join staff on assign.stid = staff.stid where oid = '%s' order by assign.asnid"%(oid)
     cur.execute(sql)
@@ -1071,9 +1088,9 @@ def viewbookdetailsbyshop(request):
             
             assign_data.append(assign)
         
-        return render(request,'viewbookdetailsbyshop.html',{'dis':dis,'tracker':tracker_data,'staffs':staffs,'transaction' : transaction,'assign_data':assign_data, 'current_asnid':current_asnid})
+        return render(request,'viewbookdetailsbyshop.html',{'dis':dis,'tracker':tracker_data,'staffs':staffs,'transaction' : transaction,'assign_data':assign_data, 'current_asnid':current_asnid,'reason' : reason})
     else:
-        return render(request,'viewbookdetailsbyshop.html',{'dis':dis,'tracker':tracker_data,'staffs':staffs,'transaction' : transaction})
+        return render(request,'viewbookdetailsbyshop.html',{'dis':dis,'tracker':tracker_data,'staffs':staffs,'transaction' : transaction,'reason' : reason})
 
 def assignstaff(request):
     cur = connection.cursor()
@@ -1352,7 +1369,13 @@ def viewbookdetailsbyuser(request):
     result = cur.fetchall()
     for row in result:
         code = row[0]
-    return render(request,'viewbookdetailsbyuser.html',{'dis':dis,'tracker':tracker_data,'code':code,})
+
+    reason = []
+    sql = "select reason from reason where oid = '%s'"%(oid)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        reason.append(row[0])
+    return render(request,'viewbookdetailsbyuser.html',{'dis':dis,'tracker':tracker_data,'code':code,'reason':reason})
 
 def cancelbooking(request):
     cur = connection.cursor()
@@ -1364,11 +1387,17 @@ def cancelbooking(request):
 
 def rejectbooking(request):
     cur = connection.cursor()
-    oid = request.GET['oid']
-    sql = "update booking set status = 'rejected' where oid = '%s'"%(oid)
-    cur.execute(sql)    
-    msg = "<script>alert('booking is rejected');window.location='/viewbookdetailsbyshop/?oid=%s/';</script>"%(oid)
-    return HttpResponse(msg)
+    if request.method == 'POST':
+        oid = request.POST.get('oid')
+        reason = request.POST.get('reason')      
+        sql = "update booking set status = 'rejected' where oid = '%s'"%(oid)
+        cur.execute(sql) 
+        sql = "insert into reason(oid,reason) values('%s','%s')"%(oid,reason)
+        cur.execute(sql)
+        msg = "<script>alert('booking is rejected');window.location='/viewbookdetailsbyshop/?oid=%s';</script>"%(oid)
+        return HttpResponse(msg)
+    else:
+        return HttpResponse("<script>alert('Invalid request method');window.location='/showbookingsofshop';</script>")
 
 def completebooking(request):
     cur = connection.cursor()

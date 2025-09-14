@@ -241,7 +241,12 @@
 
   {% if dis.status == 'booked' %}
     <div class="form-inline">
-      <a href="/rejectbooking/?oid={{ dis.oid }}" class="btn-red" onclick="return reject_booking()">❌ Reject Booking</a>
+      <form id="rejectForm" action="/rejectbooking/" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="oid" value="{{ dis.oid }}">
+        <input type="hidden" name="reason" id="rejectReason">
+        <button type="button" class="btn-red" onclick="handleReject()">❌ Reject Booking</button>
+      </form>
     </div>
   {% elif dis.status == 'rejected' %}
     <p class="status-msg red">This booking is rejected</p>
@@ -251,10 +256,26 @@
     <p class="status-msg red">This booking was cancelled by the user</p>
   {% endif %}
 </div>
+{% if reason %}
+    <div class="alert alert-danger">
+      {% for r in reason %}
+      Reason for rejection : {{r}}
+      {% endfor %}
+    </div>
+  {% endif %}
 
 <script>
-  function reject_booking() {
-    return confirm("Are you sure you want to reject this booking? This action cannot be undone.");
+  function handleReject() {
+    const reason = prompt("Enter the reason for rejection:");
+    if (reason && reason.trim() !== "") {
+      const confirmReject = confirm("Are you sure you want to reject this booking for the following reason?\n\n" + reason);
+      if (confirmReject) {
+        document.getElementById("rejectReason").value = reason;
+        document.getElementById("rejectForm").submit();
+      }
+    } else {
+      alert("Rejection reason is required.");
+    }
   }
 
   function payed() {

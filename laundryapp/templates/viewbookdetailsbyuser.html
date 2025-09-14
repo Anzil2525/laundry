@@ -142,11 +142,18 @@
     {% elif dis.status == 'cancelled' %}
       <h5 class="text-danger">🚫 Booking is cancelled</h5>
     {% elif dis.status == 'rejected' %}
-      <h5 class="text-warning">❗ This booking is rejected by shop</h5>
+      <h5 class="text-danger">❗ This booking is rejected by shop</h5>
     {% elif dis.status == 'completed' %}
       <h5 class="text-success">✅ This booking is completed</h5>
     {% else %}
       <h5 class="text-muted">⚠️ Now this booking cannot be cancelled</h5>
+    {% endif %}
+    {% if reason %}
+    <div class="alert alert-danger">
+      {% for r in reason %}
+      Reason for rejection : {{r}}
+      {% endfor %}
+    </div>
     {% endif %}
   </div>
 </div>
