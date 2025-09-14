@@ -59,9 +59,9 @@ def userreg(request):
     result = cur.fetchall()
     for row in result:
         uid = int(row[0])
-    sqllog = "insert into login(uid,uname,upass,utype) values('%s','%s','%s','%s')"%(uid,email,pas,'user')
+    sqllog = "insert into login(uid,uname,upass,utype,status) values('%s','%s','%s','%s','active')"%(uid,email,pas,'user')
     cur.execute(sqllog)
-    messages.success(request,'Registration completed. Please login',extra_tags='warning')
+    messages.success(request,'Registration completed. Please login',extra_tags='success')
     return redirect('login')
 
 def shopreg(request):
@@ -151,7 +151,7 @@ def addfeedback(request):
 
 def viewusers(request):
     cur = connection.cursor()
-    sql = "select * from user"
+    sql = "select * from user inner join login on user.uid = login.uid where login.utype = 'user'"
     cur.execute(sql)
     result = cur.fetchall()
     data=[]
@@ -164,9 +164,34 @@ def viewusers(request):
             'phn' : row[4],
             'email' : row[5],
             'place' : row[6],
+            'status' : row[12],
         }
         data.append(dis)
     return render(request,'viewusers.html',{'data':data})
+
+def deleteuser(request):
+    cur = connection.cursor()
+    uid = request.GET['uid']
+    sql = "delete from login where uid = '%s' and utype = 'user'"%(uid)
+    cur.execute(sql)
+    messages.success(request,"Sucessfully delete user",extra_tags='danger')
+    return redirect('viewusers')
+
+def deactivateuser(request):
+    cur = connection.cursor()
+    uid = request.GET['uid']
+    sql = "update login set status = 'deactive' where uid = '%s' and utype = 'user' "%(uid)
+    cur.execute(sql)
+    messages.success(request,"Sucessfully Set the user as deactive",extra_tags='danger')
+    return redirect('viewusers')
+
+def activateuser(request):
+    cur = connection.cursor()
+    uid = request.GET['uid']
+    sql = "update login set status = 'active' where uid = '%s' and utype = 'user' "%(uid)
+    cur.execute(sql)
+    messages.success(request,"Sucessfully Set the user as active")
+    return redirect('viewusers')
 
 def viewshops(request):
     cur = connection.cursor()
@@ -332,17 +357,19 @@ def loginaction(request):
                 msg ="<script>alert('welcome admin');window.location='/adminhome/';</script>"
                 return HttpResponse(msg)
             elif(request.session['utype'] == 'user'):
-                print("user")
-                msg ="<script>alert('welcome user');window.location='/userhome/';</script>"
-                return HttpResponse(msg)
+                if request.session['status'] == 'active':
+                    messages.success(request,"Successfully logined.",extra_tags = 'success')
+                    return redirect('userhome')
+                else:
+                    messages.success(request,"You can not login to this account.Because the admin deactivated this account." \
+                    "You can login in to this account if the admin reactivate this account again.",extra_tags = 'danger')
+                    return redirect('login')
             elif(request.session['utype'] == 'shop' and request.session['status'] == 'approved'):
-                print("shop")
-                msg = "<script>alert('welcome shop');window.location='/shophome/';</script>"
-                return HttpResponse(msg)
+                messages.success(request,"Successfully logined.",extra_tags = 'success')
+                return redirect('shophome')
             elif(request.session['utype'] == 'staff'):
-                print("user")
-                msg ="<script>alert('welcome staff');window.location='/staffhome/';</script>"
-                return HttpResponse(msg)
+                messages.success(request,"Successfully logined.",extra_tags = 'success')
+                return redirect('staffhome')
             else:
                 messages.success(request,'You can login when the admin approves you.',extra_tags='warning')
                 return redirect('login')
