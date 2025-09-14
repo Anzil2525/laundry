@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.db import connection
 import datetime
 from django.shortcuts import HttpResponseRedirect,redirect
+from django.contrib import messages
+
 import random
 today_date = datetime.date.today()
 today = today_date.strftime("%y-%m-%d")
@@ -59,9 +61,8 @@ def userreg(request):
         uid = int(row[0])
     sqllog = "insert into login(uid,uname,upass,utype) values('%s','%s','%s','%s')"%(uid,email,pas,'user')
     cur.execute(sqllog)
-
-    msg = "<script>alert('Registration completed');window.location='/login/';</script>"
-    return HttpResponse(msg)
+    messages.success(request,'Registration completed. Please login',extra_tags='warning')
+    return redirect('login')
 
 def shopreg(request):
     cur = connection.cursor()
@@ -83,8 +84,8 @@ def shopreg(request):
     sqllog = "insert into login(uid,uname,upass,utype,status) values('%s','%s','%s','%s','%s')"%(shid,email,pas,'shop','pending')
     cur.execute(sqllog)
 
-    msg = "<script>alert('Added');window.location='/login/';</script>"
-    return HttpResponse(msg)
+    messages.success(request,'You can login when the admin approves you.',extra_tags='warning')
+    return redirect('login')
 
 def staffreg(request):
     cur = connection.cursor()
@@ -98,9 +99,7 @@ def staffreg(request):
     dob = request.GET['dob']
     email = request.GET['email']
     pas = request.GET['password']
-
     shid = request.session['uid']
-
     sqlstaff = "insert into staff(shid,name,address,street,city,district,phn,pin,dob,email) values('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"%(shid,name,address,street,city,district,phone,pin,dob,email) 
     cur.execute(sqlstaff)
 
@@ -315,7 +314,6 @@ def viewfeedbacksofstaff(request):
     return render(request,'viewfeedbacksofstaff.html',{'data':data})
 
 def login(request):
-    
     return render(request,'login.html')
 
 def loginaction(request):
@@ -324,14 +322,12 @@ def loginaction(request):
     pas = request.GET['password']
     sql = "select * from login where uname = '%s' and upass = '%s'"%(email,pas)
     cur.execute(sql)
-    print(sql)
     if(cur.rowcount)>0:
         result = cur.fetchall()
         for row in result:
             request.session['uid'] = row[1]
             request.session['utype'] = row[4]
             request.session['status'] = row[5]
-            print(row[4])
             if(request.session['utype'] == 'admin'):
                 msg ="<script>alert('welcome admin');window.location='/adminhome/';</script>"
                 return HttpResponse(msg)
@@ -348,11 +344,11 @@ def loginaction(request):
                 msg ="<script>alert('welcome staff');window.location='/staffhome/';</script>"
                 return HttpResponse(msg)
             else:
-                msg = "<script>alert('your request is pending');window.location='/login/';</script>"
-                return HttpResponse(msg)
+                messages.success(request,'You can login when the admin approves you.',extra_tags='warning')
+                return redirect('login')
     else:
-        msg = "<script>alert('login failed');window.location='/login/';</script>"
-        return HttpResponse(msg)
+        messages.error(request,'Wrong username or password',extra_tags='danger')
+        return redirect('login')
     
 def userhome(request):
     return render(request,'userhome.html')
