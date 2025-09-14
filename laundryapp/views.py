@@ -213,6 +213,30 @@ def viewshops(request):
         data.append(dis)
     return render(request,'viewshops.html',{'data':data})
 
+def viewstaffsbyadmin(request):
+    cur = connection.cursor()
+    shid = request.GET['shid']
+    sql = "select * from staff where shid =%s"%(shid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    data = []
+    for row in result:
+        dis = {
+            'stid' : row[0],
+            'shid' : row[1],
+            'name' : row[2],
+            'address' : row[3],
+            'street' : row[4],
+            'city' : row[5],
+            'district' : row[6],
+            'phn' : row[7],
+            'pin' : row[8],
+            'dob' : row[9],
+            'email' : row[10],
+        }
+        data.append(dis)
+    return render(request,'viewstaffsbyadmin.html',{'data':data})
+
 def viewstaffs(request):
     cur = connection.cursor()
     shid = request.session['uid']
@@ -500,10 +524,8 @@ def staffhome(request):
     return render(request,'staffhome.html',{'stid':stid})
 
 def deletestaff(request):
-    print('in deletestaff')
     cur = connection.cursor()
     id = request.GET['id']
-    print('id = ',id)
     sql = "delete from staff where stid = '%s'"%(id)
     cur.execute(sql)
     sql1 = "delete from login where uid = '%s' and utype = 'staff'"%(id)
@@ -1588,5 +1610,4 @@ def viewtransactionbyshopyearly(request):
         amount = row[0]
         if amount == None:
             amount = 0
-
     return render(request,'viewtransactionbyshopyearly.html',{'trans':year_tans,'select_year':select_year,'year':year,'amount':amount})

@@ -41,6 +41,7 @@ urlpatterns = [
     path('activateuser/',activateuser,name = 'activateuser'),
     path('deactivateuser/',deactivateuser,name = 'deactivateuser'),
     path('viewshops/',viewshops,name="viewshops"),
+    path('viewstaffsbyadmin/',viewstaffsbyadmin,name="viewstaffsbyadmin"),
     path('viewstaffs/',viewstaffs,name="viewstaffs"),
     path('viewservices/',viewservices,name="viewservices"),
     path('viewfeedbacks/',viewfeedbacks,name="viewfeedbacks"),
@@ -94,6 +95,5 @@ urlpatterns = [
     path('viewtransactionbyshopdaily/',viewtransactionbyshopdaily,name='viewtransactionbyshopdaily'),
     path('viewtransactionbyshopmonthly/',viewtransactionbyshopmonthly,name='viewtransactionbyshopmonthly'),
     path('viewtransactionbyshopyearly/',viewtransactionbyshopyearly,name='viewtransactionbyshopyearly'),
-
-    
+   
 ]
