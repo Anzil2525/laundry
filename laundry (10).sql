@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 14, 2025 at 08:05 PM
+-- Generation Time: Sep 16, 2025 at 12:12 PM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `assign` (
   `time` varchar(8) NOT NULL,
   `code` varchar(4) NOT NULL,
   PRIMARY KEY (`asnid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
 
 --
 -- Dumping data for table `assign`
@@ -62,7 +62,10 @@ INSERT INTO `assign` (`asnid`, `oid`, `stid`, `date`, `time`, `code`) VALUES
 (20, '27', '5', '2025-09-11', '13:45:07', '3316'),
 (21, '27', '6', '2025-09-11', '13:45:53', '7692'),
 (22, '26', '2', '2025-09-11', '14:28:49', '1318'),
-(23, '28', '7', '2025-09-14', '21:27:57', '9803');
+(23, '28', '7', '2025-09-14', '21:27:57', '9803'),
+(24, '36', '10', '2025-09-15', '10:48:14', '6283'),
+(25, '36', '2', '2025-09-15', '10:48:21', '4837'),
+(26, '36', '10', '2025-09-15', '10:49:17', '8550');
 
 -- --------------------------------------------------------
 
@@ -222,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `booking` (
   `time` varchar(8) NOT NULL,
   `status` varchar(100) NOT NULL,
   PRIMARY KEY (`oid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
 
 --
 -- Dumping data for table `booking`
@@ -261,29 +264,8 @@ INSERT INTO `booking` (`oid`, `srid`, `uid`, `date`, `time`, `status`) VALUES
 (32, '13', '8', '2025-09-15', '00:39:00', 'rejected'),
 (33, '13', '8', '2025-09-15', '01:12:07', 'rejected'),
 (34, '13', '8', '2025-09-15', '01:14:19', 'rejected'),
-(35, '13', '8', '2025-09-15', '01:30:51', 'rejected');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cart`
---
-
-CREATE TABLE IF NOT EXISTS `cart` (
-  `cid` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` varchar(15) NOT NULL,
-  `srid` varchar(15) NOT NULL,
-  PRIMARY KEY (`cid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
-
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`cid`, `uid`, `srid`) VALUES
-(17, '12', '6'),
-(21, '5', '4'),
-(23, '5', '14');
+(35, '13', '8', '2025-09-15', '01:30:51', 'rejected'),
+(36, '4', '5', '2025-09-15', '10:37:32', 'completed');
 
 -- --------------------------------------------------------
 
@@ -408,7 +390,7 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('5kfszkc3x9yyuz658lc2x0yw9oqlwzwz', 'eyJ1aWQiOjIsInV0eXBlIjoibGFiIn0:1sfvif:V1nSa_VNtOx0vt_8ix03hwKO7rayC-9uId1AWiMj2Po', '2024-09-02 06:18:21'),
 ('5qdnwcthheu9lz8pwh2orxnk7knrf6aw', 'eyJ1aWQiOjExLCJ1dHlwZSI6InVzZXIifQ:1siozx:GS6Lcedf9d4TY9Z284ZC-g_PMszElQW3sLFGc6VWIRI', '2024-09-10 05:44:09'),
 ('63emwbn31nqkxu5rass6le9tar832up5', 'eyJ1aWQiOjEsInV0eXBlIjoidXNlciJ9:1py7yC:6WUgfjx42iAORWpghkwhRjWxF3E7GRaDNyeyuI_nfFo', '2023-05-28 09:24:48'),
-('6anmmxobmg4adcvk2w0cnihhiwt6wmp0', 'eyJ1aWQiOjgsInV0eXBlIjoidXNlciIsInN0YXR1cyI6ImFjdGl2ZSJ9:1uxrkO:s0pB1Ska0KWWkPTiQ3f93VUddkQ0uZjaMZLvh2ML4os', '2025-09-28 18:46:48'),
+('6anmmxobmg4adcvk2w0cnihhiwt6wmp0', 'eyJ1aWQiOjgsInV0eXBlIjoidXNlciIsInN0YXR1cyI6ImFjdGl2ZSJ9:1uyUWW:jYNOAdAFcDJcW2z1NGHhSMrZb8V17Fhjmv8THMdULyg', '2025-09-30 12:11:04'),
 ('6gpj9rgj0i5gc11lrphj79aaqdjwey5s', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uTdAZ:9_9xjXcT6p-LNMDi38kKK2plsxaHPpZnQh1x73zshy0', '2025-07-07 09:08:51'),
 ('6ufrpxfatkjwgfgwp1r4d47ta8qylgpd', 'eyJ1aWQiOjEsInV0eXBlIjoidXNlciJ9:1puPOW:Dz_wywXugm_7XlGcefJkpY1977GnKBDvJm4LM4nGUfM', '2023-05-18 03:12:36'),
 ('6wwc60rrd8tug2alz8smi3lze3s4qxdp', 'eyJ1aWQiOjEsInV0eXBlIjoibGFiIn0:1sE18l:pXpvVu6T5Ct03nW1ypqc2awEto_-aKALYCj58X2n598', '2024-06-17 06:25:55'),
@@ -428,7 +410,7 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('ddk3asmpck0d1dq59k6cy9c677bkbv1y', 'eyJ1aWQiOjEsInV0eXBlIjoic3RhZmYiLCJzdGF0dXMiOiIifQ:1uiUgi:jJcPoijXXLTSBYEXlxrewOMV9bOBFe5oy0oz9WbmIeE', '2025-08-17 09:07:28'),
 ('des3cmerfxkh6glk2rgpvpwac7sco1df', 'eyJ1aWQiOjgsInV0eXBlIjoibGFiIn0:1suvQs:YFJW12kK7y8xCaNWT8FqtNo7LQT9ySiHRADOe93OmuE', '2024-10-13 15:01:58'),
 ('dfsybn3drv96ndvvreo7lrwfd5h4i4et', 'eyJ1aWQiOjIsInV0eXBlIjoic3RhZmYiLCJzdGF0dXMiOiIifQ:1uwdBE:KbuoB-ZWnGV-NG1QWyJPfUFoPPMxayHOOdp2crQCHZw', '2025-09-25 09:01:24'),
-('diuyiaih5k1an3cn9na888879w5uxijn', 'eyJ1aWQiOjEyLCJ1dHlwZSI6InNob3AiLCJzdGF0dXMiOiJhcHByb3ZlZCJ9:1uxozL:51Zyw_WHYjR7HaSu5HpA5eYzG4ozbpKB3nby1SUrkEU', '2025-09-28 15:50:03'),
+('diuyiaih5k1an3cn9na888879w5uxijn', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uy21U:X--bg47KoGl1qe9mK64dJKF9D6QEwNwlDT9kX2Y1Ees', '2025-09-29 05:45:08'),
 ('duh6o6tco0vnuss6yw1w26cvp9t1xuqb', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1upCAd:EVmakneKMVm9H-kJqTN9gsHverV7vdYYekYy5LdivSA', '2025-09-04 20:46:03'),
 ('e8yi3rr1jjcystikjwyouamq6mgs1q0a', 'eyJ1aWQiOjQsInV0eXBlIjoibGFiIn0:1sfuLQ:Ps9-T_31O9JPWexvsH213RQGefOJMSVfJsPIKh0TzZU', '2024-09-02 04:50:16'),
 ('f25mujlalu8ng6qd8s1a4bktsygtj9kr', 'eyJ1aWQiOjcsInV0eXBlIjoic2hvcCIsInN0YXR1cyI6ImFwcHJvdmVkIn0:1uqMVJ:N-l9uuwIGethva8RWO11_iGQyiiPspqnPPdr-M2sFeI', '2025-09-08 02:00:13'),
@@ -490,6 +472,29 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `favorite`
+--
+
+CREATE TABLE IF NOT EXISTS `favorite` (
+  `fid` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` varchar(15) NOT NULL,
+  `srid` varchar(15) NOT NULL,
+  PRIMARY KEY (`fid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+
+--
+-- Dumping data for table `favorite`
+--
+
+INSERT INTO `favorite` (`fid`, `uid`, `srid`) VALUES
+(6, '8', '3'),
+(9, '8', '13'),
+(10, '8', '5'),
+(11, '5', '3');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `feedback`
 --
 
@@ -529,7 +534,7 @@ CREATE TABLE IF NOT EXISTS `login` (
   `utype` varchar(25) NOT NULL,
   `status` varchar(25) NOT NULL,
   PRIMARY KEY (`lid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
 
 --
 -- Dumping data for table `login`
@@ -554,7 +559,8 @@ INSERT INTO `login` (`lid`, `uid`, `uname`, `upass`, `utype`, `status`) VALUES
 (35, 16, 'shop@gmail.com', 'S100_password', 'shop', 'approved'),
 (36, 9, 'staffone@gmail.com', 'Staff_one123', 'staff', ''),
 (37, 10, 'a7907j@gmail.com', 'Pass@123', 'user', 'active'),
-(38, 17, 'shop11@gmail.com', 'Sshop1111', 'shop', 'pending');
+(38, 17, 'shop11@gmail.com', 'Sshop1111', 'shop', 'pending'),
+(43, 10, 'staff1@gmail.com', 'Staff123', 'staff', '');
 
 -- --------------------------------------------------------
 
@@ -591,7 +597,7 @@ CREATE TABLE IF NOT EXISTS `service` (
   `descr` varchar(200) NOT NULL,
   `shid` varchar(7) NOT NULL,
   PRIMARY KEY (`srid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `service`
@@ -603,7 +609,8 @@ INSERT INTO `service` (`srid`, `sname`, `amt`, `descr`, `shid`) VALUES
 (5, 'iorning', '120', 'our iorning is grate ', '7'),
 (7, 'iorning ', '199', 'our iorning is the best in the whole world', '12'),
 (13, 'stitching', '201', 'this is a good service .so im writing this for that ,i can chek wether it is a good thing that i  can check wether i can test . ohh this is amazing', '7'),
-(14, 'polishing', '500', 'for fresh look', '7');
+(14, 'polishing', '500', 'for fresh look', '7'),
+(15, 'new service', '99', 'nothing', '7');
 
 -- --------------------------------------------------------
 
@@ -655,7 +662,7 @@ CREATE TABLE IF NOT EXISTS `staff` (
   `dob` varchar(10) NOT NULL,
   `email` varchar(40) NOT NULL,
   PRIMARY KEY (`stid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `staff`
@@ -664,7 +671,8 @@ CREATE TABLE IF NOT EXISTS `staff` (
 INSERT INTO `staff` (`stid`, `shid`, `name`, `address`, `street`, `city`, `district`, `phn`, `pin`, `dob`, `email`) VALUES
 (2, 7, 'staff 2', 'this is address of staff 2', 'street of staff 2', 'city of staff 2', 'pathanamthitta', '5646464640', '345677', '2025-04-10', 'staff@2'),
 (5, 8, 'staff 5', 'asd', 'kjhkljhkljh', ',kjlkljh', 'kottayam', '9876543333', '987654', '2025-05-08', 'staff@5'),
-(9, 16, 'staff one', 'address of staff,\r\nkerala,\r\nindia', 'stree of staff one', 'city of staff one', 'thiruvananthapuram', '5646464641', '345671', '2025-09-11', 'staffone@gmail.com');
+(9, 16, 'staff one', 'address of staff,\r\nkerala,\r\nindia', 'stree of staff one', 'city of staff one', 'thiruvananthapuram', '5646464641', '345671', '2025-09-11', 'staffone@gmail.com'),
+(10, 7, 'staff one', 'address of staff 1', 'street of staff one', 'city of staff one', 'thiruvananthapuram', '9879879989', '343423', '2025-09-09', 'staff1@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -679,7 +687,7 @@ CREATE TABLE IF NOT EXISTS `tracker` (
   `date` varchar(10) NOT NULL,
   `time` varchar(8) NOT NULL,
   PRIMARY KEY (`tid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=54 ;
 
 --
 -- Dumping data for table `tracker`
@@ -734,7 +742,11 @@ INSERT INTO `tracker` (`tid`, `oid`, `status`, `date`, `time`) VALUES
 (46, '32', 'booked', '2025-09-15', '00:39:00'),
 (47, '33', 'booked', '2025-09-15', '01:12:07'),
 (48, '34', 'booked', '2025-09-15', '01:14:19'),
-(49, '35', 'booked', '2025-09-15', '01:30:51');
+(49, '35', 'booked', '2025-09-15', '01:30:51'),
+(50, '36', 'booked', '2025-09-15', '10:37:32'),
+(51, '36', 'Materials have been delivered', '2025-09-15', '10:56:11'),
+(52, '36', 'payment is done', '2025-09-15', '10:57:01'),
+(53, '26', 'Materials are being processed', '2025-09-15', '11:10:27');
 
 -- --------------------------------------------------------
 
@@ -750,7 +762,7 @@ CREATE TABLE IF NOT EXISTS `transaction` (
   `amount` varchar(7) NOT NULL,
   `shid` varchar(10) NOT NULL,
   PRIMARY KEY (`tsid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `transaction`
@@ -768,7 +780,8 @@ INSERT INTO `transaction` (`tsid`, `date`, `time`, `oid`, `amount`, `shid`) VALU
 (9, '2025-08-23', '19:59:52', '21', '120', '7'),
 (10, '2025-08-23', '20:00:50', '19', '120', '7'),
 (11, '2025-08-23', '20:17:18', '17', '120', '7'),
-(12, '2025-08-25', '14:55:19', '26', '500', '7');
+(12, '2025-08-25', '14:55:19', '26', '500', '7'),
+(13, '2025-09-15', '10:43:53', '36', '201', '7');
 
 -- --------------------------------------------------------
 

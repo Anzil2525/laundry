@@ -75,10 +75,10 @@
     <div class="action-buttons d-flex gap-3 mt-4">
       <a href="/bookservice/?srid={{ dis.srid }}" class="btn btn-orange px-4">Book Now</a>
 
-      {% if cart %}
-        <a href="/removecart/?srid={{ dis.srid }}" class="btn btn-gray px-4" >Remove from Cart</a>
+      {% if favorite %}
+        <a href="/removefavorite/?srid={{ dis.srid }}" class="btn btn-gray px-4" >Remove from favorite</a>
       {% else %}
-        <a href="/addtocart/?srid={{ dis.srid }}" class="btn btn-gray px-4" style="background-color: red;">Add to Cart</a>
+        <a href="/addtofavorite/?srid={{ dis.srid }}" class="btn btn-gray px-4" style="background-color: red;">Add to favorite</a>
       {% endif %}
     </div>
   </div>

@@ -7,7 +7,7 @@
     font-family: 'Segoe UI', sans-serif;
   }
 
-  .cart-heading {
+  .favorite-heading {
     text-align: center;
     font-weight: 700;
     font-size: 2rem;
@@ -15,7 +15,7 @@
     margin: 30px 0 20px;
   }
 
-  .cart-card {
+  .favorite-card {
     background: white;
     padding: 20px;
     border-radius: 12px;
@@ -45,7 +45,7 @@
     background-color: #0d6efd;
   }
 
-  .empty-cart {
+  .empty-favorite {
     text-align: center;
     color: #888;
     margin-top: 50px;
@@ -53,13 +53,13 @@
 </style>
 
 <div class="container pb-5">
-  <h1 class="cart-heading">🛒 Your Cart</h1>
+  <h1 class="favorite-heading">🛒 Your favorite</h1>
 
   {% if data %}
   <div class="row g-4">
     {% for i in data %}
     <div class="col-md-6 col-lg-4">
-      <div class="cart-card h-100">
+      <div class="favorite-card h-100">
         <div class="card-body">
           <h5 class="card-title">{{ i.service }}</h5>
           <p><strong>Amount:</strong> ₹{{ i.amount }}</p>
@@ -81,8 +81,8 @@
     {% endfor %}
   </div>
   {% else %}
-  <div class="empty-cart">
-    <h4>🧺 No items in your cart.</h4>
+  <div class="empty-favorite">
+    <h4>🧺 No items in your favorite list.</h4>
   </div>
   {% endif %}
 </div>

@@ -1411,12 +1411,12 @@ def viewservicedetails(request):
     cur = connection.cursor()
     srid = request.GET['srid']
     uid = request.session['uid']
-    sql = "select * from cart where uid = '%s' and srid = '%s'"%(uid,srid)
+    sql = "select * from favorite where uid = '%s' and srid = '%s'"%(uid,srid)
     cur.execute(sql)
     if cur.rowcount > 0:
-        cart = True
+        favorite = True
     else:
-        cart = False
+        favorite = False
     sql = "select * from service inner join shop on service.shid = shop.shid where srid = '%s'"%(srid)
     cur.execute(sql)
     result = cur.fetchall()
@@ -1435,32 +1435,32 @@ def viewservicedetails(request):
             'phn' : row[10],
             'email' : row[11],
         }
-    return render(request,'viewservicedetails.html',{'dis':dis,'cart':cart})
+    return render(request,'viewservicedetails.html',{'dis':dis,'favorite':favorite})
 
-def addtocart(request):
+def addtofavorite(request):
     cur = connection.cursor()
     uid = request.session['uid']
     srid = request.GET['srid']
-    sql = "insert into cart(uid,srid) values('%s','%s')"%(uid,srid)
+    sql = "insert into favorite(uid,srid) values('%s','%s')"%(uid,srid)
     cur.execute(sql)
     msg = "<script>window.location='/viewservicedetails/?srid=%s';</script>"%(srid)
     return HttpResponse(msg)
 
-def removecart(request):
+def removefavorite(request):
     cur = connection.cursor()
     uid = request.session['uid']
     srid = request.GET['srid']
-    sql = "delete from cart where uid = '%s' and srid = '%s'"%(uid,srid)
+    sql = "delete from favorite where uid = '%s' and srid = '%s'"%(uid,srid)
     cur.execute(sql)
     msg = "<script>window.location='/viewservicedetails/?srid=%s';</script>"%(srid)
     return HttpResponse(msg)
 
-def viewcart(request):
+def viewfavorite(request):
     cur = connection.cursor()
     uid = request.session['uid']
-    sql = "select * from cart inner join service inner join shop "\
-    "on cart.srid = service.srid and service.shid = shop.shid "\
-    "where cart.uid = '%s'"%(uid)
+    sql = "select * from favorite inner join service inner join shop "\
+    "on favorite.srid = service.srid and service.shid = shop.shid "\
+    "where favorite.uid = '%s'"%(uid)
     cur.execute(sql)
     result = cur.fetchall()
     data = []
@@ -1485,7 +1485,7 @@ def viewcart(request):
             'email' : row[14],
         }
         data.append(dis)
-    return render(request,'viewcart.html',{'data':data})
+    return render(request,'viewfavorite.html',{'data':data})
     
 def addtransaction(request):
     cur = connection.cursor()
