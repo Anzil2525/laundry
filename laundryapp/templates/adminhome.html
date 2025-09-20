@@ -1,55 +1,139 @@
 {% extends 'header_footer_admin.html' %}
 {% block content %}
+
 {% if messages %}
-  <div class="messages">
+  <div class="container mt-3">
     {% for message in messages %}
-     <div class="alert alert-{{ message.tags }}"><center>{{ message }}</center></div>
-        {% endfor %}            
+      <div class="alert alert-{{ message.tags }} text-center shadow-sm">
+        {{ message }}
+      </div>
+    {% endfor %}
   </div>
 {% endif %}
-<div class="container mt-4">
-    <h2 class="mb-4 text-primary text-center">📊 Admin Dashboard</h2>
 
-    <!-- Dashboard Summary Cards -->
-    <div class="row text-center g-4 mb-4">
-        <div class="col-md-4">
-            <div class="card shadow-sm border-primary">
-                <div class="card-body">
-                    <h5 class="card-title">👤 Users</h5>
-                    <p class="card-text display-6 text-primary">{{ total_users }}</p>
-                    <a href="/viewusers/" class="btn btn-outline-primary btn-sm">View Users</a>
-                </div>
-            </div>
-        </div>
-
-        <br>
-
-        <div class="col-md-4">
-            <div class="card shadow-sm border-success">
-                <div class="card-body">
-                    <h5 class="card-title">🏪 Shops</h5>
-                    <p class="card-text display-6 text-success">{{ total_shops }}</p>
-                    <a href="/viewshops/" class="btn btn-outline-success btn-sm">View Shops</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card shadow-sm border-info">
-                <div class="card-body">
-                    <h5 class="card-title">💬 Feedbacks</h5>
-                    <p class="card-text display-6 text-info">{{ total_feedbacks }}</p>
-                    <a href="/viewfeedbacksofuser/" class="btn btn-outline-info btn-sm">View Feedbacks</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Optional quick links -->
-    <div class="text-center">
-        <a href="/viewusers/" class="btn btn-link">👁 View All Users</a>
-        <a href="/viewshops/" class="btn btn-link">👁 View All Shops</a>
-        <a href="/viewfeedbacksofuser/" class="btn btn-link">👁 View All Feedbacks</a>
-    </div>
+<!-- Banner Section with Overlay Text -->
+<div class="dashboard-banner-wrapper mb-4 position-relative">
+  <img src="/static/img/admindashboard.png" alt="Admin Dashboard Banner" class="dashboard-banner-img">
+  <div class="banner-overlay-text">
+    📊 Admin Dashboard
+  </div>
 </div>
+
+<div class="container mt-4">
+  <!-- Dashboard Summary Cards -->
+  <div class="row g-4">
+    <!-- Users -->
+    <div class="col-12 col-sm-6 col-md-4">
+      <div class="card shadow-sm border-0 h-100 dashboard-card">
+        <div class="card-body text-center">
+          <div class="mb-2 text-primary fs-2">👤</div>
+          <h5 class="card-title fw-bold">Users</h5>
+          <p class="card-text fs-3 text-primary fw-semibold">{{ total_users }}</p>
+          <a href="/viewusers/" class="btn btn-primary btn-sm w-100">View Users</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shops -->
+    <div class="col-12 col-sm-6 col-md-4">
+      <div class="card shadow-sm border-0 h-100 dashboard-card">
+        <div class="card-body text-center">
+          <div class="mb-2 text-success fs-2">🏪</div>
+          <h5 class="card-title fw-bold">Shops</h5>
+          <p class="card-text fs-3 text-success fw-semibold">{{ total_shops }}</p>
+          <a href="/viewshops/" class="btn btn-success btn-sm w-100">View Shops</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feedbacks -->
+    <div class="col-12 col-sm-6 col-md-4">
+      <div class="card shadow-sm border-0 h-100 dashboard-card">
+        <div class="card-body text-center">
+          <div class="mb-2 text-info fs-2">💬</div>
+          <h5 class="card-title fw-bold">Feedbacks</h5>
+          <p class="card-text fs-3 text-info fw-semibold">{{ total_feedbacks }}</p>
+          <a href="/viewfeedbacksofuser/" class="btn btn-info btn-sm w-100">View Feedbacks</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Links -->
+  <div class="text-center mt-5">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+      <a href="/viewusers/" class="btn btn-outline-primary">👁 View All Users</a>
+      <a href="/viewshops/" class="btn btn-outline-success">👁 View All Shops</a>
+      <a href="/viewfeedbacksofuser/" class="btn btn-outline-info">👁 View All Feedbacks</a>
+    </div>
+  </div>
+</div>
+
+<!-- Extra styling -->
+<style>
+  /* Banner Styling */
+  .dashboard-banner-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: 220px;
+    background-color: #f8f9fa;
+  }
+
+  .dashboard-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(3px);
+    transform: scale(1.05);
+  }
+
+  .banner-overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #000000;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+    z-index: 2;
+    text-align: center;
+  }
+
+  /* Card Hover Effects */
+  .dashboard-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  }
+
+  /* Responsive Tweaks */
+  @media (max-width: 576px) {
+    .dashboard-banner-wrapper {
+      height: 150px;
+    }
+
+    .banner-overlay-text {
+      font-size: 1.4rem;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+    }
+
+    .card-text {
+      font-size: 1.5rem !important;
+    }
+
+    .btn {
+      font-size: 0.9rem;
+      padding: 0.4rem 0.6rem;
+    }
+  }
+</style>
+
 {% endblock %}
