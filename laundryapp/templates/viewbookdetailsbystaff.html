@@ -129,7 +129,7 @@
     {% csrf_token %}
     <input type="hidden" name="amount" value="{{ data.amount }}">
     <input type="hidden" name="oid" value="{{ data.oid }}">
-    <button type="submit" class="btn btn-orange">Set as Paid</button>
+    <button type="submit" class="btn btn-orange" onclick="return payed()">Set as Paid</button>
   </form>
   {% endif %}
 
@@ -180,7 +180,8 @@
           <button type="submit" class="btn btn-orange">Update</button>
         </div>
       </form>
-
+<br>
+<br>
       <form action="/completebooking/" method="get" onsubmit="return completebooking()">
         <input type="hidden" name="oid" value="{{ data.oid }}">
         <button type="submit" class="btn btn-success mt-3">✅ Mark as Completed</button>
@@ -203,6 +204,9 @@
   function toggleCode() {
     const codeEl = document.getElementById("secret-code");
     codeEl.style.display = codeEl.style.display === "none" ? "inline-block" : "none";
+  }
+  function payed() {
+    return confirm("Are you sure you want to mark this booking as paid? This action cannot be undone.");
   }
 </script>
 {% endblock %}

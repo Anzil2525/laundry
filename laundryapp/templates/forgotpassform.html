@@ -6,15 +6,16 @@
 <div class="d-flex justify-content-center align-items-center vh-100" style="background-color: #f8f9fa;">
     <div class="form-container bg-white p-4 rounded shadow" style="width: 100%; max-width: 400px;">
         <h3 class="text-center text-primary mb-4">🔑 Forgot Password</h3>
-        <form action="/forgotpassaction/" method="POST">
+        <form action="/forgotpassaction/">
             {% csrf_token %}
             <div class="mb-3">
                 <label for="email" class="form-label">📧 Email address</label>
-                <input type="email" class="form-control" id="email" name="email" required>
+                <input type="email" class="form-control" id="email" name="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" title="Email must be in the format: example@domain.com" required>
             </div>
             <div class="mb-3">
                 <label for="phn" class="form-label">📞 Phone Number</label>
-                <input type="text" class="form-control" id="phn" name="phn" required>
+                <input type="text" class="form-control" id="phn" name="phn" pattern="[0-9]{10}" maxlength="10" title="maximum 10 digits" required
+>
             </div>
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Submit</button>

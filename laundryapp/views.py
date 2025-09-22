@@ -743,12 +743,22 @@ def changepass(request):
     result = cur.fetchall()
     for row in result:
         if row[3] != prepass:
-            msg = "<script>alert('previous password is incorrect');window.location='/showpassword/';</script>"
-            return HttpResponse(msg)
+            # msg = "<script>alert('previous password is incorrect');window.location='/showpassword/';</script>"
+            messages.error(request,'previous password is incorrect',extra_tags='danger')
+            return redirect('showpassword')
     sql = "update login set upass = '%s' where uid='%s' and utype = '%s'"%(newpass,uid,utype)
     cur.execute(sql)
-    msg = "<script>alert('password changed');window.location='/showpassword/';</script>"
-    return HttpResponse(msg)
+    # msg = "<script>alert('password changed');window.location='/showpassword/';</script>"
+    messages.success(request,'password changed',extra_tags='success')
+    if utype == 'user':
+        return redirect('userhome')
+    elif utype == 'shop':
+        return redirect('shophome')
+    elif utype == 'staff':
+        return redirect('staffhome')
+    else:
+        return redirect('login')
+
 
 def forgotpass(request):
     try:
@@ -770,6 +780,9 @@ def forgotpassaction(request):
     phn = request.GET['phn']
     sql = "select * from login where uname = '%s'"%(email)
     cur.execute(sql)
+    if cur.rowcount == 0:
+        msg = "<script>alert('invalid email or phone number');window.location='/forgotpass/';</script>"
+        return HttpResponse(msg)
     result = cur.fetchall()
     for row in result:
         utype = row[4]
@@ -781,9 +794,6 @@ def forgotpassaction(request):
     elif utype == 'staff':
         sql = "select * from login inner join staff on staff.stid = login.uid where login.uname= '%s' and staff.phn = '%s'"%(email,phn)
     cur.execute(sql)
-    if cur.rowcount == 0:
-        msg = "<script>alert('invalid email or phone number');window.location='/forgotpass/';</script>"
-        return HttpResponse(msg)
     result = cur.fetchall()
     for row in result:
         upass = row[3]

@@ -174,13 +174,20 @@
         </div>
       {% endfor %}
     {% else %}
+
+    {% if dis.status == 'cancelled' or dis.status == 'rejected' %}
+  
+    {% else %}
       <div class="status-msg red">⚠️ Payment Pending</div>
       <form action="/addtransaction/" class="form-inline">
         {% csrf_token %}
         <input type="hidden" name="amount" value="{{ dis.amount }}">
+
         <input type="hidden" name="oid" value="{{ dis.oid }}">
         <button type="submit" class="btn-green" onclick="return payed()">Set as Paid</button>
       </form>
+      {% endif %}
+
     {% endif %}
   </div>
 
