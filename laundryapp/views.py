@@ -1392,7 +1392,8 @@ def cancelbooking(request):
     oid = request.GET['oid']
     sql = "update booking set status = 'cancelled' where oid = '%s'"%(oid)
     cur.execute(sql)    
-    msg = "<script>alert('booking is cancelled');window.location='/viewbookdetailsbyuser/?oid=%s/';</script>"%(oid)
+    messages.success(request,'Booking is cancelled',extra_tags='danger')
+    msg = "<script>window.location='/viewbookdetailsbyuser/?oid=%s/';</script>"%(oid)
     return HttpResponse(msg)
 
 def rejectbooking(request):
