@@ -124,6 +124,25 @@
   </div>
   {% endif %}
 
+{% if transaction %}
+  {% for i in transaction %}
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+      <i class="bi bi-check-circle-fill me-2"></i>
+      <div>
+        <strong>Paid:</strong> ₹{{ i.amount }} on {{ i.date }} at {{ i.time }}
+      </div>
+    </div>
+  {% endfor %}
+{% else %}
+  <div class="alert alert-warning d-flex align-items-center" role="alert">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+    <div>
+      <strong>Status:</strong> Not Paid
+    </div>
+  </div>
+{% endif %}
+
+
   <!-- Timeline Tracker -->
   <h4 class="text-primary fw-bold mb-3">Tracking Status</h4>
   {% if tracker %}

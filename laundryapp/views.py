@@ -125,8 +125,9 @@ def addservice(request):
     sql = "insert into service(sname,amt,descr,shid) values('%s','%s','%s','%s')"%(ser,amt,desc,shid)
     cur.execute(sql)
 
-    msg = "<script>alert('service is entered');window.location='/shopservice/';</script>"
-    return HttpResponse(msg)
+    messages.success(request,'Service is added',extra_tags='success')
+    return redirect('shopservice')
+
 
 def addfeedback(request):
     cur= connection.cursor()
@@ -626,8 +627,8 @@ def deleteservice(request):
     id = request.GET['id']
     sql = "delete from service where srid = '%s'"%(id)
     cur.execute(sql)
-    msg = "<script>alert('deleted');window.location='/shopservice/';</script>"
-    return HttpResponse(msg)
+    messages.success(request,"Sucessfully delete service",extra_tags='danger')
+    return redirect('shopservice')
 
 def serviceeditingpage(request):
     cur = connection.cursor()
@@ -655,8 +656,8 @@ def editservice(request):
     desc = request.GET['desc']
     sql = "update service set sname = '%s', amt = '%s', descr = '%s' where srid = '%s'"%(name,amt,desc,id)
     cur.execute(sql)
-    msg = "<script>alert('updated');window.location='/shopservice/';</script>"
-    return HttpResponse(msg)
+    messages.success(request,"Sucessfully edit service",extra_tags='success')
+    return redirect('shopservice')
 
 def userviewshops(request):
     cur = connection.cursor()
@@ -1385,7 +1386,20 @@ def viewbookdetailsbyuser(request):
     cur.execute(sql)
     for row in cur.fetchall():
         reason.append(row[0])
-    return render(request,'viewbookdetailsbyuser.html',{'dis':dis,'tracker':tracker_data,'code':code,'reason':reason})
+    
+    sql = "select * from  transaction where oid = '%s'"%(oid)
+    cur.execute(sql)
+    result = cur.fetchall()
+    transaction = []
+    for row in result:
+        trans = {
+            'date' : row[1],
+            'time' : row[2],
+            'amount' : row[4],
+        }
+        transaction.append(trans)
+    print(oid)
+    return render(request,'viewbookdetailsbyuser.html',{'dis':dis,'tracker':tracker_data,'code':code,'reason':reason,'transaction':transaction})
 
 def cancelbooking(request):
     cur = connection.cursor()
@@ -1393,7 +1407,7 @@ def cancelbooking(request):
     sql = "update booking set status = 'cancelled' where oid = '%s'"%(oid)
     cur.execute(sql)    
     messages.success(request,'Booking is cancelled',extra_tags='danger')
-    msg = "<script>window.location='/viewbookdetailsbyuser/?oid=%s/';</script>"%(oid)
+    msg = "<script>window.location='/viewbookdetailsbyuser/?oid=%s';</script>"%(oid)
     return HttpResponse(msg)
 
 def rejectbooking(request):
