@@ -1122,7 +1122,7 @@ def assignstaff(request):
         current_stid = row[2]
     if cur.rowcount != 0:
         if current_stid == stid:
-           msg = "<script>alert('already assigned');window.location='/viewbookdetailsbyshop/?oid=%s';</script>"%(oid)
+           msg = "<script>alert('you have already assigned this staff!');window.location='/viewbookdetailsbyshop/?oid=%s';</script>"%(oid)
            return HttpResponse(msg)
     
     sql = "insert into assign(oid,stid,date,time,code) values('%s','%s','%s','%s','%s')"%(oid,stid,date,time,code)
@@ -1135,7 +1135,8 @@ def assignstaff(request):
         if row[0] == 'booked':
             sql = "update booking set status = 'assigned' where oid = '%s'"%(oid)
     cur.execute(sql)
-    msg = "<script>alert('assigned');window.location='/viewbookdetailsbyshop/?oid=%s';</script>"%(oid)
+    messages.success(request,'Sucessfully assigned staff',extra_tags='success')
+    msg = "<script>window.location='/viewbookdetailsbyshop/?oid=%s';</script>"%(oid)
     return HttpResponse(msg)
     
 def showbookingsofstaff(request):
@@ -1422,7 +1423,8 @@ def rejectbooking(request):
         cur.execute(sql) 
         sql = "insert into reason(oid,reason) values('%s','%s')"%(oid,reason)
         cur.execute(sql)
-        msg = "<script>alert('booking is rejected');window.location='/viewbookdetailsbyshop/?oid=%s';</script>"%(oid)
+        messages.success(request,'Booking is rejected.',extra_tags='danger')
+        msg = "<script>window.location='/viewbookdetailsbyshop/?oid=%s';</script>"%(oid)
         return HttpResponse(msg)
     else:
         return HttpResponse("<script>alert('Invalid request method');window.location='/showbookingsofshop';</script>")
@@ -1536,9 +1538,11 @@ def addtransaction(request):
     print(f'sql = {sql}')
     cur.execute(sql)
     if request.session['utype'] == 'staff':
-        msg = "<script>alert('transaction added');window.location='/viewbookdetailsbystaff/?oid=%s';</script>"%(oid)
+        messages.success(request,'Sucessfully set this booking as payed',extra_tags='success')
+        msg = "<script>window.location='/viewbookdetailsbystaff/?oid=%s';</script>"%(oid)
     elif request.session['utype'] == 'shop':
-        msg = "<script>alert('transaction added');window.location='/viewbookdetailsbyshop/?oid=%s';</script>"%(oid)    
+        messages.success(request,'Sucessfully set this booking as payed',extra_tags='success')
+        msg = "<script>window.location='/viewbookdetailsbyshop/?oid=%s';</script>"%(oid)    
     return HttpResponse(msg)
 
 def viewtransactionbyshopdaily(request):
