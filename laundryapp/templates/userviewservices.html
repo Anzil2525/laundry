@@ -97,7 +97,7 @@
           <p><strong>Description:</strong> {{ i.descr }}</p>
         </div>
         <div class="card-footer bg-white border-0 d-flex justify-content-between">
-          <a href="/bookservice/?srid={{ i.srid }}" class="btn btn-book">Book</a>
+          <a href="/bookservice/?srid={{ i.srid }}" class="btn btn-book" onclick="return confirm('Are you sure you want to book this service?');">Book</a>
           <a href="/viewservicedetails/?srid={{ i.srid }}" class="btn btn-view">View Details</a>
         </div>
       </div>

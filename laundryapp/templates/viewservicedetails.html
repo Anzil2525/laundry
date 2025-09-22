@@ -73,7 +73,7 @@
     <a href="/userviewservices/?id={{dis.shid}}" class="btn btn-sm btn-outline-primary mt-3 mb-4">visit shop</a>
 
     <div class="action-buttons d-flex gap-3 mt-4">
-      <a href="/bookservice/?srid={{ dis.srid }}" class="btn btn-orange px-4">Book Now</a>
+      <a href="/bookservice/?srid={{ dis.srid }}" class="btn btn-orange px-4" onclick="return confirm('Are you sure you want to book this service?');">Book Now</a>
 
       {% if favorite %}
         <a href="/removefavorite/?srid={{ dis.srid }}" class="btn btn-gray px-4" >Remove from favorite</a>

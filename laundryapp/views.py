@@ -820,8 +820,8 @@ def bookservice(request):
 
     sql = "insert into tracker(oid,status,date,time) values('%s','%s','%s','%s')"%(oid,'booked',date,time)
     cur.execute(sql)
-
-    msg = "<script>alert('service booked');window.location='/viewbookdetailsbyuser/?oid=%s';</script>"%(oid)
+    messages.success(request,'service booked',extra_tags='success')
+    msg = "<script>window.location='/viewbookdetailsbyuser/?oid=%s';</script>"%(oid)
     return HttpResponse(msg)
 
 def showbookingsofuser(request):
