@@ -111,8 +111,9 @@ def staffreg(request):
     sqllog = "insert into login(uid,uname,upass,utype) values('%s','%s','%s','%s')"%(stid,email,pas,'staff')
     cur.execute(sqllog)
 
-    msg = "<script>alert('staff is added');window.location='/shophome/';</script>"
-    return HttpResponse(msg)
+    messages.success(request,'Staff is added',extra_tags='success')
+    return redirect('viewstaffs')
+
 
 def addservice(request):
     cur = connection.cursor()
@@ -534,14 +535,16 @@ def deletestaff(request):
         incompleted_count = row[0]
         print('incompleted_count = ',incompleted_count)
     if incompleted_count > 0:
-        msg = "<script>alert('You cant delete this staff.Because this staff have incompleted works');window.location='/viewstaffs/';</script>"
+        messages.success(request,'You can not  delete this staff.Because this staff have incompleted works!!',extra_tags='danger')
+        # msg = "<script>alert('You cant delete this staff.Because this staff have incompleted works');window.location='/viewstaffs/';</script>"
     else:
         sql = "delete from staff where stid = '%s'"%(stid)
         cur.execute(sql)
         sql1 = "delete from login where uid = '%s' and utype = 'staff'"%(stid)
         cur.execute(sql1)
-        msg = "<script>alert('deleted');window.location='/viewstaffs/';</script>"
-    return HttpResponse(msg)
+        # msg = "<script>alert('deleted');window.location='/viewstaffs/';</script>"
+        messages.success(request,'Staff is deleted.',extra_tags='success')
+    return redirect('viewstaffs')
 
 def staffprofile(request):
     cur = connection.cursor()
@@ -595,11 +598,11 @@ def editstaff(request):
     cur.execute(sql)
 
     if request.session['utype'] == 'shop':
-        msg = "<script>alert('staff profile edited');window.location='/viewstaffs/';</script>"
-        return HttpResponse(msg)
+        messages.success(request,'Staff Profile is updated.',extra_tags='success')
+        return redirect('viewstaffs')
     elif request.session['utype'] == 'staff':
-        msg = "<script>alert('staff profile edited');window.location='/staffhome/';</script>"
-        return HttpResponse(msg)
+        messages.success(request,'Staff Profile is updated.',extra_tags='success')
+        return redirect('staffhome')
     else:
         msg = "<script>alert('unknow error');window.location='/staffhome/';</script>"
         return HttpResponse(msg)
