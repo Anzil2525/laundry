@@ -51,6 +51,12 @@ def userreg(request):
     email = request.GET['u_email']
     plc = request.GET['u_place']
     pas = request.GET['u_password']
+
+    sqlemail = "select uname from login where uname = '%s'"%(email)
+    cur.execute(sqlemail)
+    if cur.rowcount != 0:
+        msg = "<script>alert('Email already exists');window.location='/user/';</script>"
+        return HttpResponse(msg)
     sqluser = "insert into user(name,address,district,phn,email,place) values('%s','%s','%s','%s','%s','%s')"%(name,adr,dis,ph,email,plc)
     cur.execute(sqluser)
 
@@ -73,6 +79,12 @@ def shopreg(request):
     ph = request.GET['shop_ph_no']
     email = request.GET['shop_email']
     pas = request.GET['shop_password']
+
+    sqlemail = "select uname from login where uname = '%s'"%(email)
+    cur.execute(sqlemail)
+    if cur.rowcount != 0:
+        msg = "<script>alert('Email already exists');window.location='/shop/';</script>"
+        return HttpResponse(msg)
     sqlshop = "insert into shop(name,address,place,district,phn,email,status) values('%s','%s','%s','%s','%s','%s','%s')"%(name,adr,plc,dis,ph,email,'pending')
     cur.execute(sqlshop)
 
@@ -100,6 +112,13 @@ def staffreg(request):
     email = request.GET['email']
     pas = request.GET['password']
     shid = request.session['uid']
+
+    sqlemail = "select uname from login where uname = '%s'"%(email)
+    cur.execute(sqlemail)
+    if cur.rowcount != 0:
+        msg = "<script>alert('Email already exists');window.location='/staff/';</script>"
+        return HttpResponse(msg)
+
     sqlstaff = "insert into staff(shid,name,address,street,city,district,phn,pin,dob,email) values('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"%(shid,name,address,street,city,district,phone,pin,dob,email) 
     cur.execute(sqlstaff)
 
@@ -108,7 +127,7 @@ def staffreg(request):
     result = cur.fetchall()
     for row in result:
         stid = int(row[0])
-    sqllog = "insert into login(uid,uname,upass,utype) values('%s','%s','%s','%s')"%(stid,email,pas,'staff')
+    sqllog = "insert into login(uid,uname,upass,utype,status) values('%s','%s','%s','%s','active')"%(stid,email,pas,'staff')
     cur.execute(sqllog)
 
     messages.success(request,'Staff is added',extra_tags='success')
@@ -419,7 +438,8 @@ def approve(request):
     cur.execute(sql)
     sql1 = "update login set status = 'approved' where uid = '%s' and utype = 'shop'"%(id)
     cur.execute(sql1)
-    msg = "<script>alert('approved');window.location='/viewshops/';</script>"
+    messages.success(request,'Approved',extra_tags='success')
+    msg = "<script>window.location='/viewshops/';</script>"
     return HttpResponse(msg)
 
 def reject(request):
@@ -429,7 +449,8 @@ def reject(request):
     cur.execute(sql)
     sql1 = "update login set status = 'rejected' where uid = '%s' and utype = 'shop'"%(id)
     cur.execute(sql1)
-    msg = "<script>alert('rejected');window.location='/viewshops/';</script>"
+    messages.success(request,'Rejected',extra_tags='danger')
+    msg = "<script>window.location='/viewshops/';</script>"
     return HttpResponse(msg)
 
 def deleteshop(request):
@@ -439,7 +460,8 @@ def deleteshop(request):
     cur.execute(sql)
     sql1 = "delete from login where uid = '%s' and utype = 'shop'"%(id)
     cur.execute(sql1)
-    msg = "<script>alert('deleted');window.location='/viewshops/';</script>"
+    messages.success(request,'Shop is deleted.',extra_tags='danger')
+    msg = "<script>window.location='/viewshops/';</script>"
     return HttpResponse(msg)
 
 def userprofile(request):
