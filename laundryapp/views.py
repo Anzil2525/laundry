@@ -497,8 +497,8 @@ def edituser(request):
     cur.execute(sql)
     sql = "update login set uname = '%s' where uid = '%s' and utype = 'user'"%(email,uid)
     cur.execute(sql)
-
-    msg = "<script>alert('updated');window.location='/userprofile/';</script>"
+    messages.success(request,'Profile Updated.',extra_tags='success')
+    msg = "<script>;window.location='/userprofile/';</script>"
     return HttpResponse(msg)
 
 def editshop(request):
@@ -820,7 +820,7 @@ def bookservice(request):
 
     sql = "insert into tracker(oid,status,date,time) values('%s','%s','%s','%s')"%(oid,'booked',date,time)
     cur.execute(sql)
-    messages.success(request,'service booked',extra_tags='success')
+    messages.success(request,'Service booked',extra_tags='success')
     msg = "<script>window.location='/viewbookdetailsbyuser/?oid=%s';</script>"%(oid)
     return HttpResponse(msg)
 
