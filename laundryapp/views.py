@@ -144,8 +144,8 @@ def addfeedback(request):
    
     sqlfed="insert into feedback(feedback,date,time,uid,utype) values('%s','%s','%s','%s','%s')"%(fed,date,time,uid,utype)
     cur.execute(sqlfed)
-
-    msg = "<script>alert('feedback is entered');window.location='/feedback/';</script>"
+    messages.success(request,'Feedback has been sent',extra_tags='success')
+    msg = "<script>window.location='/feedback/';</script>"
     return HttpResponse(msg)
 
 
@@ -1310,8 +1310,8 @@ def updatetrackerbyoption(request):
     
     sql = "insert into tracker (oid, status, date, time) values ('%s', '%s', '%s', '%s')"%(oid,status,date,time)
     cur.execute(sql)
-
-    msg = "<script>alert('status updated');window.location='/viewbookdetailsbystaff/?oid=%s';</script>"%(oid)
+    messages.success(request,'Status updated.',extra_tags='success')
+    msg = "<script>window.location='/viewbookdetailsbystaff/?oid=%s';</script>"%(oid)
     return HttpResponse(msg)
 
 def updatetrackerbytyping(request):
@@ -1329,7 +1329,8 @@ def updatetrackerbytyping(request):
     sql = "insert into tracker (oid, status, date, time) values ('%s', '%s', '%s', '%s')"%(oid,status,date,time)
     cur.execute(sql)
 
-    msg = "<script>alert('status updated');window.location='/viewbookdetailsbystaff/?oid=%s';</script>"%(oid)
+    messages.success(request,'Status updated.',extra_tags='success')
+    msg = "<script>window.location='/viewbookdetailsbystaff/?oid=%s';</script>"%(oid)
     return HttpResponse(msg)
 
 def viewbookdetailsbyuser(request):
@@ -1434,7 +1435,8 @@ def completebooking(request):
     oid = request.GET['oid']
     sql = "update booking set status = 'completed' where oid = '%s'"%(oid)
     cur.execute(sql)
-    msg = "<script>alert('booking is completed');window.location='/viewbookdetailsbystaff/?oid=%s';</script>"%(oid)
+    messages.success(request,'Now the Work is done.',extra_tags='success')
+    msg = "<script>window.location='/viewbookdetailsbystaff/?oid=%s';</script>"%(oid)
     return HttpResponse(msg)
     
 def viewservicedetails(request):
